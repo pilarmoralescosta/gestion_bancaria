@@ -8,6 +8,9 @@ class Cuenta_corriente_pyme(Cuenta_corriente):
                          fecha_apertura, saldo, tipo, saldo_retenido, moneda)
         self.descubierto = descubierto
 
+    def __str__(self):
+        return super().__str__() + f'\nDescubierto: {descubierto}'
+
     def realizar_plazo_fijo(self):
         super().realizar_plazo_fijo()
 

@@ -12,6 +12,9 @@ class Servicio_financiero(ABC):
         self.tipo = tipo
         self.saldo_retenido = saldo_retenido
 
+    def __str__(self):
+        return f'\nNro. Cuenta: {nro_cuenta} \nSucursal: {sucursal} \nCBU: {cbu} \nFecha apertura: {fecha_apertura} \nSaldo: {saldo} \nTipo: {tipo} \nSaldo retenido: {saldo_retenido}'
+
     @abc.abstractmethod
     def realizar_deposito(self):
         pass

@@ -5,6 +5,9 @@ class Caja_ahorro(Servicio_financiero):
     def __init__(self):
         super().__init__()
 
+    def __str__(self):
+        return f'Caja de ahorro: \n' + super().__str__()
+
     def realizar_deposito(self):
         super().realizar_deposito()
 

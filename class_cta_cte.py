@@ -8,6 +8,9 @@ class Cuenta_corriente(Servicio_financiero):
                          cbu, fecha_apertura, saldo, tipo, saldo_retenido)
         self.moneda = moneda
 
+    def __str__(self):
+        return f'Cuenta Corriente: \n' + super().__str__() + f'\nMoneda: {moneda}'
+
     def realizar_deposito(self):
         super().realizar_deposito()
 
