@@ -9,7 +9,7 @@ class Cuenta_corriente_pyme(Cuenta_corriente):
         self.descubierto = descubierto
 
     def __str__(self):
-        return super().__str__() + f'\nDescubierto: {descubierto}'
+        return super().__str__() + f'\nDescubierto: {self.descubierto}'
 
     def realizar_plazo_fijo(self):
         super().realizar_plazo_fijo()

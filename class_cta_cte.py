@@ -9,7 +9,7 @@ class Cuenta_corriente(Servicio_financiero):
         self.moneda = moneda
 
     def __str__(self):
-        return f'Cuenta Corriente: \n' + super().__str__() + f'\nMoneda: {moneda}'
+        return f'Cuenta Corriente: \n' + super().__str__() + f'\nMoneda: {self.moneda}'
 
     def realizar_deposito(self):
         super().realizar_deposito()
