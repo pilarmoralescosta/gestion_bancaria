@@ -1,4 +1,5 @@
 from class_cliente import Cliente
+from class_cliente_individuo import Cliente_individuo
 
 
 class Cliente_pyme(Cliente):
@@ -8,9 +9,9 @@ class Cliente_pyme(Cliente):
         # autoridades_firmantes seria un arreglo del tipo Cliente_individuo
         self.autoridades_firmantes = autoridades_firmantes
 
-    def mostrar_autoridades_firmantess(self, autoridades_firmantes):
+    def mostrar_autoridades_firmantes(self, autoridades_firmantes):
         for i in range(len(self.autoridades_firmantes)):
             return f'Autoridad/firmante {i+1} {autoridades_firmantes[i].__str__()}'
 
     def __str__(self):
-        return super().__str__() + f'\nRazón Social {self.razon_social} \n{self.mostrar_autoridades_firmantess(self.autoridades_firmantes)}'
+        return super().__str__() + f'\nRazón Social {self.razon_social} \n{self.mostrar_autoridades_firmantes(self.autoridades_firmantes)}'
