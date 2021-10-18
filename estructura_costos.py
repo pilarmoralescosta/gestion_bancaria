@@ -34,3 +34,6 @@ cuenta_corriente_retencion_saldo = {
     'Pago de sueldos cuentas del banco': 0,
     'Pago de sueldos cuentas otros bancos': 4,
 }
+
+estructura_costos = [caja_ahorro_comun, caja_ahorro_retencion_saldo,
+                     cuenta_corriente_comun, cuenta_corriente_retencion_saldo]
