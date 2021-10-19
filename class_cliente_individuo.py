@@ -1,7 +1,8 @@
 from class_cliente import Cliente
+from class_usuario import Usuario
 
 
-class Cliente_individuo(Cliente):
+class Cliente_individuo(Cliente, Usuario):
     def __init__(self, id_cliente, dni, nombre, apellido, cuit_cuil, direccion, telefono, usuario):
         super().__init__(id_cliente, cuit_cuil, direccion, telefono, usuario)
         self.dni = dni

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from abc import ABC
+from abc import abstractmethod
 from class_usuario import Usuario
 
 
