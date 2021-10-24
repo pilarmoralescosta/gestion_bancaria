@@ -7,9 +7,9 @@ from class_usuario import Usuario
 
 class Cliente(ABC):
 
-    def __init__(self, id_cliente, cuit_cuil, direccion, telefono, usuario):
+    def __init__(self, nro_cliente, cuit_cuil, direccion, telefono, usuario):
 
-        self.id_cliente = id_cliente
+        self.nro_cliente = nro_cliente
         self.cuit_cuil = cuit_cuil
         self.direccion = direccion
         self.telefono = telefono

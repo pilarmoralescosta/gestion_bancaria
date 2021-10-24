@@ -1,1 +1,3 @@
-clientes = 
+clientes = []
+
+nros_clientes = []

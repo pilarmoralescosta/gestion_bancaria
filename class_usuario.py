@@ -3,10 +3,9 @@ from abc import ABC
 
 class Usuario(ABC):
 
-    def __init__(self, id, username, clave, nro_cliente):
-        self.id = id
+    def __init__(self, nro_usuario, clave, nro_cliente):
         # segun el pdf tiene que ser el nro de dni el nombre de usuario
-        self.username = username
+        self.nro_usuario = nro_usuario
         self.clave = clave
         self.nro_cliente = nro_cliente
 
