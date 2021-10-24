@@ -47,13 +47,14 @@ class Banco():
         if numero_usuario in self.usuarios:
             usuario = self.usuarios[numero_usuario]
             clave = input("Ingrese su clave: ")
+
             if clave == usuario.clave:
                 return self.clientes[usuario.nro_cliente]
             else:
                 return input("Clave incorrecta vuelva a escribirla")
         else:
-            input("Usuario inexistente vuelva a escribirlo")
-        return ''
+
+            return input("Usuario inexistente vuelva a escribirlo")
 
     def menu(self):
         ''' La funcion menu solicita al usuario que ingrese una de las opciones indicadas.
@@ -72,17 +73,17 @@ class Banco():
                     self.menu_administrador()
                 elif(int(opcionNro) == 2):
                     logueado = False
-                    while logueado == False:
-                        nro_cliente = self.logueo_usuario()
-                        if nro_cliente != '':
-                            logueado = True
-                        print(logueado)
-                    # se le pasa por parámetro el nro del cliente que inició sesión
-                    self.menu_usuario(self, nro_cliente)
+                    # while logueado == False:
+                    #     nro_cliente = self.logueo_usuario()
+                    #     if nro_cliente != -1:
+                    #         logueado = True
+                    #     print(logueado)
+                    # # se le pasa por parámetro el nro del cliente que inició sesión
+                    # self.menu_usuario(self, nro_cliente)
                 elif(int(opcionNro) == 3):
                     exit()
-                # else:
-                #     print("Opción incorrecta")
+                else:
+                    print("Opción incorrecta")
             except ValueError:
                 print("La opción ingresada es inválida: escriba un numero entero")
 
