@@ -1,6 +1,4 @@
 from class_usuario import Usuario
-from todos_usuarios import usuarios
-from todos_clientes import clientes
 from funciones import generar_clave
 
 # creo que no debería ser hijo de usuario ya que tiene atributos propios y no depende de usuario
@@ -8,15 +6,13 @@ from funciones import generar_clave
 
 class Usuario_administrador ():
 
-    username = 'administrador'
-    clave = '4dm1n1str4d0r'
+    
 
-    # def __init__(self, username, clave):
-    #     # super().__init__(id, username, clave)
-    #     self.username = username
-    #     self.clave = clave
+    def __init__(self):
+        self.username = 'administrador'
+        self.clave = '4dm1n1str4d0r'
 
-    def alta_usuario(self):
+    def alta_usuario_cliente(self):
         nro_usuario = input("Ingrese el número de documento del cliente: ")
         if nro_usuario in usuarios:
             return print("El usuario ya existe")
@@ -32,6 +28,11 @@ class Usuario_administrador ():
             usuarios.append(Usuario(nro_usuario, clave, id_cliente))
             return print("El usuario ha sido generado exitosamente")
 
+    def alta_usuario_pyme(self):
+        pass
+
+
+    
     def alta_cliente(self):
         pass
 

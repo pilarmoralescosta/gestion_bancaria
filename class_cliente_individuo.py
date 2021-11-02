@@ -9,5 +9,12 @@ class Cliente_individuo(Cliente, Usuario):
         self.nombre = nombre
         self.apellido = apellido
 
+
+    def cierre_cuenta(self):
+        pass
+
+    def apertura_cuenta(self):
+        pass
+
     def __str__(self):
         return super().__str__() + f'\nDni: {self.dni} \nApellido y nombre {self.apellido}, {self.nombre}'

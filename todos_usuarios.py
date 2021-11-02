@@ -1,6 +1,4 @@
-usuario1 = {
-    'numero_usuario': 26489029,
-    'clave': 123456,
-    'nro_cliente': 0}
 
-usuarios = [usuario1]
+from class_usuario_cliente import Usuario_cliente
+
+usuarios = {1: Usuario_cliente(1, 12, 3), 2 : Usuario_cliente(2, 11, 5)}
