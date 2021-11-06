@@ -3,14 +3,13 @@ from abc import abstractmethod
 
 
 class Servicio_financiero(ABC):
-    def __init__(self, id_servicio, sucursal, nro_cuenta, cbu, fecha_apertura, saldo, tipo, saldo_retenido):
-        self.id_servicio = id_servicio
+    def __init__(self, sucursal, nro_cuenta, cbu, fecha_apertura, saldo, tipo, saldo_retenido):
         self.sucursal = sucursal
         self.nro_cuenta = nro_cuenta
         self.cbu = cbu
         self.fecha_apertura = fecha_apertura
         self.saldo = saldo
-        self.tipo = tipo
+        self.tipo = tipo  # comun o retencion de saldo
         self.saldo_retenido = saldo_retenido
 
     @abstractmethod

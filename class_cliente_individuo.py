@@ -1,14 +1,12 @@
+from class_persona import Persona
 from class_cliente import Cliente
-from class_usuario import Usuario
 
 
-class Cliente_individuo(Cliente, Usuario):
-    def __init__(self, id_cliente, dni, nombre, apellido, cuit_cuil, direccion, telefono, usuario):
-        super().__init__(id_cliente, cuit_cuil, direccion, telefono, usuario)
-        self.dni = dni
-        self.nombre = nombre
-        self.apellido = apellido
-
+class Cliente_individuo(Persona, Cliente):
+    def __init__(self, dni, apellido, nombre, direccion, telefono, email, id_cliente, cuentas):
+        Persona.__init__(self, dni, apellido, nombre,
+                         direccion, telefono, email)
+        Cliente.__init__(self, id_cliente, cuentas)
 
     def cierre_cuenta(self):
         pass

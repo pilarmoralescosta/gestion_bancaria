@@ -1,0 +1,20 @@
+# -*- coding: utf-8 -*-
+
+from abc import ABC
+from abc import abstractmethod
+from class_usuario import Usuario
+
+
+class Persona(ABC):
+
+    def __init__(self, dni, cuit_cuil, direccion, telefono, mail):
+
+        self.dni = dni
+        self.cuit_cuil = cuit_cuil
+        self.direccion = direccion
+        self.telefono = telefono
+        self.mail = mail
+
+    @abstractmethod
+    def __str__(self):
+        return f'\nID cliente: {self.id_cliente} \nCUIT/CUITL: {self.cuit_cuil} \nDirección: {self.direccion} \nTelefono: {self.telefono} \n{self.usuario}'

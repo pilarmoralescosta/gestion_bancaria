@@ -6,8 +6,6 @@ from funciones import generar_clave
 
 class Usuario_administrador ():
 
-    
-
     def __init__(self):
         self.username = 'administrador'
         self.clave = '4dm1n1str4d0r'
@@ -31,8 +29,6 @@ class Usuario_administrador ():
     def alta_usuario_pyme(self):
         pass
 
-
-    
     def alta_cliente(self):
         pass
 
