@@ -9,4 +9,4 @@ class Usuario():
 
     def __str__(self):
 
-        return("Tu nombre de usuario es {}".format(self.username))
+        return("Tu nombre de usuario es {}".format(self.usuario))

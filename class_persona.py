@@ -7,8 +7,10 @@ from class_usuario import Usuario
 
 class Persona(ABC):
 
-    def __init__(self, dni, cuit_cuil, direccion, telefono, mail):
+    def __init__(self, apellido, nombre, dni, cuit_cuil, direccion, telefono, mail):
 
+        self.apellido = apellido
+        self.nombre = nombre
         self.dni = dni
         self.cuit_cuil = cuit_cuil
         self.direccion = direccion
@@ -17,4 +19,4 @@ class Persona(ABC):
 
     @abstractmethod
     def __str__(self):
-        return f'\nID cliente: {self.id_cliente} \nCUIT/CUITL: {self.cuit_cuil} \nDirección: {self.direccion} \nTelefono: {self.telefono} \n{self.usuario}'
+        return f'\nApellido y nombre: {self.apellido}, {self.nombre} \nDNI: {self.dni} \nCUIT/CUITL: {self.cuit_cuil} \nDirección: {self.direccion} \nTelefono: {self.telefono} \nMail: {self.mail}'
