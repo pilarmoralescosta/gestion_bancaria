@@ -8,7 +8,7 @@ from class_usuario_administrador import Usuario_administrador
 clientes_individuos = {32521: Cliente_individuo(32521456, "Trinidad", "Boragini", 2035214528, "San Martin 100", 24941546289, 3, 32521, []),
                        32123: Cliente_individuo(32123, 25487412, "Lucio", "Gronda", 25632145, "Saavedra 42", 4214587, 12, [])}
 clientes_pyme = {1: Cliente_pyme(
-    1, "La Pirca", 125487458, "Belgrano 230", 2494561231, [3, 25], [78, 79])}
+    "La Pirca", 125487458, "Belgrano 230", 2494561231, 'unmail', [3, 25], 1, [78, 79])}
 
 usuarios = {
     1: Usuario(1, 12, 'IRO345', True, False),

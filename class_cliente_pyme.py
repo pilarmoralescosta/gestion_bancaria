@@ -7,7 +7,7 @@ class Cliente_pyme(Cliente):
         self.razon_social = razon_social
         self.cuit_cuil = cuit_cuil
         self.direccion = direccion
-        self.telfono = telefono
+        self.telefono = telefono
         self.mail = mail
         # autoridades_firmantes seria un arreglo del tipo Persona
         self.autoridades_firmantes = autoridades_firmantes
@@ -17,4 +17,4 @@ class Cliente_pyme(Cliente):
             return f'Autoridad/firmante {i+1} {autoridades_firmantes[i].__str__()}'
 
     def __str__(self):
-        return super().__str__() + f'\nRazón Social {self.razon_social} \nCUIT/CUIL: {self.cuit_cuil} \nDirección: {self.direccion} \nTeléfono: {self.telefono} \nMail: {self.mail} \n{self.mostrar_autoridades_firmantes(self.autoridades_firmantes)}'
+        return f'\nRazón Social {self.razon_social} \nCUIT/CUIL: {self.cuit_cuil} \nDirección: {self.direccion} \nTeléfono: {self.telefono} \nMail: {self.mail} \n{self.mostrar_autoridades_firmantes(self.autoridades_firmantes)}' + super().__str__()

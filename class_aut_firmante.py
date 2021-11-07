@@ -2,9 +2,8 @@ from class_persona import Persona
 
 
 class Autoridad_firmante(Persona):
-    def __init__(self, dni, cuit_cuil, nombre, apellido, direccion, telefono, email):
-        super.__init__(self, dni, cuit_cuil, nombre,
-                       apellido, direccion, telefono, email)
+    def __init__(self, apellido, nombre, dni, cuit_cuil, direccion, telefono, mail):
+        super().__init__(apellido, nombre, dni, cuit_cuil, direccion, telefono, mail)
 
     def cierre_cuenta(self):
         pass
