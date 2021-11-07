@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from class_cliente_individuo import Cliente_individuo
+from class_cliente_pyme import Cliente_pyme
 from class_usuario import Usuario
 
 
@@ -35,7 +36,7 @@ class Usuario_administrador ():
             return print(f'\nEl usuario ha sido generado exitosamente: ' + Usuario.__str__(nuevo_usuario))
 
     def alta_cliente_individuo(self, clientes_individuos):
-        dni = input("Número de documento del cliente: ")
+        dni = int(input("Número de documento del cliente: "))
 
         for cliente in clientes_individuos:
             if clientes_individuos[cliente].dni == int(dni):
@@ -59,10 +60,29 @@ class Usuario_administrador ():
         # creamos la instancia de Usuario
         self.alta_usuario(dni, id_cliente, usuarios)
 
-        return print(f'\nEl cliente ha sido generado exitosamente: ' + Cliente_individuo.__str__(nuevo_cliente_individuo))
+        return print(f'\nEl cliente ha sido generado exitosamente: ' + nuevo_cliente_individuo.__str__)
 
     def alta_cliente_pyme(self, clientes_pyme):
-        pass
+        
+        dni = int(input("Número de documento del cliente: "))
+
+        for cliente in clientes_individuos:
+            if clientes_individuos[cliente].dni == int(dni):
+                return print("El cliente ya existe")
+
+        razon_social = input("Ingrese la Razon Social: ")
+        cuit_cuil = input("CUIT/CUIL del cliente: ")
+        direccion = input("Dirección del cliente: ")
+        telefono = input("Teléfono del cliente: ")
+        mail = input("Email del cliente: ")
+        #Aca faltaria mejorar como se generan las autoridades
+        autoridades_firmantes = "Nombre de Autoridades firmantes"
+        # formato del id de cliente: ITB029 -  T: primer caracter nombre B: primer caracter apellido 029: últimos 3 dígitos del dni
+        id_cliente = f'I{razon_social[0].upper()}{razon_social[-1].upper()}{dni[-3:]}'
+        cuentas = []  # lista de cuentas del cliente
+        nuevo_cliente_pyme = Cliente_pyme(id_cliente, razon_social, cuit_cuil, direccion, telefono, mail, autoridades_firmantes, cuentas)
+        clientes_pyme[dni] = nuevo_cliente_pyme
+
 
     def modificar_cliente(self):
         pass
