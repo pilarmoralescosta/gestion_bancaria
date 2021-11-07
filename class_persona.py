@@ -17,6 +17,5 @@ class Persona(ABC):
         self.telefono = telefono
         self.mail = mail
 
-    @abstractmethod
     def __str__(self):
         return f'\nApellido y nombre: {self.apellido}, {self.nombre} \nDNI: {self.dni} \nCUIT/CUITL: {self.cuit_cuil} \nDirección: {self.direccion} \nTelefono: {self.telefono} \nMail: {self.mail}'

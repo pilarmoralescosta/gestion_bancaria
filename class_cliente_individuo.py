@@ -3,8 +3,8 @@ from class_cliente import Cliente
 
 
 class Cliente_individuo(Persona, Cliente):
-    def __init__(self, apellido, nombre, dni, direccion, telefono, email, id_cliente, cuentas):
-        Persona.__init__(self, apellido, nombre, dni,
+    def __init__(self, apellido, nombre, dni, cuit_cuil, direccion, telefono, email, id_cliente, cuentas):
+        Persona.__init__(self, apellido, nombre, dni, cuit_cuil,
                          direccion, telefono, email)
         Cliente.__init__(self, id_cliente, cuentas)
 
@@ -15,4 +15,4 @@ class Cliente_individuo(Persona, Cliente):
         pass
 
     def __str__(self):
-        return Persona().__str__() + Cliente().__str__()
+        return Persona.__str__(self) + Cliente.__str__(self)
