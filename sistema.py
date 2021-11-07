@@ -1,23 +1,26 @@
 # -*- coding: utf-8 -*-
+
 from class_usuario import Usuario
-from class_usuario_cliente import Usuario_cliente
 from class_cliente_individuo import Cliente_individuo
 from class_cliente_pyme import Cliente_pyme
 from class_usuario_administrador import Usuario_administrador
 
-clientes_individuos = {32521 : Cliente_individuo(32521, 32521456, "Trinidad", "Boragini", 2035214528, "San Martin 100", 24941546289, 3),
-32123 : Cliente_individuo(32123, 25487412, "Lucio", "Gronda", 25632145, "Saavedra 42", 4214587, 12)
-}
-clientes_pyme = {1 : Cliente_pyme(1, "La Pirca", 125487458, "Belgrano 230", 2494561231, [3,25], [78,79])}
-usuarios = {1: Usuario_cliente(1, 12, 3), 2 : Usuario_cliente(2, 11, 5)}
+clientes_individuos = {32521: Cliente_individuo(32521, 32521456, "Trinidad", "Boragini", 2035214528, "San Martin 100", 24941546289, 3),
+                       32123: Cliente_individuo(32123, 25487412, "Lucio", "Gronda", 25632145, "Saavedra 42", 4214587, 12)
+                       }
+clientes_pyme = {1: Cliente_pyme(
+    1, "La Pirca", 125487458, "Belgrano 230", 2494561231, [3, 25], [78, 79])}
+
+usuarios = {1: Usuario(1, 12, 3), 2: Usuario(2, 11, 5)}
 
 
 class Banco():
     clientes_individuos = clientes_individuos
     clientes_pyme = clientes_pyme
     usuarios = usuarios
+
     def __init__(self):
-        
+
         self.administrador = Usuario_administrador()
         self.cliente_logueado = None
 
@@ -36,7 +39,6 @@ class Banco():
         else:
             return True
 
-
     def logueo_usuario(self):
 
         numero_usuario = input("Ingrese su numero de usuario")
@@ -46,20 +48,21 @@ class Banco():
             clave = input("Ingrese su clave: ")
 
             if clave == usuario.clave:
-                self.usuario_logueado =  self.clientes[usuario.id_cliente]
+                self.usuario_logueado = self.clientes[usuario.id_cliente]
                 return True
             else:
                 return False
         else:
 
             return True
-    
+
     def iniciar_sesion_administrador(self):
 
         if self.logueo_administrador():
             self.menu_administrador()
         else:
-            opcion = input("El logueo fue incorrecto, opcion 1 para seguir probando, 2 para salir")
+            opcion = input(
+                "El logueo fue incorrecto, opcion 1 para seguir probando, 2 para salir")
             if opcion == "1":
                 self.iniciar_sesion_administrador()
             else:
@@ -69,8 +72,9 @@ class Banco():
         pass
 
     def menu_usuario_cliente(self):
-        
-        opcion_seleccionada = int(input("Ingrese la opción: \n1: Apertura de cuenta \n2: Cierre de cuenta \n3: Operar con cuentas\n4: Cerrar sesión"))
+
+        opcion_seleccionada = int(input(
+            "Ingrese la opción: \n1: Apertura de cuenta \n2: Cierre de cuenta \n3: Operar con cuentas\n4: Cerrar sesión"))
         if opcion_seleccionada == 1:
             self.cliente_logueado.apertura_cuenta()
 
@@ -79,9 +83,6 @@ class Banco():
 
         elif opcion_seleccionada == 3:
             self.menu_cuentas_usuario()
-
-            
-
 
     def menu(self):
         ''' La funcion menu solicita al usuario que ingrese una de las opciones indicadas.
@@ -95,12 +96,10 @@ class Banco():
                 if(int(opcionNro) == 1):
                     self.iniciar_sesion_administrador()
 
-
                 elif(int(opcionNro) == 2):
                     if self.logueo_usuario():
                         print("Inicio de sesion correcto")
                         self.menu_usuario_cliente()
-                    
 
                 elif(int(opcionNro) == 3):
                     exit()

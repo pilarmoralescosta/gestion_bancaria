@@ -1,7 +1,6 @@
-from class_usuario import Usuario
-from funciones import generar_clave
+# -*- coding: utf-8 -*-
 
-# creo que no debería ser hijo de usuario ya que tiene atributos propios y no depende de usuario
+from class_usuario import Usuario
 
 
 class Usuario_administrador ():
@@ -10,21 +9,31 @@ class Usuario_administrador ():
         self.username = 'administrador'
         self.clave = '4dm1n1str4d0r'
 
-    def alta_usuario_cliente(self):
-        nro_usuario = input("Ingrese el número de documento del cliente: ")
-        if nro_usuario in usuarios:
+    def alta_usuario(self, usuarios):
+        es_cliente_individuo = False
+        es_cliente_pyme = False
+
+        usuario = input("Ingrese el número de documento del cliente: ")
+
+        if int(usuario) in usuarios:
             return print("El usuario ya existe")
         else:
-            for cliente in clientes:
-                if nro_usuario == cliente.dni or nro_usuario == cliente.cuit_cuil:
-                    id_cliente = clientes.cliente.nro_cliente
-                    break
-            clave = generar_clave()
-            for usuario in usuarios:
-                if usuario[clave] == clave:
-                    clave = generar_clave()
-            usuarios.append(Usuario(nro_usuario, clave, id_cliente))
-            return print("El usuario ha sido generado exitosamente")
+            clave = input("Ingrese una clave: ")
+            tipo_cliente = input(
+                "¿Es un cliente individuo, PyME o ambos? (i/p/a): ").lower()
+            if tipo_cliente == "i":
+                es_cliente_individuo = True
+            elif tipo_cliente == "p":
+                es_cliente_pyme = True
+            elif tipo_cliente == "a":
+                es_cliente_individuo = True
+                es_cliente_pyme = True
+            else:
+                return print("Ingrese una opción válida")
+            nuevo_usuario = Usuario(
+                usuario, clave, es_cliente_individuo, es_cliente_pyme)
+            usuarios[usuario] = nuevo_usuario
+            return print(f'El usuario ha sido generado exitosamente: ' + Usuario.__str__(nuevo_usuario))
 
     def alta_usuario_pyme(self):
         pass
@@ -51,5 +60,9 @@ class Usuario_administrador ():
         pass
 
 
-# admin = Usuario_administrador()
-# admin.alta_usuario()
+# TEST
+usuarios = {1: Usuario(1, 12, True, False), 2: Usuario(2, 11, False, True)}
+admin = Usuario_administrador()
+admin.alta_usuario_cliente(usuarios)
+for usuario in usuarios:
+    print(usuarios[usuario])
