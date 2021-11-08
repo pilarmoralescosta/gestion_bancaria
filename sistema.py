@@ -24,7 +24,7 @@ class Banco():
     def __init__(self):
 
         self.administrador = Usuario_administrador()
-        self.cliente_logueado = None
+        self.usuario_logueado = None
 
     def menu_administrador(self):
         pass
@@ -101,9 +101,16 @@ class Banco():
                 elif(int(opcionNro) == 2):
                     if self.logueo_usuario():
                         print("Inicio de sesion correcto")
-                        self.menu_usuario_cliente()
-
+                        self.menu_usuario_cliente_individuo()
+                
                 elif(int(opcionNro) == 3):
+
+                    if self.logueo_usuario():
+                        print("Inicio de sesion correcto")
+                        self.menu_usuario_cliente_pyme()
+
+
+                elif(int(opcionNro) == 4):
                     exit()
                 else:
                     print("Opción incorrecta")
