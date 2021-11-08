@@ -37,7 +37,7 @@ class Usuario_administrador ():
             return print(f'\nEl usuario ha sido generado exitosamente: ' + Usuario.__str__(nuevo_usuario))
 
     def alta_cliente_individuo(self, clientes_individuos):
-        dni = input("Número de documento del cliente: ")
+        dni = int(input("Número de documento del cliente: "))
 
         for cliente in clientes_individuos:
             if clientes_individuos[cliente].dni == int(dni):
@@ -61,7 +61,7 @@ class Usuario_administrador ():
         # creamos la instancia de Usuario
         self.alta_usuario(dni, id_cliente, usuarios)
 
-        return print(f'\nEl cliente ha sido generado exitosamente: ' + Cliente_individuo.__str__(nuevo_cliente_individuo))
+        return print(f'\nEl cliente ha sido generado exitosamente: ' + nuevo_cliente_individuo.__str__)
 
     def alta_autoridad_firmante(self, id_cliente, usuarios):
         print(f'\nAlta de autoridad/firmante')
