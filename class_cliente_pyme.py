@@ -2,7 +2,7 @@ from class_cliente import Cliente
 
 
 class Cliente_pyme(Cliente):
-    def __init__(self, id_cliente, razon_social, cuit_cuil, direccion, telefono, mail, autoridades_firmantes, cuentas):
+    def __init__(self, razon_social, cuit_cuil, direccion, telefono, mail, autoridades_firmantes, id_cliente, cuentas):
         super().__init__(id_cliente, cuentas)
         self.razon_social = razon_social
         self.cuit_cuil = cuit_cuil

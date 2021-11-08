@@ -1,5 +1,4 @@
 from abc import ABC
-from abc import abstractmethod
 
 
 class Servicio_financiero(ABC):
@@ -12,27 +11,22 @@ class Servicio_financiero(ABC):
         self.tipo = tipo  # comun o retencion de saldo
         self.saldo_retenido = saldo_retenido
 
-    @abstractmethod
     def __str__(self):
         return f'\nNro. Cuenta: {self.nro_cuenta} \nSucursal: {self.sucursal} \nCBU: {self.cbu} \nFecha apertura: {self.fecha_apertura} \nSaldo: {self.saldo} \nTipo: {self.tipo} \nSaldo retenido: {self.saldo_retenido}'
 
-    @abstractmethod
     def realizar_deposito(self):
         pass
 
-    @abstractmethod
     def realizar_transferencia(self):
         pass
 
-    @abstractmethod
     def recibir_transferencia(self):
         pass
 
-    @abstractmethod
     def pagar_en_linea(self):
         pass
 
 
-servicio = Servicio_financiero(1, 12, 123, 124, 12, 50, "A", 1231)
+servicio = Servicio_financiero(1, 12, 123, 124, 12, "A", 1231)
 
 print(servicio)
