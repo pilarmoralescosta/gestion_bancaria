@@ -15,18 +15,27 @@ class Servicio_financiero(ABC):
         return f'\nNro. Cuenta: {self.nro_cuenta} \nSucursal: {self.sucursal} \nCBU: {self.cbu} \nFecha apertura: {self.fecha_apertura} \nSaldo: {self.saldo} \nTipo: {self.tipo} \nSaldo retenido: {self.saldo_retenido}'
 
     def realizar_deposito(self):
-        pass
+        monto_a_depositar = float(input("Ingrese el monto del deposito: "))
+        self.saldo = self.saldo + monto_a_depositar
+        print("Se ha realizado el deposito, su nuevo saldo es: {}".format(self.saldo))
 
     def realizar_transferencia(self):
-        pass
+        cuenta_a_transferir = input("Ingrese la cuenta a la que desea transferir: ")
+        monto_a_transferir = float(input("Ingrese el monto a transferir: "))
+        self.saldo = self.saldo - monto_a_transferir
+        print("Transferencia realizada con exito, su nuevo saldo es: {}".format(self.saldo))
+
 
     def recibir_transferencia(self):
-        pass
+        monto_transferencia = float(input("Ingrese el monto de la transferencia a acreditar: "))
+        self.saldo = self.saldo + monto_transferencia
+        print("Transferencia recibida con exito, su nuevo saldo es: {}".format(self.saldo))
 
     def pagar_en_linea(self):
-        pass
+        monto_a_debitar = float(input("Ingrese el monto a transferir: "))
+        self.saldo = self.saldo - monto_a_debitar
+        print("Transferencia realizada con exito, su nuevo saldo es: {}".format(self.saldo))
 
 
 servicio = Servicio_financiero(1, 12, 123, 124, 12, "A", 1231)
-
-print(servicio)
+servicio.realizar_deposito()
