@@ -1,19 +1,18 @@
 # -*- coding: utf-8 -*-
 
-from class_cliente_individuo import Cliente_individuo
 from class_cliente_pyme import Cliente_pyme
 from class_usuario import Usuario
 from class_aut_firmante import Autoridad_firmante
 
 
-class Usuario_administrador ():
+class Usuario_administrador():
 
     def __init__(self):
         self.username = 'administrador'
         self.clave = '4dm1n1str4d0r'
 
     def alta_usuario(self, dni, id_cliente, usuarios):
-        es_cliente_individuo = False
+        es_cliente_ind_a_modificar = False
         es_cliente_pyme = False
 
         if int(dni) in usuarios:
@@ -23,20 +22,20 @@ class Usuario_administrador ():
             tipo_cliente = input(
                 "¿Es un cliente individuo, PyME o ambos? (i/p/a): ").lower()
             if tipo_cliente == "i":
-                es_cliente_individuo = True
+                es_cliente_ind_a_modificar = True
             elif tipo_cliente == "p":
                 es_cliente_pyme = True
             elif tipo_cliente == "a":
-                es_cliente_individuo = True
+                es_cliente_ind_a_modificar = True
                 es_cliente_pyme = True
             else:
                 return print("Ingrese una opción válida")
             nuevo_usuario = Usuario(
-                dni, clave, id_cliente, es_cliente_individuo, es_cliente_pyme)
+                dni, clave, id_cliente, es_cliente_ind_a_modificar, es_cliente_pyme)
             usuarios[dni] = nuevo_usuario
             return print(f'\nEl usuario ha sido generado exitosamente: ' + Usuario.__str__(nuevo_usuario))
 
-    def alta_cliente_individuo(self, clientes_individuos):
+    def alta_cliente_ind(self, clientes_individuos):
         dni = int(input("Número de documento del cliente: "))
 
         for cliente in clientes_individuos:
@@ -54,14 +53,14 @@ class Usuario_administrador ():
         cuentas = []  # lista de cuentas del cliente
 
         # creamos la instancia de Cliente_incividuo
-        nuevo_cliente_individuo = Cliente_individuo(
+        nuevo_cliente_ind_a_modificar = cliente_ind_a_modificar(
             apellido, nombre, dni, cuit_cuil, direccion, telefono, mail, id_cliente, cuentas)
-        clientes_individuos[id_cliente] = nuevo_cliente_individuo
+        clientes_individuos[id_cliente] = nuevo_cliente_ind_a_modificar
 
         # creamos la instancia de Usuario
         self.alta_usuario(dni, id_cliente, usuarios)
 
-        return print(f'\nEl cliente ha sido generado exitosamente: ' + nuevo_cliente_individuo.__str__)
+        return print(f'\nEl cliente ha sido generado exitosamente: ' + nuevo_cliente_ind_a_modificar.__str__)
 
     def alta_autoridad_firmante(self, id_cliente, usuarios):
         print(f'\nAlta de autoridad/firmante')
@@ -122,8 +121,50 @@ class Usuario_administrador ():
         clientes_pyme[id_cliente] = nuevo_cliente_pyme
         return print(f'\nEl cliente ha sido generado exitosamente: ' + Cliente_pyme.__str__(nuevo_cliente_pyme))
 
-    def modificar_cliente(self):
+    def modificar_cliente_ind(cliente_ind_a_modificar):
+        print('Modificación de datos del cliente: ')
+        cliente_ind_a_modificar.apellido = input("Apellido del cliente: ")
+        cliente_ind_a_modificar.nombre = input("Nombre del cliente: ")
+        cliente_ind_a_modificar.dni = int(
+            input("Número de documento del cliente: "))
+        cliente_ind_a_modificar.cuit_cuil = input("CUIT/CUIL del cliente: ")
+        cliente_ind_a_modificar.direccion = input("Dirección del cliente: ")
+        cliente_ind_a_modificar.telefono = input("Teléfono del cliente: ")
+        cliente_ind_a_modificar.mail = input("Email del cliente: ")
+
+        return print(f'\nLos datos del cliente han sido modificados exitosamente: ' + cliente_ind_a_modificar.__str__)
+
+    def modificar_autoridad_firmante(aut_firmante_a_modificar):
         pass
+
+    def modificar_cliente_pyme(cliente_py_a_modificar):
+        print('Modificación de datos del cliente: ')
+        cliente_py_a_modificar.razon_social = input(
+            "Razón Social del cliente: ")
+        cliente_py_a_modificar.cuit_cuil = input("CUIT/CUIL del cliente: ")
+        cliente_py_a_modificar.direccion = input("Dirección del cliente: ")
+        cliente_py_a_modificar.telefono = input("Teléfono del cliente: ")
+        cliente_py_a_modificar.mail = input("Email del cliente: ")
+        dni_aut = input('Ingrese el DNI de la autoridad/firmante: ')
+
+        for cliente in clientes_pyme:
+
+        if dni_aut in clientes_pyme.autoridades_firmantes:
+            cliente_py_a_modificar = sistema.clientes_pyme[id_cliente]
+            return self.modificar_cliente_pyme(cliente_py_a_modificar)
+
+        return print(f'\nLos datos del cliente han sido modificados exitosamente: ' + cliente_ind_a_modificar.__str__)
+
+    def modificar_cliente(self, id_cliente, sistema):
+
+        if id_cliente in sistema.clientes_individuos:
+            cliente_ind_a_modificar = sistema.clientes_individuos[id_cliente]
+            return self.modificar_cliente_ind(cliente_ind_a_modificar)
+        elif id_cliente in clientes_pyme:
+            cliente_py_a_modificar = sistema.clientes_pyme[id_cliente]
+            return self.modificar_cliente_pyme(cliente_py_a_modificar)
+        else:
+            return print('No se encontraron coincidencias')
 
     def baja_cliente(self):
         pass
@@ -149,8 +190,8 @@ usuarios = {
     2: Usuario(2, 11, 'POB123', False, True)
 }
 clientes_individuos = {
-    32521: Cliente_individuo("Boragini", "Trinidad", 32521456, 2035214528, "San Martin 100", 24941546289, 3, 32521, []),
-    32123: Cliente_individuo("Gronda", "Lucio", 25487412, 25632145, "Saavedra 42", 4214587, 12, 32123, [])
+    32521: cliente_ind_a_modificar("Boragini", "Trinidad", 32521456, 2035214528, "San Martin 100", 24941546289, 3, 32521, []),
+    32123: cliente_ind_a_modificar("Gronda", "Lucio", 25487412, 25632145, "Saavedra 42", 4214587, 12, 32123, [])
 }
 
 clientes_pyme = {1: Cliente_pyme(
@@ -162,11 +203,15 @@ clientes_pyme = {1: Cliente_pyme(
 #     print(usuarios[usuario])
 
 # ALTA CLIENTE INDIVIDUO
-# admin.alta_cliente_individuo(clientes_individuos)
+# admin.alta_cliente_ind_a_modificar(clientes_individuos)
 
 # for cliente in clientes_individuos:
 #     print(clientes_individuos[cliente].dni)
 #     print(usuarios[usuario])
 
 # ALTA CLIENTE PYME
-admin.alta_cliente_pyme(clientes_pyme)
+# admin.alta_cliente_pyme(clientes_pyme)
+
+# MODIFICAR CLIENTE
+# MODIFICAR CLIENTE INDIVIDUO
+admin.modificar_cliente(32123, clientes_individuos, clientes_pyme)
