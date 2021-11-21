@@ -45,9 +45,9 @@ class Autoridad_firmante(Persona):
 
 
 # TEST
-clientes_pyme = {1: Cliente_pyme(
-    "La Pirca", 125487458, "Belgrano 230", 2494561231, 'unmail', [3, 25], 1, [78, 79])}
+# clientes_pyme = {1: Cliente_pyme(
+#     "La Pirca", 125487458, "Belgrano 230", 2494561231, 'unmail', [3, 25], 1, [78, 79])}
 
-jaimito = Autoridad_firmante('Gomez', 'Jaimito', 11222333,
-                             20112223334, 'bolivar 444', '2492666666', 'jg@gmail.com')
-jaimito.apertura_cuenta(clientes_pyme[1])
+# jaimito = Autoridad_firmante('Gomez', 'Jaimito', 11222333,
+#                              20112223334, 'bolivar 444', '2492666666', 'jg@gmail.com')
+# jaimito.apertura_cuenta(clientes_pyme[1])

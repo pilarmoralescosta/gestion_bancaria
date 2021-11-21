@@ -20,14 +20,15 @@ class Servicio_financiero(ABC):
         print("Se ha realizado el deposito, su nuevo saldo es: {}".format(self.saldo))
 
     def realizar_transferencia(self):
-        cuenta_a_transferir = input("Ingrese la cuenta a la que desea transferir: ")
+        cuenta_a_transferir = input(
+            "Ingrese la cuenta a la que desea transferir: ")
         monto_a_transferir = float(input("Ingrese el monto a transferir: "))
         self.saldo = self.saldo - monto_a_transferir
         print("Transferencia realizada con exito, su nuevo saldo es: {}".format(self.saldo))
 
-
     def recibir_transferencia(self):
-        monto_transferencia = float(input("Ingrese el monto de la transferencia a acreditar: "))
+        monto_transferencia = float(
+            input("Ingrese el monto de la transferencia a acreditar: "))
         self.saldo = self.saldo + monto_transferencia
         print("Transferencia recibida con exito, su nuevo saldo es: {}".format(self.saldo))
 
@@ -37,5 +38,5 @@ class Servicio_financiero(ABC):
         print("Transferencia realizada con exito, su nuevo saldo es: {}".format(self.saldo))
 
 
-servicio = Servicio_financiero(1, 12, 123, 124, 12, "A", 1231)
-servicio.realizar_deposito()
+# servicio = Servicio_financiero(1, 12, 123, 124, 12, "A", 1231)
+# servicio.realizar_deposito()
