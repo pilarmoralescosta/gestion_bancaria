@@ -12,51 +12,22 @@ class Usuario_administrador():
         self.username = 'administrador'
         self.clave = '4dm1n1str4d0r'
 
-    def modificar_autoridad_firmante(aut_firmante_a_modificar):
+    def monto_saldo_retenido(self):
         pass
 
-    # def modificar_cliente_pyme(cliente_py_a_modificar):
-    #     print('Modificación de datos del cliente: ')
-    #     cliente_py_a_modificar.razon_social = input(
-    #         "Razón Social del cliente: ")
-    #     cliente_py_a_modificar.cuit_cuil = input("CUIT/CUIL del cliente: ")
-    #     cliente_py_a_modificar.direccion = input("Dirección del cliente: ")
-    #     cliente_py_a_modificar.telefono = input("Teléfono del cliente: ")
-    #     cliente_py_a_modificar.mail = input("Email del cliente: ")
-    #     dni_aut = input('Ingrese el DNI de la autoridad/firmante: ')
-
-    #     # for cliente in clientes_pyme:
-
-    #     if dni_aut in clientes_pyme.autoridades_firmantes:
-    #         cliente_py_a_modificar = Banco.clientes_pyme[id_cliente]
-    #         return self.modificar_cliente_pyme(cliente_py_a_modificar)
-
-    #     return print(f'\nLos datos del cliente han sido modificados exitosamente: ' + cliente_ind_a_modificar.__str__)
-
-    def modificar_cliente(self, id_cliente, sistema):
-
-        if id_cliente in sistema.clientes_individuos:
-            cliente_ind_a_modificar = sistema.clientes_individuos[id_cliente]
-            return self.modificar_cliente_ind(cliente_ind_a_modificar)
-        elif id_cliente in clientes_pyme:
-            cliente_py_a_modificar = sistema.clientes_pyme[id_cliente]
-            return self.modificar_cliente_pyme(cliente_py_a_modificar)
-        else:
-            return print('No se encontraron coincidencias')
-
-    def baja_cliente(self):
+    def monto_saldo_descubierto(self):
         pass
 
-    def consultar_monto_saldo_retenido(self):
+    def costos_transaccion(self):
         pass
 
-    def consultar_monto_descubierto(self):
+    def beneficios_transaccion(self):
         pass
 
-    def modificar_costos(self):
+    def registrar_cliente(self):
         pass
 
-    def calcular_porcentaje_benificios_transaccion(self):
+    def registrar_cuenta(self):
         pass
 
 
