@@ -255,7 +255,8 @@ class Banco():
             try:
 
                 if opcion_seleccionada == 1:
-                    self.administrador.monto_saldo_retenido()
+                    self.administrador.monto_saldo_retenido(
+                        self.estructura_costos)
                 elif opcion_seleccionada == 2:
                     self.administrador.monto_saldo_descubierto()
                 elif opcion_seleccionada == 3:

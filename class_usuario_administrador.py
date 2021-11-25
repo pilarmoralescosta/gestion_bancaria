@@ -13,19 +13,59 @@ class Usuario_administrador():
         self.clave = '4dm1n1str4d0r'
 
     def monto_saldo_retenido(self):
-        pass
+        '''Este método del administrador define el monto de saldo retenido y lo retorna'''
+
+        while True:
+            try:
+                monto_saldo_retenido = float(
+                    input('Ingrese el monto a retener: '))
+            except ValueError:
+                print('\nIngrese un monto valido\n')
+
+            return monto_saldo_retenido
 
     def monto_saldo_descubierto(self):
-        pass
+        '''Este método del administrador define el monto de saldo descubierto y lo retorna'''
 
-    def costos_transaccion(self):
-        pass
+        while True:
+            try:
+                monto_saldo_descubierto = float(
+                    input('Ingrese el monto de descubierto: '))
+            except ValueError:
+                print('\nIngrese un monto valido\n')
+
+            return monto_saldo_descubierto
+
+    def costos_transaccion(self, estructura_costos):
+
+        while True:
+            opcion_seleccionada = input('\n1: Caja ahorro común\n2: Caja ahorro con retención saldo'
+                                        '\n3: cuenta corriente común\n4: Cuenta corriente con retención saldo')
+            try:
+                pass
+
+            except:
+                print('\nIngrese una opcion valida\n')
+
+            # return costos_transaccion
 
     def beneficios_transaccion(self):
         pass
 
     def registrar_cliente(self):
-        pass
+        print('Cliente a registrar en el sistema: ')
+        while True:
+            tipo_cliente = input('\n1: Pyme\n2: Individuo\n')
+
+            try:
+                if tipo_cliente == '1':
+                    pass
+                elif tipo_cliente == '2':
+                    pass
+                else:
+                    print('\nIngrese una opcion valida\n')
+            except ValueError:
+                print('\nIngrese una opcion valida\n')
 
     def registrar_cuenta(self):
         pass

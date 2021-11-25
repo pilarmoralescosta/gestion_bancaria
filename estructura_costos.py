@@ -8,7 +8,8 @@ caja_ahorro_retencion_saldo = {
     'Mantenimiento mensual': 0,
     'Transferencias realizadas': 0,
     'Depósitos realizados': 0,
-    'Pagos en línea': 0
+    'Pagos en línea': 0,
+    'Monto saldo retenido': 0,
 }
 
 cuenta_corriente_comun = {
@@ -21,6 +22,7 @@ cuenta_corriente_comun = {
     'Bonos': '',  # no tengo idea que poner acá
     'Pago de sueldos cuentas del banco': 0,
     'Pago de sueldos cuentas otros bancos': 4,
+    'Monto saldo descubierto': 0,
 }
 
 cuenta_corriente_retencion_saldo = {
@@ -33,7 +35,10 @@ cuenta_corriente_retencion_saldo = {
     'Bonos': '',  # no tengo idea que poner acá
     'Pago de sueldos cuentas del banco': 0,
     'Pago de sueldos cuentas otros bancos': 4,
+    'Monto saldo retenido': 0,
+    'Monto saldo descubierto': 0,
 }
+
 
 estructura_costos = [caja_ahorro_comun, caja_ahorro_retencion_saldo,
                      cuenta_corriente_comun, cuenta_corriente_retencion_saldo]
