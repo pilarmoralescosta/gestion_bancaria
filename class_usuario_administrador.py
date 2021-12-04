@@ -12,42 +12,68 @@ class Usuario_administrador():
         self.username = 'administrador'
         self.clave = '4dm1n1str4d0r'
 
-    def monto_saldo_retenido(self):
+    def monto_saldo_retenido(self, costos):
         '''Este método del administrador define el monto de saldo retenido y lo retorna'''
 
         while True:
+            print('Seleccione una opción:')
             try:
-                monto_saldo_retenido = float(
-                    input('Ingrese el monto a retener: '))
+                opcion_seleccionada = int(input('\n1: Caja ahorro con retención saldo'
+                                                '\n2: Cuenta corriente común'
+                                                '\n3: Cuenta corriente con retención saldo'
+                                                '\n4: Menu Administrador\n'))
+
+                if opcion_seleccionada == 1 or opcion_seleccionada == 2 or opcion_seleccionada == 3:
+                    print(f'El monto a retener actual es $',
+                          costos[opcion_seleccionada]['Monto saldo retenido'])
+                    monto_saldo_retenido = float(
+                        input('Ingrese el monto a retener: '))
+                    costos[opcion_seleccionada]['Monto saldo retenido'] = monto_saldo_retenido
+                    return print('El monto a retener se ha modificado a $',
+                                 monto_saldo_retenido)
+                elif opcion_seleccionada == 4:
+                    return
+                else:
+                    print('Opción inválida')
             except ValueError:
-                print('\nIngrese un monto valido\n')
+                print('\nIngrese un valor válido\n')
 
-            return monto_saldo_retenido
-
-    def monto_saldo_descubierto(self):
+    def monto_saldo_descubierto(self, costos):
         '''Este método del administrador define el monto de saldo descubierto y lo retorna'''
 
         while True:
+            print('Seleccione una opción:')
             try:
-                monto_saldo_descubierto = float(
-                    input('Ingrese el monto de descubierto: '))
+                opcion_seleccionada = int(input('\n1: Cuenta corriente común'
+                                                '\n2: Cuenta corriente con retención saldo'
+                                                '\n3: Menu Administrador\n'))
+
+                if opcion_seleccionada == 1 or opcion_seleccionada == 2:
+                    print(f'El monto de descubierto actual es $',
+                          costos[opcion_seleccionada+1]['Monto saldo descubierto'])
+                    monto_saldo_descubierto = float(
+                        input('Ingrese el monto de descubierto: '))
+                    costos[opcion_seleccionada +
+                           1]['Monto saldo descubierto'] = monto_saldo_descubierto
+                    return print('El monto de descubierto se ha modificado a $',
+                                 monto_saldo_descubierto)
+                elif opcion_seleccionada == 3:
+                    return
+                else:
+                    print('Opción inválida')
             except ValueError:
-                print('\nIngrese un monto valido\n')
+                print('\nIngrese un valor válido\n')
 
-            return monto_saldo_descubierto
-
-    def costos_transaccion(self, estructura_costos):
-
-        while True:
-            opcion_seleccionada = input('\n1: Caja ahorro común\n2: Caja ahorro con retención saldo'
-                                        '\n3: cuenta corriente común\n4: Cuenta corriente con retención saldo')
-            try:
-                pass
-
-            except:
-                print('\nIngrese una opcion valida\n')
-
-            # return costos_transaccion
+    def costos_transaccion(self, costos):
+        print('Seleccione una opción:')
+        try:
+            opcion_seleccionada = int(input('\n1: Caja ahorro común'
+                                            '\n2: Caja ahorro con retención saldo'
+                                            '\n3: Cuenta corriente común'
+                                            '\n4: Cuenta corriente con retención saldo'
+                                            '\n5: Menu Administrador\n'))
+        except ValueError:
+            print('\nIngrese una opcion valida\n')
 
     def beneficios_transaccion(self):
         pass

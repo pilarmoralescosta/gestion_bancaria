@@ -6,7 +6,6 @@ from class_cliente_pyme import Cliente_pyme
 from class_aut_firmante import Autoridad_firmante
 from class_usuario_administrador import Usuario_administrador
 
-
 clientes_individuos = {32521: Cliente_individuo(32521456, "Trinidad", "Boragini", 2035214528, "San Martin 100", 24941546289, 3, 32521, []),
                        32123: Cliente_individuo(32123, 25487412, "Lucio", "Gronda", 25632145, "Saavedra 42", 4214587, 12, [])}
 clientes_pyme = {1: Cliente_pyme(
@@ -17,11 +16,58 @@ usuarios = {
     2: Usuario(2, 11, 'POB123', False, True)
 }
 
+caja_ahorro_comun = {
+    'Mantenimiento mensual': 200,
+    'Transferencias realizadas': 5,
+    'Depósitos realizados': 5,
+    'Pagos en línea': 3
+}
+caja_ahorro_retencion_saldo = {
+    'Mantenimiento mensual': 0,
+    'Transferencias realizadas': 0,
+    'Depósitos realizados': 0,
+    'Pagos en línea': 0,
+    'Monto saldo retenido': 0,
+}
+
+cuenta_corriente_comun = {
+    'Mantenimiento cuenta en pesos': 500,
+    'Mantenimiento cuenta moneda extranjera': 800,
+    'Transferencias realizadas': 5,
+    'Depósitos realizados': 5,
+    'Pagos en línea': 3,
+    'Plazos fijos porcentaje pago anual': 0.36,
+    'Bonos': '',
+    'Pago de sueldos cuentas del banco': 0,
+    'Pago de sueldos cuentas otros bancos': 4,
+    'Monto saldo descubierto': 0,
+}
+
+cuenta_corriente_retencion_saldo = {
+    'Mantenimiento cuenta en pesos': 500,
+    'Mantenimiento cuenta moneda extranjera': 800,
+    'Transferencias realizadas': 0,
+    'Depósitos realizados': 0,
+    'Pagos en línea': 0,
+    'Plazos fijos porcentaje pago anual': 0.36,
+    'Bonos': '',
+    'Pago de sueldos cuentas del banco': 0,
+    'Pago de sueldos cuentas otros bancos': 4,
+    'Monto saldo retenido': 0,
+    'Monto saldo descubierto': 0,
+}
+
+
+estructura_costos = [caja_ahorro_comun, caja_ahorro_retencion_saldo,
+                     cuenta_corriente_comun, cuenta_corriente_retencion_saldo]
+
 
 class Banco():
+    # Clase Banco, clase principal del sistema
     clientes_individuos = clientes_individuos
     clientes_pyme = clientes_pyme
     usuarios = usuarios
+    costos = estructura_costos
 
     def __init__(self):
         self.administrador = Usuario_administrador()
@@ -256,9 +302,9 @@ class Banco():
 
                 if opcion_seleccionada == 1:
                     self.administrador.monto_saldo_retenido(
-                        self.estructura_costos)
+                        self.costos)
                 elif opcion_seleccionada == 2:
-                    self.administrador.monto_saldo_descubierto()
+                    self.administrador.monto_saldo_descubierto(self.costos)
                 elif opcion_seleccionada == 3:
                     self.administrador.costos_transaccion()
                 elif opcion_seleccionada == 4:

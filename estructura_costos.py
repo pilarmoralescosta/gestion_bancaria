@@ -19,7 +19,7 @@ cuenta_corriente_comun = {
     'Depósitos realizados': 5,
     'Pagos en línea': 3,
     'Plazos fijos porcentaje pago anual': 0.36,
-    'Bonos': '',  # no tengo idea que poner acá
+    'Bonos': '',
     'Pago de sueldos cuentas del banco': 0,
     'Pago de sueldos cuentas otros bancos': 4,
     'Monto saldo descubierto': 0,
@@ -32,7 +32,7 @@ cuenta_corriente_retencion_saldo = {
     'Depósitos realizados': 0,
     'Pagos en línea': 0,
     'Plazos fijos porcentaje pago anual': 0.36,
-    'Bonos': '',  # no tengo idea que poner acá
+    'Bonos': '',
     'Pago de sueldos cuentas del banco': 0,
     'Pago de sueldos cuentas otros bancos': 4,
     'Monto saldo retenido': 0,
