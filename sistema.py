@@ -6,10 +6,12 @@ from class_cliente_pyme import Cliente_pyme
 from class_aut_firmante import Autoridad_firmante
 from class_usuario_administrador import Usuario_administrador
 
-clientes_individuos = {32521: Cliente_individuo(32521456, "Trinidad", "Boragini", 2035214528, "San Martin 100", 24941546289, 3, 32521, []),
-                       32123: Cliente_individuo(32123, 25487412, "Lucio", "Gronda", 25632145, "Saavedra 42", 4214587, 12, [])}
+clientes_individuos = {"ITB029": Cliente_individuo(
+    32521456, "Trinidad", "Boragini", 2035214528, "San Martin 100", 24941546289, 3, "ITB029", [], False), "ILG412": Cliente_individuo(25487412, "Lucio", "Gronda", 20256321451, "Saavedra 42", 0114214587, 12, "ILG412", [], False)}
+
+
 clientes_pyme = {1: Cliente_pyme(
-    "La Pirca", 125487458, "Belgrano 230", 2494561231, 'unmail', [3, 25], 1, [78, 79])}
+    "La Pirca", 125487458, "Belgrano 230", 2494561231, 'unmail', [3, 25], 1, [78, 79], False)}
 
 usuarios = {
     1: Usuario(1, 12, 'IRO345', True, False),
@@ -221,7 +223,7 @@ class Banco():
         '''Este método se encarga de loguear al usuario, recibe el usuario.
         Retorna True si el usuario y la contraseña ingresados son correctos, False si no lo son.'''
 
-        numero_usuario = input("Ingrese su numero de usuario")
+        numero_usuario = input("Ingrese su numero de usuario: ")
 
         # verificamos que el usuario ingresado exista
         if numero_usuario in self.usuarios:
@@ -242,12 +244,12 @@ class Banco():
         Retorna True si el usuario y la contraseña ingresados son correctos, False si no lo son.'''
 
         # verificamos que el usuario ingresado sea el administrador
-        nombre_usuario = input("Ingrese su nombre de usuario administrador")
+        nombre_usuario = input('Ingrese su nombre de usuario administrador: ')
         if nombre_usuario != self.administrador.username:
             return False
 
         # verificamos que la contraseña ingresada sea la correcta
-        clave = input("Ingrese su clave: ")
+        clave = input('Ingrese su clave: ')
         if clave != self.administrador.clave:
             return False
 
@@ -273,10 +275,12 @@ class Banco():
         se invoca al método en cuestión, si la opción ingresada no es correcta se imprime un mensaje de error.'''
 
         while True:
-            opcion_seleccionada = int(input(
-                "Ingrese la opción: \n1: Apertura de cuenta \n2: Cierre de cuenta \n3: Operar con cuentas\n4: Cerrar sesión"))
-
             try:
+                opcion_seleccionada = int(input(
+                    'Ingrese la opción: \n1: Apertura de cuenta'
+                    '\n2: Cierre de cuenta \n3: Operar con cuentas'
+                    '\n4: Cerrar sesión'))
+
                 if opcion_seleccionada == 1:
                     self.cliente_logueado.apertura_cuenta()
                 elif opcion_seleccionada == 2:
@@ -294,11 +298,14 @@ class Banco():
         se imprime un mensaje de error. Si elige la opción 2, se termina la ejecución del programa.'''
 
         while True:
-            opcion_seleccionada = int(input(
-                "Ingrese la opción: \n1: Monto de saldo retenido \n2: Monto de saldo descubierto"
-                "\n3: Costos de servicios para cada tipo de transacción \n4: Porcentajes de beneficios para cada tipo de transacción"
-                "\n5: Registrar cliente \n6: Registro de cuentas de cliente \n7: Cerrar sesión"))
             try:
+                opcion_seleccionada = int(input(
+                    'Ingrese la opción:'
+                    '\n1: Monto de saldo retenido \n2: Monto de saldo descubierto'
+                    '\n3: Costos de servicios para cada tipo de transacción'
+                    '\n4: Porcentajes de beneficios para cada tipo de transacción'
+                    '\n5: Registrar cliente \n6: Registro de cuentas de cliente'
+                    '\n7: Cerrar sesión\n'))
 
                 if opcion_seleccionada == 1:
                     self.administrador.monto_saldo_retenido(
@@ -310,15 +317,16 @@ class Banco():
                 elif opcion_seleccionada == 4:
                     self.administrador.beneficios_transaccion()
                 elif opcion_seleccionada == 5:
-                    self.administrador.registrar_cliente()
+                    self.administrador.registrar_cliente(
+                        self.clientes_individuos, self.clientes_pyme)
                 elif opcion_seleccionada == 6:
                     self.administrador.registrar_cuenta()
                 elif(int(opcion_seleccionada) == 7):
                     self.menu()
                 else:
-                    print("Opción incorrecta")
+                    print('\nOpción incorrecta\n')
             except ValueError:
-                print("La opción ingresada es inválida: escriba un numero entero")
+                print('\nLa opción ingresada es inválida: escriba un numero entero\n')
 
     def menu(self):
         ''' La funcion menu solicita al usuario que ingrese una de las opciones indicadas.
@@ -327,8 +335,10 @@ class Banco():
 
         while True:
             opcion_seleccionada = input(
-                "Ingrese la opción: \n1: Iniciar sesión administrador  \n2: Iniciar sesión usuario "
-                "\n3: Cerrar sesión ")
+                'Ingrese la opción:'
+                '\n1: Iniciar sesión administrador'
+                '\n2: Iniciar sesión usuario'
+                '\n3: Cerrar sesión\n')
 
             try:
                 if(int(opcion_seleccionada) == 1):
@@ -340,9 +350,9 @@ class Banco():
                 elif(int(opcion_seleccionada) == 3):
                     exit()
                 else:
-                    print("Opción incorrecta")
+                    print('\nOpción incorrecta\n')
             except ValueError:
-                print("La opción ingresada es inválida: escriba un numero entero")
+                print('\nLa opción ingresada es inválida: escriba un numero entero\n')
 
 
 # menu

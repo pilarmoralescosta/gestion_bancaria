@@ -3,10 +3,10 @@ from class_cliente import Cliente
 
 
 class Cliente_individuo(Persona, Cliente):
-    def __init__(self, apellido, nombre, dni, cuit_cuil, direccion, telefono, email, id_cliente, cuentas):
+    def __init__(self, apellido, nombre, dni, cuit_cuil, direccion, telefono, email, id_cliente, cuentas, registrado):
         Persona.__init__(self, apellido, nombre, dni, cuit_cuil,
                          direccion, telefono, email)
-        Cliente.__init__(self, id_cliente, cuentas)
+        Cliente.__init__(self, id_cliente, cuentas, registrado)
 
     def cierre_cuenta(self):
         pass

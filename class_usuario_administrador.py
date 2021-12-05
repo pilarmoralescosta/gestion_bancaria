@@ -60,7 +60,7 @@ class Usuario_administrador():
                 elif opcion_seleccionada == 3:
                     return
                 else:
-                    print('Opción inválida')
+                    print('\nOpción inválida\n')
             except ValueError:
                 print('\nIngrese un valor válido\n')
 
@@ -78,20 +78,20 @@ class Usuario_administrador():
     def beneficios_transaccion(self):
         pass
 
-    def registrar_cliente(self):
-        print('Cliente a registrar en el sistema: ')
+    def registrar_cliente(self, clientes_individuo, clientes_pyme):
+        print('Cliente a registrar en el sistema')
         while True:
-            tipo_cliente = input('\n1: Pyme\n2: Individuo\n')
-
             try:
-                if tipo_cliente == '1':
-                    pass
-                elif tipo_cliente == '2':
-                    pass
+                id_cliente = input('Ingrese el ID del cliente: ')
+                if id_cliente in clientes_individuo.keys() or id_cliente in clientes_pyme.keys():
+                    if id_cliente in clientes_individuo.keys():
+                        clientes_individuo[id_cliente].registrado = True
+                    else:
+                        clientes_pyme[id_cliente].registrado = True
                 else:
-                    print('\nIngrese una opcion valida\n')
+                    print('\nEl cliente no existe en el sistema\n')
             except ValueError:
-                print('\nIngrese una opcion valida\n')
+                print('\nEl ID ingresado no es válido\n')
 
     def registrar_cuenta(self):
         pass
@@ -99,19 +99,6 @@ class Usuario_administrador():
 
 # TEST
 admin = Usuario_administrador()
-
-
-usuarios = {
-    1: Usuario(1, 12, 'IRO345', True, False),
-    2: Usuario(2, 11, 'POB123', False, True)
-}
-clientes_individuos = {
-    32521: Cliente_individuo("Boragini", "Trinidad", 32521456, 2035214528, "San Martin 100", 24941546289, 3, 32521, []),
-    32123: Cliente_individuo("Gronda", "Lucio", 25487412, 25632145, "Saavedra 42", 4214587, 12, 32123, [])
-}
-
-clientes_pyme = {1: Cliente_pyme(
-    "La Pirca", 125487458, "Belgrano 230", 2494561231, 'unmail', [3, 25], 1, [78, 79])}
 
 # ALTA USUARIO
 # admin.alta_usuario(3, usuarios)
