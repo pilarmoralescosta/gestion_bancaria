@@ -6,8 +6,14 @@ from class_cliente_pyme import Cliente_pyme
 from class_aut_firmante import Autoridad_firmante
 from class_usuario_administrador import Usuario_administrador
 
-clientes_individuos = {"ITB029": Cliente_individuo(
-    32521456, "Trinidad", "Boragini", 2035214528, "San Martin 100", 24941546289, 3, "ITB029", [], False), "ILG412": Cliente_individuo(25487412, "Lucio", "Gronda", 20256321451, "Saavedra 42", 0114214587, 12, "ILG412", [], False)}
+
+clientes_individuos = {
+    "ITB029" : Cliente_individuo("Boragini","Trinidad", 32521456, 2035214528, "San Martin 100", 24941546289, 
+    "trini@bora.com", "ITB029", [], False),
+    "ILG412" : Cliente_individuo("Gronda", "Lucio",25487412, 20256321451, "Saavedra 42",
+    114214587, "lucio@gronda.com", "ILG412", [], False)
+
+} 
 
 
 clientes_pyme = {1: Cliente_pyme(
