@@ -300,6 +300,9 @@ class Banco():
                     self.cliente_logueado.cierre_cuenta()
                 elif opcion_seleccionada == 3:
                     self.menu_cuentas_usuario()
+                elif opcion_seleccionada == 4:
+                    self.usuario_logueado = None
+                    self.menu()
                 else:
                     print("Opción incorrecta")
             except ValueError:
