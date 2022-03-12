@@ -64,6 +64,8 @@ class Usuario_administrador():
             except ValueError:
                 print('\nIngrese un valor válido\n')
 
+    # Este método le permite al administrador consultar los costos
+    # de las transacciones según el tipo de cuenta
     def costos_transaccion(self, costos):
         print('Seleccione una opción:')
         try:
@@ -72,12 +74,50 @@ class Usuario_administrador():
                                             '\n3: Cuenta corriente común'
                                             '\n4: Cuenta corriente con retención saldo'
                                             '\n5: Menu Administrador\n'))
+            # si la opción es 1, 2, 3 o 4, se muestra el costo de las transacciones
+            # de acuerdo al tipo de cuenta
+            if opcion_seleccionada in range(1, 5):
+                # .items() retorna una lista con tuplas de llave, valor
+                transacciones = (costos[opcion_seleccionada-1].items())
+                # solo se muestran los costos de las transacciones, no los beneficios
+                for transaccion in transacciones:
+                    if transaccion[0].split(' ')[0] in ['Mantenimiento',
+                                                        'Depósitos', 'Pagos', 'Transferencias']:
+                        print(f'{transaccion[0]}: ${transaccion[1]}')
+                print('\n')
+            elif opcion_seleccionada == 5:
+                return
+            else:
+                print('\nOpción inválida\n')
         except ValueError:
-            print('\nIngrese una opcion valida\n')
+            print('\nIngrese una opcion válida\n')
 
-    def beneficios_transaccion(self):
-        pass
+    # Este método le permite al administrador los porcentajes de beneficios
+    # según el tipo de cuenta
+    def beneficios_transaccion(self, costos):
+        print('Seleccione una opción:')
+        try:
+            opcion_seleccionada = int(input('\n1: Cuenta corriente común'
+                                            '\n2: Cuenta corriente con retención saldo'
+                                            '\n3: Menu Administrador\n'))
+            # si la opción es 1 o 2, se muestra el porcentaje de beneficio
+            # de acuerdo al tipo de cuenta
+            if opcion_seleccionada in range(1, 3):
+                # .items() retorna una lista con tuplas de llave, valor
+                transacciones = (costos[opcion_seleccionada+1].items())
+                # solo se muestran los costos de las transacciones, no los beneficios
+                for transaccion in transacciones:
+                    if transaccion[0].split(' ')[0] in ['Plazos', 'Bonos']:
+                        print(f'{transaccion[0]}: {transaccion[1]}%')
+                print('\n')
+            elif opcion_seleccionada == 3:
+                return
+            else:
+                print('\nOpción inválida\n')
+        except ValueError:
+            print('\nIngrese una opcion válida\n')
 
+    # Este método le permite al administrador registrar un nuevo cliente
     def registrar_cliente(self, clientes_individuo, clientes_pyme):
         print('Cliente a registrar en el sistema')
         while True:

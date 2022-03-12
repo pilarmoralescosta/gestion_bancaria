@@ -6,9 +6,16 @@ from class_cliente_pyme import Cliente_pyme
 from class_aut_firmante import Autoridad_firmante
 from class_usuario_administrador import Usuario_administrador
 
-clientes_individuos = {"ITB029": Cliente_individuo(
-    32521456, "Trinidad", "Boragini", 2035214528, "San Martin 100", 24941546289, 3, "ITB029", [], False), "ILG412": Cliente_individuo(25487412, "Lucio", "Gronda", 20256321451, "Saavedra 42", 0114214587, 12, "ILG412", [], False)}
+# ------------------ Datos de ejemplo --------------------
 
+cli_iv_1 = Cliente_individuo(32521456, "Trinidad", "Boragini",
+                             2035214528, "San Martin 100", 24941546289, 3, "ITB029", [], False)
+
+cli_iv_2 = Cliente_individuo(25487412, "Lucio", "Gronda",
+                             20256321451, "Saavedra 42", 114214587, 12, "ILG412", [], False)
+
+clientes_individuos = {cli_iv_1.id_cliente: cli_iv_1,
+                       cli_iv_2.id_cliente: cli_iv_2}
 
 clientes_pyme = {1: Cliente_pyme(
     "La Pirca", 125487458, "Belgrano 230", 2494561231, 'unmail', [3, 25], 1, [78, 79], False)}
@@ -17,6 +24,8 @@ usuarios = {
     1: Usuario(1, 12, 'IRO345', True, False),
     2: Usuario(2, 11, 'POB123', False, True)
 }
+
+# -------Estructura de Costos---------------
 
 caja_ahorro_comun = {
     'Mantenimiento mensual': 200,
@@ -38,7 +47,7 @@ cuenta_corriente_comun = {
     'Transferencias realizadas': 5,
     'Depósitos realizados': 5,
     'Pagos en línea': 3,
-    'Plazos fijos porcentaje pago anual': 0.36,
+    'Plazos fijos porcentaje pago anual': 36,
     'Bonos': '',
     'Pago de sueldos cuentas del banco': 0,
     'Pago de sueldos cuentas otros bancos': 4,
@@ -51,7 +60,7 @@ cuenta_corriente_retencion_saldo = {
     'Transferencias realizadas': 0,
     'Depósitos realizados': 0,
     'Pagos en línea': 0,
-    'Plazos fijos porcentaje pago anual': 0.36,
+    'Plazos fijos porcentaje pago anual': 36,
     'Bonos': '',
     'Pago de sueldos cuentas del banco': 0,
     'Pago de sueldos cuentas otros bancos': 4,
@@ -59,9 +68,10 @@ cuenta_corriente_retencion_saldo = {
     'Monto saldo descubierto': 0,
 }
 
-
 estructura_costos = [caja_ahorro_comun, caja_ahorro_retencion_saldo,
                      cuenta_corriente_comun, cuenta_corriente_retencion_saldo]
+
+# -------------------------------------------- #
 
 
 class Banco():
@@ -136,13 +146,14 @@ class Banco():
         self.clientes_individuos[id_cliente] = nuevo_cliente_ind
 
         # creamos la instancia de Usuario
-        self.alta_usuario(dni, id_cliente, usuarios)
+        self.alta_usuario(dni, id_cliente)
 
         return print(f'\nEl cliente ha sido generado exitosamente: ' + nuevo_cliente_ind.__str__)
 
     def alta_autoridad_firmante(self, id_cliente):
-        '''Método para dar de alta una autoridad/firmante de una PyME, recibe el id de la PyME y el arreglo de usuarios
-        del sistema, lo actualiza con el usuario creado y retorna la instancia de la autoridad/firmante creada'''
+        '''Método para dar de alta una autoridad/firmante de una PyME,
+        recibe el id de la PyME y crea una instancia de autoridad/firmante,
+        crea un usuario y retorna la instancia de la autoridad/firmante creada'''
 
         print(f'\nAlta de autoridad/firmante')
         dni = input("Número de documento: ")
@@ -195,8 +206,7 @@ class Banco():
         autoridades_firmantes = []
         agregar_aut_firmante = True
         while agregar_aut_firmante:
-            autoridad_firmante = self.alta_autoridad_firmante(
-                id_cliente, usuarios)
+            autoridad_firmante = self.alta_autoridad_firmante(id_cliente)
             autoridades_firmantes.append(autoridad_firmante)
             agregar = input(
                 "¿Desea agregar otra autoridad/firmante? (s/n)").lower()
@@ -313,9 +323,9 @@ class Banco():
                 elif opcion_seleccionada == 2:
                     self.administrador.monto_saldo_descubierto(self.costos)
                 elif opcion_seleccionada == 3:
-                    self.administrador.costos_transaccion()
+                    self.administrador.costos_transaccion(self.costos)
                 elif opcion_seleccionada == 4:
-                    self.administrador.beneficios_transaccion()
+                    self.administrador.beneficios_transaccion(self.costos)
                 elif opcion_seleccionada == 5:
                     self.administrador.registrar_cliente(
                         self.clientes_individuos, self.clientes_pyme)
@@ -355,6 +365,6 @@ class Banco():
                 print('\nLa opción ingresada es inválida: escriba un numero entero\n')
 
 
-# menu
+# Menu principal
 banco = Banco()
 banco.menu()
