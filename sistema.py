@@ -11,7 +11,8 @@ clientes_individuos = {
     "ITB029" : Cliente_individuo("Boragini","Trinidad", 32521456, 2035214528, "San Martin 100", 24941546289, 
     "trini@bora.com", "ITB029", [], False),
     "ILG412" : Cliente_individuo("Gronda", "Lucio",25487412, 20256321451, "Saavedra 42",
-    114214587, "lucio@gronda.com", "ILG412", [], False)
+    114214587, "lucio@gronda.com", "ILG412", [], False),
+    "IRO345": Cliente_individuo("Chimondeguy", "Javier", 36645929, 2032541562, "Uruguay 1200", 3625142513, "jchimon@abc.gob.ar", "IRO345", [], False)
 
 } 
 
@@ -229,17 +230,23 @@ class Banco():
         '''Este método se encarga de loguear al usuario, recibe el usuario.
         Retorna True si el usuario y la contraseña ingresados son correctos, False si no lo son.'''
 
-        numero_usuario = input("Ingrese su numero de usuario: ")
+        numero_usuario = int(input("Ingrese su numero de usuario: "))
 
         # verificamos que el usuario ingresado exista
         if numero_usuario in self.usuarios:
             usuario = self.usuarios[numero_usuario]
+            
 
-            clave = input("Ingrese su clave: ")
+            clave = int(input("Ingrese su clave: "))
             # veridficamos que la contraseña ingresada sea la correcta
             if clave == usuario.clave:
-                self.usuario_logueado = self.clientes[usuario.id_cliente]
-                return True
+                if usuario.es_cliente_individuo:
+                    self.usuario_logueado = self.clientes_individuos[usuario.id_cliente]
+                    return True
+                if usuario.es_cliente_pyme:
+                    self.usuario_logueado = self.clientes_pyme[usuario.id_cliente]
+                    return True
+                
             else:
                 return False
         else:
@@ -319,9 +326,9 @@ class Banco():
                 elif opcion_seleccionada == 2:
                     self.administrador.monto_saldo_descubierto(self.costos)
                 elif opcion_seleccionada == 3:
-                    self.administrador.costos_transaccion()
+                    self.administrador.costos_transaccion(self.costos)
                 elif opcion_seleccionada == 4:
-                    self.administrador.beneficios_transaccion()
+                    self.administrador.beneficios_transaccion(self.costos)
                 elif opcion_seleccionada == 5:
                     self.administrador.registrar_cliente(
                         self.clientes_individuos, self.clientes_pyme)
