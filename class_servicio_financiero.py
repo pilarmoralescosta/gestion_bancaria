@@ -37,6 +37,9 @@ class Servicio_financiero(ABC):
         self.saldo = self.saldo - monto_a_debitar
         print("Transferencia realizada con exito, su nuevo saldo es: {}".format(self.saldo))
 
+    def mostrar_saldo(self):
+        print("El saldo de la cuenta es: ", self.saldo)
+
 
 # servicio = Servicio_financiero(1, 12, 123, 124, 12, "A", 1231)
 # servicio.realizar_deposito()

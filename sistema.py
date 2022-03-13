@@ -231,9 +231,12 @@ class Banco():
         
         while True:
             try:
+                if self.usuario_logueado.cuentas == []:
+                    print("Usted no tiene ninguna cuenta, debe crear una primero")
+                    self.menu_usuario_cliente()
                 for num, cuenta in enumerate(self.usuario_logueado.cuentas):
                     print(num, cuenta)
-                cuenta_seleccionada = int(input('Seleccione el numero de la cuenta que desea operar: )'))
+                cuenta_seleccionada = int(input('Seleccione el numero de la cuenta que desea operar: '))
                 cuenta = self.usuario_logueado.cuentas[cuenta_seleccionada]
                 opcion_seleccionada = int(input('Que desea hacer con la cuenta?"\n1: Consulta de Saldo\n2: Transferir a otra cuenta'
                 '\n3: Depositar''\n4: Realizar plazo fijo''\n5: Comprar moneda extranjera'
