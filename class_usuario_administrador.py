@@ -122,10 +122,9 @@ class Usuario_administrador():
         except ValueError:
             print('\nIngrese una opcion válida\n')
 
-    # Este método le permite al administrador registrar un nuevo cliente
     def registrar_cliente(self, clientes_individuo, clientes_pyme):
         '''Este método del administrador, recibe la lista de clientes individuales y pymes
-        y verifica si el cliente ya existe, si no existe, lo registra'''
+        y verifica si el cliente ya existe o no y retorna True o False en consecuencia'''
 
         existe_cliente = False
 

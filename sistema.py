@@ -7,6 +7,7 @@ from class_aut_firmante import Autoridad_firmante
 from class_usuario_administrador import Usuario_administrador
 
 
+# ----------------DATOS DE TEST ----------------
 clientes_individuos = {
     "POB123": Cliente_individuo("Boragini", "Trinidad", 32521456, 2035214528, "San Martin 100", 24941546289,
                                 "trini@bora.com", "POB123", [], False),
@@ -15,7 +16,6 @@ clientes_individuos = {
     "IRO345": Cliente_individuo("Chimondeguy", "Javier", 36645929, 2032541562, "Uruguay 1200", 3625142513, "jchimon@abc.gob.ar", "IRO345", [], False)
 
 }
-
 
 clientes_pyme = {"PY30": Cliente_pyme(
     "La Pirca", 125487458, "Belgrano 230", 2494561231, 'unmail', [3, 25], "PY30", [78, 79], False),
@@ -27,6 +27,8 @@ usuarios = {
     2: Usuario(2, 11, 'POB123', True, False),
     3: Usuario(3, 10, "PY120", False, True)
 }
+
+# ----------------ESTRUCTURA DE COSTOS ----------------
 
 caja_ahorro_comun = {
     'Mantenimiento mensual': 200,
@@ -69,9 +71,10 @@ cuenta_corriente_retencion_saldo = {
     'Monto saldo descubierto': 0,
 }
 
-
 estructura_costos = [caja_ahorro_comun, caja_ahorro_retencion_saldo,
                      cuenta_corriente_comun, cuenta_corriente_retencion_saldo]
+
+# -----------------------------------------------------
 
 
 class Banco():
@@ -226,8 +229,8 @@ class Banco():
         return print(f'\nEl cliente ha sido generado exitosamente: ' + Cliente_pyme.__str__(nuevo_cliente_pyme))
 
     def alta_cliente(self):
-        '''Este método del sistema verifica el tipo de cliente a dar de alta y
-        llama al método correspondiente para dar de alta el cliente individou o pyme'''
+        '''Este método del Banco verifica el tipo de cliente a dar de alta y
+        llama al método correspondiente para dar de alta el cliente individuo o pyme'''
         try:
             tipo_cliente = input(
                 '\nIngrese el tipo de cliente que desea dar de alta:Individuo o PyMe (i/p): ').lower()
@@ -236,9 +239,9 @@ class Banco():
             elif tipo_cliente == "p":
                 self.alta_cliente_pyme()
             else:
-                print("Ingrese una opción válida")
+                print('Opción inválida, debe ingresar "i" o "p"')
         except ValueError:
-            print("Error al dar de alta el cliente")
+            print("Ingrese una opción válida")
 
     def menu_cuentas_usuario(self):
 
@@ -423,6 +426,6 @@ class Banco():
                 print('\nLa opción ingresada es inválida: escriba un numero entero\n')
 
 
-# menu
+# # ----------------MENU PRINCIPAL ----------------
 banco = Banco()
 banco.menu()
