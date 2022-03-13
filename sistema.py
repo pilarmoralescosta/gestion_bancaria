@@ -7,9 +7,10 @@ from class_aut_firmante import Autoridad_firmante
 from class_usuario_administrador import Usuario_administrador
 
 
+
 clientes_individuos = {
-    "ITB029" : Cliente_individuo("Boragini","Trinidad", 32521456, 2035214528, "San Martin 100", 24941546289, 
-    "trini@bora.com", "ITB029", [], False),
+    "POB123" : Cliente_individuo("Boragini","Trinidad", 32521456, 2035214528, "San Martin 100", 24941546289, 
+    "trini@bora.com", "POB123", [], False),
     "ILG412" : Cliente_individuo("Gronda", "Lucio",25487412, 20256321451, "Saavedra 42",
     114214587, "lucio@gronda.com", "ILG412", [], False),
     "IRO345": Cliente_individuo("Chimondeguy", "Javier", 36645929, 2032541562, "Uruguay 1200", 3625142513, "jchimon@abc.gob.ar", "IRO345", [], False)
@@ -17,12 +18,15 @@ clientes_individuos = {
 } 
 
 
-clientes_pyme = {1: Cliente_pyme(
-    "La Pirca", 125487458, "Belgrano 230", 2494561231, 'unmail', [3, 25], 1, [78, 79], False)}
+clientes_pyme = {"PY30": Cliente_pyme(
+    "La Pirca", 125487458, "Belgrano 230", 2494561231, 'unmail', [3, 25], "PY30", [78, 79], False),
+    "PY120" : Cliente_pyme("La Rural", 20514232, "San Martin 90", 2414512023, "ah@asd.com", [1,2], "PY120", [], False )
+    }
 
 usuarios = {
     1: Usuario(1, 12, 'IRO345', True, False),
-    2: Usuario(2, 11, 'POB123', False, True)
+    2: Usuario(2, 11, 'POB123', True, False),
+    3: Usuario(3, 10, "PY120", False, True)
 }
 
 caja_ahorro_comun = {
@@ -223,7 +227,8 @@ class Banco():
 
         return print(f'\nEl cliente ha sido generado exitosamente: ' + Cliente_pyme.__str__(nuevo_cliente_pyme))
 
-    def menu_cuentas_usuario():
+    def menu_cuentas_usuario(self, usuario):
+        
         pass
 
     def logueo_usuario(self):
@@ -290,17 +295,19 @@ class Banco():
         while True:
             try:
                 opcion_seleccionada = int(input(
-                    'Ingrese la opción: \n1: Apertura de cuenta'
-                    '\n2: Cierre de cuenta \n3: Operar con cuentas'
-                    '\n4: Cerrar sesión'))
+                    'Ingrese la opción: \n1: Apertura de cuenta corriente'
+                    '\n2: Apertura de Caja de Ahorro \n3: Cierre de cuenta \n4: Operar con cuentas'
+                    '\n5: Cerrar sesión\n'))
 
                 if opcion_seleccionada == 1:
-                    self.cliente_logueado.apertura_cuenta()
+                    self.usuario_logueado.abrir_cuenta_corriente()
                 elif opcion_seleccionada == 2:
-                    self.cliente_logueado.cierre_cuenta()
+                    self.usuario_logueado.abrir_caja_ahorro()
                 elif opcion_seleccionada == 3:
-                    self.menu_cuentas_usuario()
+                    self.usuario_logueado.cierre_cuenta()
                 elif opcion_seleccionada == 4:
+                    self.menu_cuentas_usuario()
+                elif opcion_seleccionada == 5:
                     self.usuario_logueado = None
                     self.menu()
                 else:
@@ -354,7 +361,7 @@ class Banco():
                 'Ingrese la opción:'
                 '\n1: Iniciar sesión administrador'
                 '\n2: Iniciar sesión usuario'
-                '\n3: Cerrar sesión\n')
+                '\n3: Salir\n')
 
             try:
                 if(int(opcion_seleccionada) == 1):
