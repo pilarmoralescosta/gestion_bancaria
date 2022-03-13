@@ -394,7 +394,7 @@ class Banco():
             self.menu_administrador()
         else:
             opcion = input(
-                "El logueo fue incorrecto, opcion 1 para seguir probando, 2 para salir")
+                "El logueo fue incorrecto, opcion 1 para seguir probando, 2 para salir ")
             if opcion == "1":
                 self.iniciar_sesion_administrador()
             else:
