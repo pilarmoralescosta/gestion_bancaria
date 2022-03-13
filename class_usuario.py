@@ -16,3 +16,6 @@ class Usuario():
     def __str__(self):
 
         return f'\n Usuario: {self.usuario} \nClave: {self.clave} \nID Cliente: {self.id_cliente} \nTipo Cliente: Individuo: {self.es_cliente_individuo} PyMe: {self.es_cliente_pyme} \nCuentas: {self.cuentas}'
+
+
+ 

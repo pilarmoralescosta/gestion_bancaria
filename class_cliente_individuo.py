@@ -46,8 +46,17 @@ class Cliente_individuo(Persona, Cliente):
         else:
             return 'Individuo y PyME'
 
-    def cierre_cuenta(self):
-        pass
+    def cerrar_cuenta(self):
+
+        if self.cuentas == []:
+            print("Usted no tiene ninguna cuenta abierta")
+            return True
+
+        for num, cuenta in enumerate(self.cuentas):
+            print ("Si desea eliminar la siguente cuenta: ", cuenta, "\n\n\nPresione: ", num)
+        cuenta_a_eliminar = int(input ("Cuenta que desea eliminar: "))
+        self.cuentas.pop(cuenta_a_eliminar)
+        print("Cuenta eliminada con exito. Sus cuentas ahora son: ", self.cuentas)
 
     def apertura_cuenta(self):
         pass

@@ -305,7 +305,7 @@ class Banco():
                     print("Usted no tiene ninguna cuenta, debe crear una primero")
                     self.menu_usuario_cliente()
                 for num, cuenta in enumerate(self.usuario_logueado.cuentas):
-                    print(num, cuenta)
+                    print("Presione:", num,"\nPara operar la cuenta: ", cuenta)
                 try:
                     cuenta_seleccionada = int(
                         input('Seleccione el numero de la cuenta que desea operar: '))
@@ -321,16 +321,22 @@ class Banco():
 
                 if opcion_seleccionada == 1:
                     cuenta.mostrar_saldo()
+                    self.menu_cuentas_usuario()
                 elif opcion_seleccionada == 2:
                     cuenta.realizar_transferencia()
+                    self.menu_cuentas_usuario()
                 elif opcion_seleccionada == 3:
                     cuenta.realizar_deposito()
+                    self.menu_cuentas_usuario()
                 elif opcion_seleccionada == 4:
                     cuenta.realizar_plazo_fijo()
+                    self.menu_cuentas_usuario()
                 elif opcion_seleccionada == 5:
                     cuenta.comprar_moneda_extranjera()
+                    self.menu_cuentas_usuario()
                 elif opcion_seleccionada == 6:
                     cuenta.cerrar_cuenta()
+                    self.menu_cuentas_usuario()
                 elif opcion_seleccionada == 7:
                     self.usuario_logueado = None
                     self.menu()
@@ -410,7 +416,7 @@ class Banco():
                 elif opcion_seleccionada == 2:
                     self.usuario_logueado.abrir_caja_ahorro()
                 elif opcion_seleccionada == 3:
-                    self.usuario_logueado.cierre_cuenta()
+                    self.usuario_logueado.cerrar_cuenta()
                 elif opcion_seleccionada == 4:
                     self.menu_cuentas_usuario()
                 elif opcion_seleccionada == 5:
@@ -484,3 +490,6 @@ class Banco():
                     print('\nOpción incorrecta\n')
             except ValueError:
                 print('\nLa opción ingresada es inválida: escriba un numero entero\n')
+
+banco = Banco()
+banco.menu()
