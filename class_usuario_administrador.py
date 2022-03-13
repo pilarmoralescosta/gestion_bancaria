@@ -67,6 +67,9 @@ class Usuario_administrador():
     # Este método le permite al administrador consultar los costos
     # de las transacciones según el tipo de cuenta
     def costos_transaccion(self, costos):
+        '''Este método del administrador, recibe una lista con los costos de las transacciones
+        y muestra aquellas traansacciones que tengan costos, con su correspondientes costos'''
+
         print('Seleccione una opción:')
         try:
             opcion_seleccionada = int(input('\n1: Caja ahorro común'
@@ -92,9 +95,11 @@ class Usuario_administrador():
         except ValueError:
             print('\nIngrese una opcion válida\n')
 
-    # Este método le permite al administrador los porcentajes de beneficios
-    # según el tipo de cuenta
     def beneficios_transaccion(self, costos):
+        '''Este método del administrador,  recibe una lista con los costos de las transacciones
+        y muestra aquellas transacciones que tengan porcentaje de beneficios,
+        con su correspondientes porcentajes'''
+
         print('Seleccione una opción:')
         try:
             opcion_seleccionada = int(input('\n1: Cuenta corriente común'
@@ -119,6 +124,11 @@ class Usuario_administrador():
 
     # Este método le permite al administrador registrar un nuevo cliente
     def registrar_cliente(self, clientes_individuo, clientes_pyme):
+        '''Este método del administrador, recibe la lista de clientes individuales y pymes
+        y verifica si el cliente ya existe, si no existe, lo registra'''
+
+        existe_cliente = False
+
         print('Cliente a registrar en el sistema')
         while True:
             try:
@@ -126,12 +136,16 @@ class Usuario_administrador():
                 if id_cliente in clientes_individuo.keys() or id_cliente in clientes_pyme.keys():
                     if id_cliente in clientes_individuo.keys():
                         clientes_individuo[id_cliente].registrado = True
+                        existe_cliente = True
                     else:
                         clientes_pyme[id_cliente].registrado = True
+                        existe_cliente = True
                 else:
                     print('\nEl cliente no existe en el sistema\n')
             except ValueError:
                 print('\nEl ID ingresado no es válido\n')
+
+        return existe_cliente
 
     def registrar_cuenta(self):
         pass

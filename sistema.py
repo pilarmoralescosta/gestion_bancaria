@@ -225,6 +225,21 @@ class Banco():
 
         return print(f'\nEl cliente ha sido generado exitosamente: ' + Cliente_pyme.__str__(nuevo_cliente_pyme))
 
+    def alta_cliente(self):
+        '''Este método del sistema verifica el tipo de cliente a dar de alta y
+        llama al método correspondiente para dar de alta el cliente individou o pyme'''
+        try:
+            tipo_cliente = input(
+                '\nIngrese el tipo de cliente que desea dar de alta:Individuo o PyMe (i/p): ').lower()
+            if tipo_cliente == "i":
+                self.alta_cliente_individuo()
+            elif tipo_cliente == "p":
+                self.alta_cliente_pyme()
+            else:
+                print("Ingrese una opción válida")
+        except ValueError:
+            print("Error al dar de alta el cliente")
+
     def menu_cuentas_usuario(self):
 
         while True:
@@ -368,8 +383,10 @@ class Banco():
                 elif opcion_seleccionada == 4:
                     self.administrador.beneficios_transaccion(self.costos)
                 elif opcion_seleccionada == 5:
-                    self.administrador.registrar_cliente(
+                    existe_cliente = self.administrador.registrar_cliente(
                         self.clientes_individuos, self.clientes_pyme)
+                    if existe_cliente == False:
+                        self.alta_cliente()
                 elif opcion_seleccionada == 6:
                     self.administrador.registrar_cuenta()
                 elif(int(opcion_seleccionada) == 7):
