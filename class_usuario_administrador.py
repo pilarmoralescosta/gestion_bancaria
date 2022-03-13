@@ -134,9 +134,11 @@ class Usuario_administrador():
                 if id_cliente in clientes_individuo.keys() or id_cliente in clientes_pyme.keys():
                     if id_cliente in clientes_individuo.keys():
                         clientes_individuo[id_cliente].registrado = True
+                        print("Cliente registrado exitosamente")
                         return True
                     else:
                         clientes_pyme[id_cliente].registrado = True
+                        print("Cliente registrado exitosamente")
                         return True
                 else:
                     print('\nEl cliente no existe en el sistema\n')
