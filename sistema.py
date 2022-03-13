@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from xmlrpc.client import FastUnmarshaller
 from class_usuario import Usuario
 from class_cliente_individuo import Cliente_individuo
 from class_cliente_pyme import Cliente_pyme
@@ -15,13 +16,18 @@ clientes_individuos = {
                                 "trini@bora.com", "POB123", [], False),
     "ILG412": Cliente_individuo("Gronda", "Lucio", 25487412, 20256321451, "Saavedra 42",
                                 114214587, "lucio@gronda.com", "ILG412", [], False),
-    "IRO345": Cliente_individuo("Chimondeguy", "Javier", 36645929, 2032541562, "Uruguay 1200", 3625142513, "jchimon@abc.gob.ar", "IRO345", [], False)
+    "IRO345": Cliente_individuo("Chimondeguy", "Javier", 36645929, 2032541562, "Uruguay 1200", 3625142513, "jchimon@abc.gob.ar", "IRO345", [6, 7], False)
 
 }
 
+aut_1 = Autoridad_firmante("Perez", "Juan", 25444666,
+                           20254446661, "Rosales 48", 11111, "juan@mail.com")
+aut_2 = Autoridad_firmante(
+    "Gomez", "Mariana", 40888999, 27408889995, "Paz 1234", 333, "mariana@mail.com")
+
 clientes_pyme = {
-    "PY30": Cliente_pyme("La Pirca", 125487458, "Belgrano 230", 2494561231, 'unmail', [3, 25], "PY30", [78, 79], False),
-    "PY120": Cliente_pyme("La Rural", 20514232, "San Martin 90", 2414512023, "ah@asd.com", [1, 2], "PY120", [], False)
+    "PY30": Cliente_pyme("La Pirca", 125487458, "Belgrano 230", 2494561231, 'unmail', [aut_1, aut_2], "PY30", [78, 79], False),
+    "PY120": Cliente_pyme("La Rural", 20514232, "San Martin 90", 2414512023, "ah@asd.com", [], "PY120", [], False)
 }
 
 usuarios = {
@@ -107,7 +113,7 @@ class Banco():
 
         return existe_usuario
 
-    def alta_usuario(self, dni, id_cliente):
+    def alta_usuario(self, dni, id_cliente, tipo_cliente):
         '''Método para dar de alta un usuario del sistema. Recive como parametro el dni del usuario y
         el id del cliente, actualiza el diccionario de usuarios y retorna un mensaje de confirmación'''
 
@@ -120,8 +126,6 @@ class Banco():
         # si no existe, creamos la instancia de Usuario
         if existe_usuario == False:
             clave = input("Ingrese una clave: ")
-            tipo_cliente = input(
-                "¿Es un cliente individuo o PyME? (i/p): ").lower()
             if tipo_cliente == "i":
                 es_cliente_ind = True
             elif tipo_cliente == "p":
@@ -137,15 +141,35 @@ class Banco():
 
             return print(f'\nEl usuario ha sido generado exitosamente: {Usuario.__str__(nuevo_usuario)}')
 
+    def ingresar_dni(self):
+        dni = input("Número de documento del cliente: ")
+        dni_valid = val.validar_dni(dni)
+        while dni_valid == None:
+            print("Ingrese un número de documento válido")
+            dni = input("Número de documento del cliente: ")
+            dni_valid = val.validar_dni(dni)
+        return dni
+
+    def ingresar_cuit_cuil(self):
+        cuit_cuil = input(
+            "Número de CUIT/CUIL del cliente (sin guiones, sólo números): ")
+        if '-' in cuit_cuil:
+            cuit_cuil = cuit_cuil.replace('-', '')
+        if '/' in cuit_cuil:
+            cuit_cuil = cuit_cuil.replace('/', '')
+        cuit_cuil_valid = val.validar_cuit_cuil(cuit_cuil)
+        while cuit_cuil_valid == None:
+            print("Ingrese un CUIT/CUIL válido")
+            cuit_cuil = input(
+                "Número de CUIT/CUIL del cliente (sin guiones, sólo números): ")
+            cuit_cuil_valid = val.validar_cuit_cuil(cuit_cuil)
+        return cuit_cuil
+
     def alta_cliente_ind(self):
         '''Método para dar de alta un cliente individuo, actualiza el el diccionario de clientes individuos
         con el nuevo cliente y retorna un mensaje de éxito junto con el cliente creado'''
 
-        dni = input("Número de documento del cliente: ")
-        dni_valid = val.validar_dni(dni)
-        while dni_valid == False:
-            print("Ingrese un número de documento válido")
-            dni = input("Número de documento del cliente: ")
+        dni = self.ingresar_dni()
 
         # verificamos que el cliente no exista
         for cliente in self.clientes_individuos:
@@ -155,21 +179,7 @@ class Banco():
         # solicitamos al usuario los datos del cliente
         apellido = input("Apellido del cliente: ")
         nombre = input("Nombre del cliente: ")
-
-        cuit_cuil = input(
-            "Número de CUIT/CUIL del cliente: ")
-        cuit_cuil_valid = val.validar_cuit_cuil(cuit_cuil)
-        while cuit_cuil_valid == False:
-            print("Ingrese un CUIT/CUIL  válido")
-            cuit_cuil = input(
-                "Número de CUIT/CUIL del cliente: ")
-
-        if '-' in cuit_cuil:
-            cuit_cuil = cuit_cuil.replace('-', '')
-
-        if '/' in cuit_cuil:
-            cuit_cuil = cuit_cuil.replace('/', '')
-
+        cuit_cuil = self.ingresar_cuit_cuil()
         direccion = input("Dirección del cliente: ")
         telefono = input("Teléfono del cliente: ")
         mail = input("Email del cliente: ")
@@ -186,7 +196,7 @@ class Banco():
         self.clientes_individuos[id_cliente] = nuevo_cliente_ind
 
         # creamos la instancia de Usuario
-        self.alta_usuario(dni, id_cliente)
+        self.alta_usuario(dni, id_cliente, "i")
 
         return print(f'\nEl cliente ha sido generado exitosamente: {nuevo_cliente_ind.__str__()}')
 
@@ -195,21 +205,18 @@ class Banco():
         del sistema, lo actualiza con el usuario creado y retorna la instancia de la autoridad/firmante creada'''
 
         print(f'\nAlta de autoridad/firmante')
-        dni = input("Número de documento: ")
-        dni_valid = val.validar_dni(dni)
-        while dni_valid == False:
-            print("Ingrese un número de documento válido")
-            dni = input("Número de documento: ")
+        dni = self.ingresar_dni()
 
         # verificamos que la autoridad/firmante no exista
-        for autoridad in self.clientes_pyme:
-            if self.clientes_pyme[autoridad].dni == int(dni):
-                return print("Autoridad firmante existente")
+        for cliente_pyme in self.clientes_pyme.values():
+            for autoridad in cliente_pyme.autoridades_firmantes:
+                if autoridad.dni == dni:
+                    return print("Autoridad firmante existente")
 
         # solicitamos al usuario los datos de la autoridad/firmante
         apellido = input("Apellido: ")
         nombre = input("Nombre: ")
-        cuit_cuil = input("CUIT/CUIL: ")
+        cuit_cuil = self.ingresar_cuit_cuil()
         direccion = input("Dirección: ")
         telefono = input("Teléfono: ")
         mail = input("Email: ")
@@ -219,7 +226,7 @@ class Banco():
             apellido, nombre, dni, cuit_cuil, direccion, telefono, mail)
 
         # creamos la instancia de Usuario
-        self.alta_usuario(dni, id_cliente)
+        self.alta_usuario(dni, id_cliente, "p")
 
         return nueva_autoridad_firmante
 
@@ -227,19 +234,7 @@ class Banco():
         '''Método para crear un cliente PyME, actualiza el diccionario de clientes PyME
         con el nuevo cliente y retorna un mensaje de éxito junto con el cliente creado'''
 
-        cuit_cuil = input(
-            "Número de CUIT/CUIL del cliente: ")
-        cuit_cuil_valid = val.validar_cuit_cuil(cuit_cuil)
-        while cuit_cuil_valid == False:
-            print("Ingrese un CUIT/CUIL  válido")
-            cuit_cuil = input(
-                "Número de CUIT/CUIL del cliente: ")
-
-        if '-' in cuit_cuil:
-            cuit_cuil = cuit_cuil.replace('-', '')
-
-        if '/' in cuit_cuil:
-            cuit_cuil = cuit_cuil.replace('/', '')
+        cuit_cuil = self.ingresar_cuit_cuil()
 
         # verificamos que el cliente no exista
         for cliente in self.clientes_pyme:
@@ -278,7 +273,7 @@ class Banco():
         # actualizamos el diccionario de clientes PyME
         self.clientes_pyme[id_cliente] = nuevo_cliente_pyme
 
-        return print(f'\nEl cliente ha sido generado exitosamente: ' + Cliente_pyme.__str__(nuevo_cliente_pyme))
+        return print(f'\nEl cliente ha sido generado exitosamente: {Cliente_pyme.__str__(nuevo_cliente_pyme)}')
 
     def alta_cliente(self):
         '''Este método del Banco verifica el tipo de cliente a dar de alta y
@@ -309,9 +304,14 @@ class Banco():
                 try:
                     cuenta_seleccionada = int(
                         input('Seleccione el numero de la cuenta que desea operar: '))
+                    if cuenta_seleccionada < 0 or cuenta_seleccionada > len(self.usuario_logueado.cuentas):
+                        print('Opción inválida')
+                        self.menu_cuentas_usuario()
+                    else:
+                        cuenta = self.usuario_logueado.cuentas[cuenta_seleccionada]
                 except ValueError:
                     print("Debe ingresar números enteros")
-                cuenta = self.usuario_logueado.cuentas[cuenta_seleccionada]
+                    self.menu_cuentas_usuario()
 
                 opcion_seleccionada = int(input(
                     '\n¿Que desea hacer con la cuenta?'
@@ -491,5 +491,8 @@ class Banco():
             except ValueError:
                 print('\nLa opción ingresada es inválida: escriba un numero entero\n')
 
+
+
+# ----------------MENU PRINCIPAL ----------------
 banco = Banco()
 banco.menu()
