@@ -124,9 +124,8 @@ class Usuario_administrador():
 
     def registrar_cliente(self, clientes_individuo, clientes_pyme):
         '''Este método del administrador, recibe la lista de clientes individuales y pymes
-        y verifica si el cliente ya existe o no y retorna True o False en consecuencia'''
-
-        existe_cliente = False
+        y verifica si el cliente ya existe o no. Si el cliente existe, lo registra y retorna True.
+        Si el cliente no existe, retorna False'''
 
         print('Cliente a registrar en el sistema')
         while True:
@@ -135,16 +134,15 @@ class Usuario_administrador():
                 if id_cliente in clientes_individuo.keys() or id_cliente in clientes_pyme.keys():
                     if id_cliente in clientes_individuo.keys():
                         clientes_individuo[id_cliente].registrado = True
-                        existe_cliente = True
+                        return True
                     else:
                         clientes_pyme[id_cliente].registrado = True
-                        existe_cliente = True
+                        return True
                 else:
                     print('\nEl cliente no existe en el sistema\n')
+                    return False
             except ValueError:
                 print('\nEl ID ingresado no es válido\n')
-
-        return existe_cliente
 
     def registrar_cuenta(self):
         pass

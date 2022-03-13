@@ -17,8 +17,8 @@ clientes_individuos = {
 
 }
 
-clientes_pyme = {"PY30": Cliente_pyme(
-    "La Pirca", 125487458, "Belgrano 230", 2494561231, 'unmail', [3, 25], "PY30", [78, 79], False),
+clientes_pyme = {
+    "PY30": Cliente_pyme("La Pirca", 125487458, "Belgrano 230", 2494561231, 'unmail', [3, 25], "PY30", [78, 79], False),
     "PY120": Cliente_pyme("La Rural", 20514232, "San Martin 90", 2414512023, "ah@asd.com", [1, 2], "PY120", [], False)
 }
 
@@ -260,7 +260,9 @@ class Banco():
             print("Ingrese una opción válida")
 
     def menu_cuentas_usuario(self):
-
+        '''Este metodo del Banco muestra las transacciones disponibles para las
+        cuentas del usuario y permite realizar una de ellas. Si el usuario no tiene
+        ninguna cuenta, se le informa y se muestra el menú correspondiente'''
         while True:
             try:
                 if self.usuario_logueado.cuentas == []:
@@ -268,12 +270,18 @@ class Banco():
                     self.menu_usuario_cliente()
                 for num, cuenta in enumerate(self.usuario_logueado.cuentas):
                     print(num, cuenta)
-                cuenta_seleccionada = int(
-                    input('Seleccione el numero de la cuenta que desea operar: '))
+                try:
+                    cuenta_seleccionada = int(
+                        input('Seleccione el numero de la cuenta que desea operar: '))
+                except ValueError:
+                    print("Debe ingresar números enteros")
                 cuenta = self.usuario_logueado.cuentas[cuenta_seleccionada]
-                opcion_seleccionada = int(input('Que desea hacer con la cuenta?"\n1: Consulta de Saldo\n2: Transferir a otra cuenta'
-                                                '\n3: Depositar''\n4: Realizar plazo fijo''\n5: Comprar moneda extranjera'
-                                                '\n6:Cerrar cuenta \n7: Salir\n'))
+
+                opcion_seleccionada = int(input(
+                    '\n¿Que desea hacer con la cuenta?'
+                    '\n1: Consulta de Saldo\n2: Transferir a otra cuenta'
+                    '\n3: Depositar \n4: Realizar plazo fijo \n5: Comprar moneda extranjera'
+                    '\n6:Cerrar cuenta \n7: Salir\n'))
 
                 if opcion_seleccionada == 1:
                     cuenta.mostrar_saldo()
