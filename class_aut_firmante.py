@@ -2,6 +2,7 @@ from class_caja_ahorro import Caja_ahorro
 from class_cta_cte import Cuenta_corriente
 from class_persona import Persona
 from class_cliente_pyme import Cliente_pyme
+from sistema import clientes_pyme
 import random
 import datetime
 
