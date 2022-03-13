@@ -156,20 +156,7 @@ class Banco():
         apellido = input("Apellido del cliente: ")
         nombre = input("Nombre del cliente: ")
 
-        cuit_cuil = input(
-            "Número de CUIT/CUIL del cliente: ")
-        cuit_cuil_valid = val.validar_cuit_cuil(cuit_cuil)
-        while cuit_cuil_valid == False:
-            print("Ingrese un CUIT/CUIL  válido")
-            cuit_cuil = input(
-                "Número de CUIT/CUIL del cliente: ")
-
-        if '-' in cuit_cuil:
-            cuit_cuil = cuit_cuil.replace('-', '')
-
-        if '/' in cuit_cuil:
-            cuit_cuil = cuit_cuil.replace('/', '')
-
+        cuit_cuil = input("CUIT/CUIL del cliente: ")
         direccion = input("Dirección del cliente: ")
         telefono = input("Teléfono del cliente: ")
         mail = input("Email del cliente: ")
@@ -229,7 +216,7 @@ class Banco():
 
         cuit_cuil = input(
             "Número de CUIT/CUIL del cliente: ")
-        cuit_cuil_valid = val.validar_cuit_cuil(cuit_cuil)
+        cuit_cuil_valid = val.validar_dni(cuit_cuil)
         while cuit_cuil_valid == False:
             print("Ingrese un CUIT/CUIL  válido")
             cuit_cuil = input(
@@ -484,3 +471,8 @@ class Banco():
                     print('\nOpción incorrecta\n')
             except ValueError:
                 print('\nLa opción ingresada es inválida: escriba un numero entero\n')
+
+
+# # ----------------MENU PRINCIPAL ----------------
+banco = Banco()
+banco.menu()
