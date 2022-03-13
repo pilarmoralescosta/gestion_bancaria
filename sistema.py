@@ -265,10 +265,10 @@ class Banco():
                 agregar_aut_firmante = True
             else:
                 print("Ingrese una opción válida")
-
+        registrado = True
         # creamos la instancia de Cliente_pyme
         nuevo_cliente_pyme = Cliente_pyme(
-            razon_social, cuit_cuil, direccion, telefono, mail, autoridades_firmantes, id_cliente, cuentas)
+            razon_social, cuit_cuil, direccion, telefono, mail, autoridades_firmantes, id_cliente, cuentas, registrado)
 
         # actualizamos el diccionario de clientes PyME
         self.clientes_pyme[id_cliente] = nuevo_cliente_pyme
@@ -320,7 +320,7 @@ class Banco():
                     print("Usted no tiene ninguna cuenta, debe crear una primero")
                     self.menu_usuario_cliente()
                 for num, cuenta in enumerate(self.usuario_logueado.cuentas):
-                    print(f'Cuenta {cuenta}: opción {num}')
+                    print("Presione:", num, "\nPara operar la cuenta: ", cuenta)
                 try:
                     cuenta_seleccionada = int(
                         input('Seleccione la opción que corresponde a la cuenta con la que desea operar: '))
@@ -342,16 +342,22 @@ class Banco():
 
                 if opcion_seleccionada == 1:
                     cuenta.mostrar_saldo()
+                    self.menu_cuentas_usuario()
                 elif opcion_seleccionada == 2:
                     cuenta.realizar_transferencia()
+                    self.menu_cuentas_usuario()
                 elif opcion_seleccionada == 3:
                     cuenta.realizar_deposito()
+                    self.menu_cuentas_usuario()
                 elif opcion_seleccionada == 4:
                     cuenta.realizar_plazo_fijo()
+                    self.menu_cuentas_usuario()
                 elif opcion_seleccionada == 5:
                     cuenta.comprar_moneda_extranjera()
+                    self.menu_cuentas_usuario()
                 elif opcion_seleccionada == 6:
                     cuenta.cerrar_cuenta()
+                    self.menu_cuentas_usuario()
                 elif opcion_seleccionada == 7:
                     self.usuario_logueado = None
                     self.menu()
@@ -431,7 +437,7 @@ class Banco():
                 elif opcion_seleccionada == 2:
                     self.usuario_logueado.abrir_caja_ahorro()
                 elif opcion_seleccionada == 3:
-                    self.usuario_logueado.cierre_cuenta()
+                    self.usuario_logueado.cerrar_cuenta()
                 elif opcion_seleccionada == 4:
                     self.menu_cuentas_usuario()
                 elif opcion_seleccionada == 5:
