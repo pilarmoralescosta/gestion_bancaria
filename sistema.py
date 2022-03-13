@@ -342,7 +342,7 @@ class Banco():
                     '\n¿Que desea hacer con la cuenta?'
                     '\n1: Consulta de Saldo\n2: Transferir a otra cuenta'
                     '\n3: Depositar \n4: Realizar plazo fijo \n5: Comprar moneda extranjera'
-                    '\n6: Cerrar cuenta \n7: Salir\n'))
+                    '\n6: Salir\n'))
 
                 if opcion_seleccionada == 1:
                     cuenta.mostrar_saldo()
@@ -361,9 +361,6 @@ class Banco():
                         cotizacion_moneda_extranjera)
                     self.menu_cuentas_usuario()
                 elif opcion_seleccionada == 6:
-                    cuenta.cerrar_cuenta()
-                    self.menu_cuentas_usuario()
-                elif opcion_seleccionada == 7:
                     self.usuario_logueado = None
                     self.menu()
             except ValueError:
