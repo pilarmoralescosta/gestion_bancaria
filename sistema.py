@@ -7,21 +7,20 @@ from class_aut_firmante import Autoridad_firmante
 from class_usuario_administrador import Usuario_administrador
 
 
-
 clientes_individuos = {
-    "POB123" : Cliente_individuo("Boragini","Trinidad", 32521456, 2035214528, "San Martin 100", 24941546289, 
-    "trini@bora.com", "POB123", [], False),
-    "ILG412" : Cliente_individuo("Gronda", "Lucio",25487412, 20256321451, "Saavedra 42",
-    114214587, "lucio@gronda.com", "ILG412", [], False),
+    "POB123": Cliente_individuo("Boragini", "Trinidad", 32521456, 2035214528, "San Martin 100", 24941546289,
+                                "trini@bora.com", "POB123", [], False),
+    "ILG412": Cliente_individuo("Gronda", "Lucio", 25487412, 20256321451, "Saavedra 42",
+                                114214587, "lucio@gronda.com", "ILG412", [], False),
     "IRO345": Cliente_individuo("Chimondeguy", "Javier", 36645929, 2032541562, "Uruguay 1200", 3625142513, "jchimon@abc.gob.ar", "IRO345", [], False)
 
-} 
+}
 
 
 clientes_pyme = {"PY30": Cliente_pyme(
     "La Pirca", 125487458, "Belgrano 230", 2494561231, 'unmail', [3, 25], "PY30", [78, 79], False),
-    "PY120" : Cliente_pyme("La Rural", 20514232, "San Martin 90", 2414512023, "ah@asd.com", [1,2], "PY120", [], False )
-    }
+    "PY120": Cliente_pyme("La Rural", 20514232, "San Martin 90", 2414512023, "ah@asd.com", [1, 2], "PY120", [], False)
+}
 
 usuarios = {
     1: Usuario(1, 12, 'IRO345', True, False),
@@ -147,7 +146,7 @@ class Banco():
         self.clientes_individuos[id_cliente] = nuevo_cliente_ind
 
         # creamos la instancia de Usuario
-        self.alta_usuario(dni, id_cliente, usuarios)
+        self.alta_usuario(dni, id_cliente)
 
         return print(f'\nEl cliente ha sido generado exitosamente: ' + nuevo_cliente_ind.__str__)
 
@@ -206,8 +205,7 @@ class Banco():
         autoridades_firmantes = []
         agregar_aut_firmante = True
         while agregar_aut_firmante:
-            autoridad_firmante = self.alta_autoridad_firmante(
-                id_cliente, usuarios)
+            autoridad_firmante = self.alta_autoridad_firmante(id_cliente)
             autoridades_firmantes.append(autoridad_firmante)
             agregar = input(
                 "¿Desea agregar otra autoridad/firmante? (s/n)").lower()
@@ -228,7 +226,7 @@ class Banco():
         return print(f'\nEl cliente ha sido generado exitosamente: ' + Cliente_pyme.__str__(nuevo_cliente_pyme))
 
     def menu_cuentas_usuario(self):
-        
+
         while True:
             try:
                 if self.usuario_logueado.cuentas == []:
@@ -236,11 +234,12 @@ class Banco():
                     self.menu_usuario_cliente()
                 for num, cuenta in enumerate(self.usuario_logueado.cuentas):
                     print(num, cuenta)
-                cuenta_seleccionada = int(input('Seleccione el numero de la cuenta que desea operar: '))
+                cuenta_seleccionada = int(
+                    input('Seleccione el numero de la cuenta que desea operar: '))
                 cuenta = self.usuario_logueado.cuentas[cuenta_seleccionada]
                 opcion_seleccionada = int(input('Que desea hacer con la cuenta?"\n1: Consulta de Saldo\n2: Transferir a otra cuenta'
-                '\n3: Depositar''\n4: Realizar plazo fijo''\n5: Comprar moneda extranjera'
-                '\n6:Cerrar cuenta \n7: Salir\n'))
+                                                '\n3: Depositar''\n4: Realizar plazo fijo''\n5: Comprar moneda extranjera'
+                                                '\n6:Cerrar cuenta \n7: Salir\n'))
 
                 if opcion_seleccionada == 1:
                     cuenta.mostrar_saldo()
@@ -261,15 +260,15 @@ class Banco():
                 print("La opción ingresada es inválida: escriba un numero entero")
 
     def logueo_usuario(self):
-        '''Este método se encarga de loguear al usuario, recibe el usuario.
-        Retorna True si el usuario y la contraseña ingresados son correctos, False si no lo son.'''
+        '''Este método se encarga de loguear al usuario.
+        Retorna True si el usuario y la contraseña ingresados son correctos,
+        False si no lo son.'''
 
         numero_usuario = int(input("Ingrese su numero de usuario: "))
 
         # verificamos que el usuario ingresado exista
         if numero_usuario in self.usuarios:
             usuario = self.usuarios[numero_usuario]
-            
 
             clave = int(input("Ingrese su clave: "))
             # veridficamos que la contraseña ingresada sea la correcta
@@ -280,7 +279,7 @@ class Banco():
                 if usuario.es_cliente_pyme:
                     self.usuario_logueado = self.clientes_pyme[usuario.id_cliente]
                     return True
-                
+
             else:
                 return False
         else:
