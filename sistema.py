@@ -6,6 +6,7 @@ from class_cliente_pyme import Cliente_pyme
 from class_aut_firmante import Autoridad_firmante
 from class_usuario_administrador import Usuario_administrador
 
+import re
 
 # ----------------DATOS DE TEST ----------------
 clientes_individuos = {
@@ -133,13 +134,21 @@ class Banco():
             # actualizamos el diccionario de usuarios
             self.usuarios[dni] = nuevo_usuario
 
-            return print(f'\nEl usuario ha sido generado exitosamente: ' + Usuario.__str__(nuevo_usuario))
+            return print(f'\nEl usuario ha sido generado exitosamente: {Usuario.__str__(nuevo_usuario)}')
 
     def alta_cliente_ind(self):
         '''Método para dar de alta un cliente individuo, actualiza el el diccionario de clientes individuos
         con el nuevo cliente y retorna un mensaje de éxito junto con el cliente creado'''
 
-        dni = int(input("Número de documento del cliente: "))
+        dni_valid = False
+
+        dni = input("Número de documento del cliente: ")
+        while dni_valid == False:
+            if re.search('^\d{8}(?:[-\s]\d{4})?$', dni):
+                dni_valid = True
+            else:
+                print("Ingrese un número de documento válido")
+                dni = input("Número de documento del cliente: ")
 
         # verificamos que el cliente no exista
         for cliente in self.clientes_individuos:
@@ -149,6 +158,7 @@ class Banco():
         # solicitamos al usuario los datos del cliente
         apellido = input("Apellido del cliente: ")
         nombre = input("Nombre del cliente: ")
+
         cuit_cuil = input("CUIT/CUIL del cliente: ")
         direccion = input("Dirección del cliente: ")
         telefono = input("Teléfono del cliente: ")
@@ -156,10 +166,11 @@ class Banco():
         # formato del id de cliente: ITB029 - I: cliente individuo T: primer caracter nombre B: primer caracter apellido 029: últimos 3 dígitos del dni
         id_cliente = f'I{apellido[0].upper()}{nombre[0].upper()}{dni[-3:]}'
         cuentas = []  # lista de cuentas del cliente
+        registrado = False
 
         # creamos la instancia de Cliente_individuo
         nuevo_cliente_ind = Cliente_individuo(
-            apellido, nombre, dni, cuit_cuil, direccion, telefono, mail, id_cliente, cuentas)
+            apellido, nombre, dni, cuit_cuil, direccion, telefono, mail, id_cliente, cuentas, registrado)
 
         # actualiza el diccionario de clientes individuos
         self.clientes_individuos[id_cliente] = nuevo_cliente_ind
@@ -167,7 +178,7 @@ class Banco():
         # creamos la instancia de Usuario
         self.alta_usuario(dni, id_cliente)
 
-        return print(f'\nEl cliente ha sido generado exitosamente: ' + nuevo_cliente_ind.__str__)
+        return print(f'\nEl cliente ha sido generado exitosamente: {nuevo_cliente_ind.__str__()}')
 
     def alta_autoridad_firmante(self, id_cliente):
         '''Método para dar de alta una autoridad/firmante de una PyME, recibe el id de la PyME y el arreglo de usuarios
@@ -249,9 +260,9 @@ class Banco():
         llama al método correspondiente para dar de alta el cliente individuo o pyme'''
         try:
             tipo_cliente = input(
-                '\nIngrese el tipo de cliente que desea dar de alta: Individuo o PyMe (i/p): ').lower()
+                'Ingrese el tipo de cliente que desea dar de alta: Individuo o PyMe (i/p): ').lower()
             if tipo_cliente == "i":
-                self.alta_cliente_individuo()
+                self.alta_cliente_ind()
             elif tipo_cliente == "p":
                 self.alta_cliente_pyme()
             else:
@@ -389,11 +400,11 @@ class Banco():
         '''Método para mostrar el menú de opciones del administrador, recibe el usuario administrador.
         Si la opción seleccionada es correcta, se invoca a la función en cuestión, si la opción ingresada no es correcta
         se imprime un mensaje de error. Si elige la opción 2, se termina la ejecución del programa.'''
-
+        print("\nMENÚ ADMINISTRADOR:")
         while True:
             try:
                 opcion_seleccionada = int(input(
-                    'Ingrese la opción:'
+                    '\nIngrese la opción:'
                     '\n1: Monto de saldo retenido \n2: Monto de saldo descubierto'
                     '\n3: Costos de servicios para cada tipo de transacción'
                     '\n4: Porcentajes de beneficios para cada tipo de transacción'

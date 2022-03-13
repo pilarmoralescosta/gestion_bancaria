@@ -9,4 +9,4 @@ class Cliente(ABC):
         self.registrado = False
 
     def __str__(self):
-        return f'\nID Cliente: {self.id_cliente} \nCuentas{self.cuentas}'
+        return f'\nID Cliente: {self.id_cliente} \nCuentas: {self.cuentas}'
