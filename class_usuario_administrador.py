@@ -129,7 +129,7 @@ class Usuario_administrador():
         print('Cliente a registrar en el sistema')
         while True:
             try:
-                id_cliente = input('Ingrese el ID del cliente: ')
+                id_cliente = input('Ingrese el ID del cliente: ').upper()
                 if id_cliente in clientes_individuo.keys() or id_cliente in clientes_pyme.keys():
                     if id_cliente in clientes_individuo.keys():
                         clientes_individuo[id_cliente].registrado = True

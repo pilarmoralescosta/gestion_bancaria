@@ -291,24 +291,25 @@ class Banco():
             print("Ingrese una opción válida")
 
     def baja_cliente(self, tipo_cliente):
+        '''Este método elimina u cliente de la lista de clientes clientes_individuos
+        o pyme, dependiendo del tipo de cliente pasado por parámetro'''
 
         id_cliente = input(
-            "Ingrese el ID del cliente que desea dar de baja")
+            "Ingrese el ID del cliente que desea dar de baja: ").upper()
 
         if tipo_cliente == "i":
-            for id in self.clientes_individuos.keys():
-                if id == id_cliente:
-                    del self.clientes_individuos[id]
-                    return print(f'\nEl cliente {id_cliente} ha sido dado de baja exitosamente')
-                else:
-                    print(f'\nEl cliente no existe')
+            if id_cliente in self.clientes_individuos.keys():
+                print(
+                    f'\nEl cliente {id_cliente} ha sido dado de baja exitosamente')
+            else:
+                print(f'\nEl cliente no existe')
         else:
-            for id in self.clientes_pyme.keys():
-                if id == id_cliente:
-                    del self.clientes_pyme[id]
-                    return print(f'\nEl cliente {id_cliente} ha sido dado de baja exitosamente')
-                else:
-                    print(f'\nEl cliente no existe')
+            if id_cliente in self.clientes_pyme.keys():
+                del self.clientes_pyme[id]
+                print(
+                    f'\nEl cliente {id_cliente} ha sido dado de baja exitosamente')
+            else:
+                print(f'\nEl cliente no existe')
 
     def menu_cuentas_usuario(self):
         '''Este metodo del Banco muestra las transacciones disponibles para las
@@ -415,11 +416,11 @@ class Banco():
             self.menu_administrador()
         else:
             opcion = input(
-                "El logueo fue incorrecto, opcion 1 para seguir probando, 2 para salir ")
+                "El logueo fue incorrecto, opcion 1 para seguir probando, 2 para volver al menú principal")
             if opcion == "1":
                 self.iniciar_sesion_administrador()
             else:
-                exit()
+                self.menu()
 
     def menu_usuario_cliente(self):
         '''Este método se encarga de mostrar el menú de opciones del usuario, Si la opción es correcta,
