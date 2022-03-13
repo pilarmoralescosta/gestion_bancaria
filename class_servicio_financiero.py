@@ -15,27 +15,55 @@ class Servicio_financiero(ABC):
         return f'\nNro. Cuenta: {self.nro_cuenta} \nSucursal: {self.sucursal} \nCBU: {self.cbu} \nFecha apertura: {self.fecha_apertura} \nSaldo: {self.saldo} \nTipo: {self.tipo} \nSaldo retenido: {self.saldo_retenido}'
 
     def realizar_deposito(self):
-        monto_a_depositar = float(input("Ingrese el monto del deposito: "))
-        self.saldo = self.saldo + monto_a_depositar
-        print("Se ha realizado el deposito, su nuevo saldo es: {}".format(self.saldo))
+        while True:
+            try:
+                monto_a_depositar = float(
+                    input("Ingrese el monto del depósito: "))
+                self.saldo = self.saldo + monto_a_depositar
+                print(
+                    f'Se ha realizado el depósito, su nuevo saldo es: {self.saldo}')
+            except ValueError:
+                print("Debe ingresar un valor númerico")
 
     def realizar_transferencia(self):
-        cuenta_a_transferir = input(
-            "Ingrese la cuenta a la que desea transferir: ")
-        monto_a_transferir = float(input("Ingrese el monto a transferir: "))
-        self.saldo = self.saldo - monto_a_transferir
-        print("Transferencia realizada con exito, su nuevo saldo es: {}".format(self.saldo))
+        while True:
+            try:
+                input("Ingrese la cuenta a la que desea transferir: ")
+                monto_a_transferir = float(
+                    input("Ingrese el monto a transferir: "))
+                if monto_a_transferir > self.saldo:
+                    print("No hay saldo suficiente")
+                else:
+                    self.saldo = self.saldo - monto_a_transferir
+                    print(
+                        f'Transferencia realizada con éxito, su nuevo saldo es: {self.saldo}')
+            except ValueError:
+                print("Debe ingresar un valor numérico")
 
     def recibir_transferencia(self):
-        monto_transferencia = float(
-            input("Ingrese el monto de la transferencia a acreditar: "))
-        self.saldo = self.saldo + monto_transferencia
-        print("Transferencia recibida con exito, su nuevo saldo es: {}".format(self.saldo))
+        while True:
+            try:
+                monto_transferencia = float(
+                    input("Ingrese el monto de la transferencia a acreditar: "))
+                self.saldo = self.saldo + monto_transferencia
+                print(
+                    f'Transferencia recibida con éxito, su nuevo saldo es: {self.saldo}')
+            except ValueError:
+                print("Debe ingresar un valor numérico")
 
     def pagar_en_linea(self):
-        monto_a_debitar = float(input("Ingrese el monto a transferir: "))
-        self.saldo = self.saldo - monto_a_debitar
-        print("Transferencia realizada con exito, su nuevo saldo es: {}".format(self.saldo))
+        while True:
+            try:
+                monto_a_debitar = float(
+                    input("Ingrese el monto a transferir: "))
+                if monto_a_debitar > self.saldo:
+                    print("No hay saldo suficiente")
+                else:
+                    self.saldo = self.saldo - monto_a_debitar
+                    print(
+                        f'Transferencia realizada con exito, su nuevo saldo es: {self.saldo}')
+            except ValueError:
+                print("Debe ingresar un valor numérico")
 
     def mostrar_saldo(self):
         print("El saldo de la cuenta es: ", self.saldo)
