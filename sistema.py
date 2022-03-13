@@ -322,10 +322,10 @@ class Banco():
                     print("Usted no tiene ninguna cuenta, debe crear una primero")
                     self.menu_usuario_cliente()
                 for num, cuenta in enumerate(self.usuario_logueado.cuentas):
-                    print("Presione:", num, "\nPara operar la cuenta: ", cuenta)
+                    print(f'\nPresione {num} para operar la cuenta {cuenta}')
                 try:
                     cuenta_seleccionada = int(
-                        input('Seleccione la opción que corresponde a la cuenta con la que desea operar: '))
+                        input('\nSeleccione la opción que corresponde a la cuenta con la que desea operar: '))
                     if cuenta_seleccionada < 0 or cuenta_seleccionada > len(self.usuario_logueado.cuentas):
                         print(
                             f'Opción inválida, debe ingresar un número de 0 a {len(self.usuario_logueado.cuentas)-1}')
@@ -432,7 +432,7 @@ class Banco():
         while True:
             try:
                 opcion_seleccionada = int(input(
-                    'Ingrese la opción: \n1: Apertura de cuenta corriente'
+                    '\nIngrese la opción: \n1: Apertura de cuenta corriente'
                     '\n2: Apertura de Caja de Ahorro \n3: Cierre de cuenta \n4: Operar con cuentas'
                     '\n5: Cerrar sesión\n'))
 
