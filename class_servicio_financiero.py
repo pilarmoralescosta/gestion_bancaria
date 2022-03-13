@@ -67,7 +67,3 @@ class Servicio_financiero(ABC):
 
     def mostrar_saldo(self):
         print("El saldo de la cuenta es: ", self.saldo)
-
-
-# servicio = Servicio_financiero(1, 12, 123, 124, 12, "A", 1231)
-# servicio.realizar_deposito()

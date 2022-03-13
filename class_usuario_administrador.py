@@ -144,29 +144,3 @@ class Usuario_administrador():
                     return False
             except ValueError:
                 print('\nEl ID ingresado no es válido\n')
-
-    def registrar_cuenta(self):
-        pass
-
-
-# TEST
-admin = Usuario_administrador()
-
-# ALTA USUARIO
-# admin.alta_usuario(3, usuarios)
-# for usuario in usuarios:
-#     print(usuarios[usuario])
-
-# ALTA CLIENTE INDIVIDUO
-# admin.alta_cliente_ind_a_modificar(clientes_individuos)
-
-# for cliente in clientes_individuos:
-#     print(clientes_individuos[cliente].dni)
-#     print(usuarios[usuario])
-
-# ALTA CLIENTE PYME
-# admin.alta_cliente_pyme(clientes_pyme)
-
-# MODIFICAR CLIENTE
-# MODIFICAR CLIENTE INDIVIDUO
-# admin.modificar_cliente(32123, clientes_individuos, clientes_pyme)

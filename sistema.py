@@ -8,14 +8,13 @@ from class_aut_firmante import Autoridad_firmante
 from class_usuario_administrador import Usuario_administrador
 import validaciones as val
 
-import re
 
 # ----------------DATOS DE TEST ----------------
 clientes_individuos = {
     "TB456": Cliente_individuo("Boragini", "Trinidad", 32521456, 2035214528, "San Martin 100", 24941546289,
-                                "trini@bora.com", "TB456", [], False),
+                               "trini@bora.com", "TB456", [], False),
     "LG412": Cliente_individuo("Gronda", "Lucio", 25487412, 20256321451, "Saavedra 42",
-                                114214587, "lucio@gronda.com", "LG412", [], False),
+                               114214587, "lucio@gronda.com", "LG412", [], False),
     "JC929": Cliente_individuo("Chimondeguy", "Javier", 36645929, 2032541562, "Uruguay 1200", 3625142513, "jchimon@abc.gob.ar", "JC929", [], False)
 
 }
@@ -36,7 +35,7 @@ usuarios = {
     2: Usuario(2, 11, 'LG412', True, False),
     3: Usuario(3, 10, "LP458", False, True),
     4: Usuario(4, 9, 'LR232', False, True),
-    5: Usuario(5,8,'JC929', True, False)
+    5: Usuario(5, 8, 'JC929', True, False)
 }
 
 # ----------------ESTRUCTURA DE COSTOS ----------------
@@ -302,14 +301,14 @@ class Banco():
         if tipo_cliente == "i":
             if id_cliente in self.clientes_individuos.keys():
                 print(
-                    f'\nEl cliente {id_cliente} ha sido dado de baja exitosamente')
+                    f'\nEl cliente Individuo {id_cliente} ha sido dado de baja exitosamente')
             else:
                 print(f'\nEl cliente no existe')
         else:
             if id_cliente in self.clientes_pyme.keys():
-                del self.clientes_pyme[id]
+                del self.clientes_pyme[id_cliente]
                 print(
-                    f'\nEl cliente {id_cliente} ha sido dado de baja exitosamente')
+                    f'\nEl cliente PyME {id_cliente} ha sido dado de baja exitosamente')
             else:
                 print(f'\nEl cliente no existe')
 
@@ -466,9 +465,9 @@ class Banco():
                     '\n3: Monto de saldo retenido \n4: Monto de saldo descubierto'
                     '\n5: Costos de servicios para cada tipo de transacción'
                     '\n6: Porcentajes de beneficios para cada tipo de transacción'
-                    '\n7: Registrar cliente \n8: Registro de cuentas de cliente'
-                    '\n9: Baja de cliente individuo \n10: Baja de cliente PyME'
-                    '\n11: Cerrar sesión\n'))
+                    '\n7: Registrar cliente'
+                    '\n8: Baja de cliente individuo \n9: Baja de cliente PyME'
+                    '\n10: Cerrar sesión\n'))
 
                 if opcion_seleccionada == 1:
                     self.alta_cliente_ind()
@@ -488,12 +487,10 @@ class Banco():
                     if existe_cliente == False:
                         self.alta_cliente()
                 elif opcion_seleccionada == 8:
-                    self.administrador.registrar_cuenta()
-                elif opcion_seleccionada == 9:
                     self.baja_cliente("i")
-                elif opcion_seleccionada == 10:
+                elif opcion_seleccionada == 9:
                     self.baja_cliente("p")
-                elif(int(opcion_seleccionada) == 11):
+                elif(int(opcion_seleccionada) == 10):
                     self.menu()
                 else:
                     print('\nOpción incorrecta\n')
