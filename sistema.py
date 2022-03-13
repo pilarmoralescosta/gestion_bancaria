@@ -12,11 +12,11 @@ import re
 
 # ----------------DATOS DE TEST ----------------
 clientes_individuos = {
-    "POB123": Cliente_individuo("Boragini", "Trinidad", 32521456, 2035214528, "San Martin 100", 24941546289,
-                                "trini@bora.com", "POB123", [], False),
-    "ILG412": Cliente_individuo("Gronda", "Lucio", 25487412, 20256321451, "Saavedra 42",
-                                114214587, "lucio@gronda.com", "ILG412", [], False),
-    "IRO345": Cliente_individuo("Chimondeguy", "Javier", 36645929, 2032541562, "Uruguay 1200", 3625142513, "jchimon@abc.gob.ar", "IRO345", [6, 7], False)
+    "TB456": Cliente_individuo("Boragini", "Trinidad", 32521456, 2035214528, "San Martin 100", 24941546289,
+                                "trini@bora.com", "TB456", [], False),
+    "LG412": Cliente_individuo("Gronda", "Lucio", 25487412, 20256321451, "Saavedra 42",
+                                114214587, "lucio@gronda.com", "LG412", [], False),
+    "JC929": Cliente_individuo("Chimondeguy", "Javier", 36645929, 2032541562, "Uruguay 1200", 3625142513, "jchimon@abc.gob.ar", "JC929", [], False)
 
 }
 
@@ -26,15 +26,17 @@ aut_2 = Autoridad_firmante(
     "Gomez", "Mariana", 40888999, 27408889995, "Paz 1234", 333, "mariana@mail.com")
 
 clientes_pyme = {
-    "PY30": Cliente_pyme("La Pirca", 125487458, "Belgrano 230", 2494561231, 'unmail', [aut_1, aut_2], "PY30", [78, 79], False),
-    "PY120": Cliente_pyme("La Rural", 20514232, "San Martin 90", 2414512023, "ah@asd.com", [], "PY120", [], False)
+    "LP458": Cliente_pyme("La Pirca", 125487458, "Belgrano 230", 2494561231, 'unmail', [aut_1, aut_2], "LP458", [78, 79], False),
+    "LR232": Cliente_pyme("La Rural", 20514232, "San Martin 90", 2414512023, "ah@asd.com", [], "LR232", [], False)
 }
 
 usuarios = {
     # 1 es el usuario, que es el dni del cliente (coinciden la clave del usuario con el atributo usuario del cliente)
-    1: Usuario(1, 12, 'IRO345', True, False),
-    2: Usuario(2, 11, 'POB123', True, False),
-    3: Usuario(3, 10, "PY120", False, True)
+    1: Usuario(1, 12, 'TB456', True, False),
+    2: Usuario(2, 11, 'LG412', True, False),
+    3: Usuario(3, 10, "LP458", False, True),
+    4: Usuario(4, 9, 'LR232', False, True),
+    5: Usuario(5,8,'JC929', True, False)
 }
 
 # ----------------ESTRUCTURA DE COSTOS ----------------
@@ -265,7 +267,7 @@ class Banco():
                 agregar_aut_firmante = True
             else:
                 print("Ingrese una opción válida")
-        registrado = True
+        registrado = False
         # creamos la instancia de Cliente_pyme
         nuevo_cliente_pyme = Cliente_pyme(
             razon_social, cuit_cuil, direccion, telefono, mail, autoridades_firmantes, id_cliente, cuentas, registrado)
@@ -386,8 +388,10 @@ class Banco():
                     return True
 
             else:
+                print("Clave incorrecta. Seleccione una nueva opcion ")
                 return False
         else:
+            print("El usuario no existe. Seleccione otra opcion ")
             return False
 
     def logueo_administrador(self):

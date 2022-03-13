@@ -1,3 +1,4 @@
+from class_caja_ahorro import Caja_ahorro
 from class_persona import Persona
 from class_cliente import Cliente
 from class_cta_cte import Cuenta_corriente
@@ -17,7 +18,7 @@ class Cliente_individuo(Persona, Cliente):
 
         while abrir_cuenta:
 
-            sucursal = input("Ingrese el nombre de la sucursal")
+            sucursal = input("Ingrese el nombre de la sucursal: ")
             nro_cuenta = random.randint(0, 10000000)
             cbu = random.randint(0, 10000000)
             fecha_apertura = datetime.date
@@ -31,7 +32,26 @@ class Cliente_individuo(Persona, Cliente):
             
             return True
 
+    def abrir_caja_ahorro(self):
 
+        abrir_cuenta = True
+
+        while abrir_cuenta:
+
+            sucursal = input("Ingrese el nombre de la sucursal: ")
+            nro_cuenta = random.randint(0, 10000000)
+            cbu = random.randint(0, 10000000)
+            fecha_apertura = datetime.date
+            saldo = 0
+            saldo_retenido = False
+            tipo = "Caja de ahorro"
+            es_bonificada = True
+            cuenta = Caja_ahorro(sucursal, nro_cuenta, cbu, fecha_apertura, saldo, tipo, saldo_retenido, es_bonificada)
+            self.cuentas.append(cuenta)
+            print("Cuenta creada con exito")
+            print("Sus cuentas son", self.cuentas)
+            
+            return True
 
     
     def abrir_caja_ahorro(self):
