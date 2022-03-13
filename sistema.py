@@ -233,7 +233,7 @@ class Banco():
     def alta_cliente_pyme(self):
         '''Método para crear un cliente PyME, actualiza el diccionario de clientes PyME
         con el nuevo cliente y retorna un mensaje de éxito junto con el cliente creado'''
-        
+
         cuit_cuil = self.ingresar_cuit_cuil()
 
         # verificamos que el cliente no exista
@@ -290,6 +290,26 @@ class Banco():
         except ValueError:
             print("Ingrese una opción válida")
 
+    def baja_cliente(self, tipo_cliente):
+
+        id_cliente = input(
+            "Ingrese el ID del cliente que desea dar de baja")
+
+        if tipo_cliente == "i":
+            for id in self.clientes_individuos.keys():
+                if id == id_cliente:
+                    del self.clientes_individuos[id]
+                    return print(f'\nEl cliente {id_cliente} ha sido dado de baja exitosamente')
+                else:
+                    print(f'\nEl cliente no existe')
+        else:
+            for id in self.clientes_pyme.keys():
+                if id == id_cliente:
+                    del self.clientes_pyme[id]
+                    return print(f'\nEl cliente {id_cliente} ha sido dado de baja exitosamente')
+                else:
+                    print(f'\nEl cliente no existe')
+
     def menu_cuentas_usuario(self):
         '''Este metodo del Banco muestra las transacciones disponibles para las
         cuentas del usuario y permite realizar una de ellas. Si el usuario no tiene
@@ -300,12 +320,13 @@ class Banco():
                     print("Usted no tiene ninguna cuenta, debe crear una primero")
                     self.menu_usuario_cliente()
                 for num, cuenta in enumerate(self.usuario_logueado.cuentas):
-                    print("Presione:", num,"\nPara operar la cuenta: ", cuenta)
+                    print("Presione:", num, "\nPara operar la cuenta: ", cuenta)
                 try:
                     cuenta_seleccionada = int(
-                        input('Seleccione el numero de la cuenta que desea operar: '))
+                        input('Seleccione la opción que corresponde a la cuenta con la que desea operar: '))
                     if cuenta_seleccionada < 0 or cuenta_seleccionada > len(self.usuario_logueado.cuentas):
-                        print('Opción inválida')
+                        print(
+                            f'Opción inválida, debe ingresar un número de 0 a {len(self.usuario_logueado.cuentas)-1}')
                         self.menu_cuentas_usuario()
                     else:
                         cuenta = self.usuario_logueado.cuentas[cuenta_seleccionada]
@@ -436,29 +457,38 @@ class Banco():
             try:
                 opcion_seleccionada = int(input(
                     '\nIngrese la opción:'
-                    '\n1: Monto de saldo retenido \n2: Monto de saldo descubierto'
-                    '\n3: Costos de servicios para cada tipo de transacción'
-                    '\n4: Porcentajes de beneficios para cada tipo de transacción'
-                    '\n5: Registrar cliente \n6: Registro de cuentas de cliente'
-                    '\n7: Cerrar sesión\n'))
+                    '\n1: Alta de cliente individuo \n2: Alta de cliente PyME'
+                    '\n3: Monto de saldo retenido \n4: Monto de saldo descubierto'
+                    '\n5: Costos de servicios para cada tipo de transacción'
+                    '\n6: Porcentajes de beneficios para cada tipo de transacción'
+                    '\n7: Registrar cliente \n8: Registro de cuentas de cliente'
+                    '\n9: Baja de cliente individuo \n10: Baja de cliente PyME'
+                    '\n11: Cerrar sesión\n'))
 
                 if opcion_seleccionada == 1:
-                    self.administrador.monto_saldo_retenido(
-                        self.costos)
+                    self.alta_cliente_ind()
                 elif opcion_seleccionada == 2:
-                    self.administrador.monto_saldo_descubierto(self.costos)
+                    self.alta_cliente_pyme()
                 elif opcion_seleccionada == 3:
-                    self.administrador.costos_transaccion(self.costos)
+                    self.administrador.monto_saldo_descubierto(self.costos)
                 elif opcion_seleccionada == 4:
-                    self.administrador.beneficios_transaccion(self.costos)
+                    self.administrador.monto_saldo_descubierto(self.costos)
                 elif opcion_seleccionada == 5:
+                    self.administrador.costos_transaccion(self.costos)
+                elif opcion_seleccionada == 6:
+                    self.administrador.beneficios_transaccion(self.costos)
+                elif opcion_seleccionada == 7:
                     existe_cliente = self.administrador.registrar_cliente(
                         self.clientes_individuos, self.clientes_pyme)
                     if existe_cliente == False:
                         self.alta_cliente()
-                elif opcion_seleccionada == 6:
+                elif opcion_seleccionada == 8:
                     self.administrador.registrar_cuenta()
-                elif(int(opcion_seleccionada) == 7):
+                elif opcion_seleccionada == 9:
+                    self.baja_cliente("i")
+                elif opcion_seleccionada == 10:
+                    self.baja_cliente("p")
+                elif(int(opcion_seleccionada) == 11):
                     self.menu()
                 else:
                     print('\nOpción incorrecta\n')
@@ -490,7 +520,6 @@ class Banco():
                     print('\nOpción incorrecta\n')
             except ValueError:
                 print('\nLa opción ingresada es inválida: escriba un numero entero\n')
-
 
 
 # ----------------MENU PRINCIPAL ----------------
