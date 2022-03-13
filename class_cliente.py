@@ -16,7 +16,7 @@ class Cliente(ABC):
         if len(cuentas) == 0:
             print("No tiene cuentas")
         for i in range(len(cuentas)):
-            print(f'{i}: {cuentas[i].__str__()}')
+            print(f'\n{i}: {cuentas[i].__str__()}')
 
     def abrir_cuenta_corriente(self):
 

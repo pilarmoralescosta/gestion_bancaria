@@ -38,6 +38,8 @@ usuarios = {
     5: Usuario(5, 8, 'JC929', True, False)
 }
 
+cotizacion_moneda_extranjera = 100
+
 # ----------------ESTRUCTURA DE COSTOS ----------------
 
 caja_ahorro_comun = {
@@ -340,7 +342,7 @@ class Banco():
                     '\n¿Que desea hacer con la cuenta?'
                     '\n1: Consulta de Saldo\n2: Transferir a otra cuenta'
                     '\n3: Depositar \n4: Realizar plazo fijo \n5: Comprar moneda extranjera'
-                    '\n6:Cerrar cuenta \n7: Salir\n'))
+                    '\n6: Cerrar cuenta \n7: Salir\n'))
 
                 if opcion_seleccionada == 1:
                     cuenta.mostrar_saldo()
@@ -355,7 +357,8 @@ class Banco():
                     cuenta.realizar_plazo_fijo()
                     self.menu_cuentas_usuario()
                 elif opcion_seleccionada == 5:
-                    cuenta.comprar_moneda_extranjera()
+                    cuenta.comprar_moneda_extranjera(
+                        cotizacion_moneda_extranjera)
                     self.menu_cuentas_usuario()
                 elif opcion_seleccionada == 6:
                     cuenta.cerrar_cuenta()
@@ -434,7 +437,7 @@ class Banco():
                 opcion_seleccionada = int(input(
                     '\nIngrese la opción: \n1: Apertura de cuenta corriente'
                     '\n2: Apertura de Caja de Ahorro \n3: Cierre de cuenta \n4: Operar con cuentas'
-                    '\n5: Cerrar sesión\n'))
+                    '\n5: Ver Cuentas \n6: Cerrar sesión\n'))
 
                 if opcion_seleccionada == 1:
                     self.usuario_logueado.abrir_cuenta_corriente()
@@ -445,6 +448,9 @@ class Banco():
                 elif opcion_seleccionada == 4:
                     self.menu_cuentas_usuario()
                 elif opcion_seleccionada == 5:
+                    self.usuario_logueado.mostrar_cuentas(
+                        self.usuario_logueado.cuentas)
+                elif opcion_seleccionada == 6:
                     self.usuario_logueado = None
                     self.menu()
                 else:
