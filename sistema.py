@@ -227,9 +227,35 @@ class Banco():
 
         return print(f'\nEl cliente ha sido generado exitosamente: ' + Cliente_pyme.__str__(nuevo_cliente_pyme))
 
-    def menu_cuentas_usuario(self, usuario):
+    def menu_cuentas_usuario(self):
         
-        pass
+        while True:
+            try:
+                for num, cuenta in enumerate(self.usuario_logueado.cuentas):
+                    print(num, cuenta)
+                cuenta_seleccionada = int(input('Seleccione el numero de la cuenta que desea operar: )'))
+                cuenta = self.usuario_logueado.cuentas[cuenta_seleccionada]
+                opcion_seleccionada = int(input('Que desea hacer con la cuenta?"\n1: Consulta de Saldo\n2: Transferir a otra cuenta'
+                '\n3: Depositar''\n4: Realizar plazo fijo''\n5: Comprar moneda extranjera'
+                '\n6:Cerrar cuenta \n7: Salir\n'))
+
+                if opcion_seleccionada == 1:
+                    cuenta.mostrar_saldo()
+                elif opcion_seleccionada == 2:
+                    cuenta.realizar_transferencia()
+                elif opcion_seleccionada == 3:
+                    cuenta.realizar_deposito()
+                elif opcion_seleccionada == 4:
+                    cuenta.realizar_plazo_fijo()
+                elif opcion_seleccionada == 5:
+                    cuenta.comprar_moneda_extranjera()
+                elif opcion_seleccionada == 6:
+                    cuenta.cerrar_cuenta()
+                elif opcion_seleccionada == 7:
+                    self.usuario_logueado = None
+                    self.menu()
+            except ValueError:
+                print("La opción ingresada es inválida: escriba un numero entero")
 
     def logueo_usuario(self):
         '''Este método se encarga de loguear al usuario, recibe el usuario.
