@@ -19,11 +19,10 @@ class Usuario_administrador():
             print('Seleccione una opción:')
             try:
                 opcion_seleccionada = int(input('\n1: Caja ahorro con retención saldo'
-                                                '\n2: Cuenta corriente común'
-                                                '\n3: Cuenta corriente con retención saldo'
-                                                '\n4: Menu Administrador\n'))
+                                                '\n2: Cuenta corriente con retención saldo'
+                                                '\n3: Menu Administrador\n'))
 
-                if opcion_seleccionada == 1 or opcion_seleccionada == 2 or opcion_seleccionada == 3:
+                if opcion_seleccionada in range(1, 3):
                     print(f'El monto a retener actual es $',
                           costos[opcion_seleccionada]['Monto saldo retenido'])
                     monto_saldo_retenido = float(

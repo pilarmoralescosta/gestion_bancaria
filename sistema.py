@@ -265,7 +265,7 @@ class Banco():
                 agregar_aut_firmante = True
             else:
                 print("Ingrese una opción válida")
-        registrado = True
+        registrado = False
         # creamos la instancia de Cliente_pyme
         nuevo_cliente_pyme = Cliente_pyme(
             razon_social, cuit_cuil, direccion, telefono, mail, autoridades_firmantes, id_cliente, cuentas, registrado)
