@@ -32,6 +32,9 @@ class Cuenta_corriente(Servicio_financiero):
                 print("El monto es un valor numérico")
 
     def comprar_moneda_extranjera(self, cotizacion):
+        '''Este método de Cuenta_corriente permite al usuario comprar moneda extranjera,
+        verificando si el saldo es suficiente para realizar la compra,
+        si no lo es muestra un mensaje de error'''
         while True:
             try:
                 monto_a_comprar = int(
