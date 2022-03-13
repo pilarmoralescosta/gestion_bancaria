@@ -13,6 +13,8 @@ class Cliente(ABC):
         self.registrado = registrado
 
     def mostrar_cuentas(self, cuentas):
+        if len(cuentas) == 0:
+            print("No tiene cuentas")
         for i in range(len(cuentas)):
             print(f'{i}: {cuentas[i].__str__()}')
 
@@ -68,10 +70,16 @@ class Cliente(ABC):
         for num, cuenta in enumerate(self.cuentas):
             print("Si desea eliminar la siguente cuenta: ",
                   cuenta, "\nPresione: ", num)
-        cuenta_a_eliminar = int(input("Cuenta que desea eliminar: "))
-        self.cuentas.pop(cuenta_a_eliminar)
-        print("Cuenta eliminada con éxito. Sus cuentas ahora son: ")
-        self.mostrar_cuentas(self.cuentas)
+        try:
+            cuenta_a_eliminar = int(input("Cuenta que desea eliminar: "))
+            if cuenta_a_eliminar < 0 or cuenta_a_eliminar > len(self.cuentas):
+                print("Ingrese una cuenta válida")
+            else:
+                self.cuentas.pop(cuenta_a_eliminar)
+                print("Cuenta eliminada con éxito. Sus cuentas ahora son: ")
+                self.mostrar_cuentas(self.cuentas)
+        except ValueError:
+            print("Opción inválida")
 
     def __str__(self):
         return f'\nID Cliente: {self.id_cliente} \nCuentas: {self.mostrar_cuentas(self.cuentas)}'
