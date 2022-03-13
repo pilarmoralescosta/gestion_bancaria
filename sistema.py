@@ -233,7 +233,7 @@ class Banco():
     def alta_cliente_pyme(self):
         '''Método para crear un cliente PyME, actualiza el diccionario de clientes PyME
         con el nuevo cliente y retorna un mensaje de éxito junto con el cliente creado'''
-
+        
         cuit_cuil = self.ingresar_cuit_cuil()
 
         # verificamos que el cliente no exista
@@ -265,10 +265,10 @@ class Banco():
                 agregar_aut_firmante = True
             else:
                 print("Ingrese una opción válida")
-
+        registrado = True
         # creamos la instancia de Cliente_pyme
         nuevo_cliente_pyme = Cliente_pyme(
-            razon_social, cuit_cuil, direccion, telefono, mail, autoridades_firmantes, id_cliente, cuentas)
+            razon_social, cuit_cuil, direccion, telefono, mail, autoridades_firmantes, id_cliente, cuentas, registrado)
 
         # actualizamos el diccionario de clientes PyME
         self.clientes_pyme[id_cliente] = nuevo_cliente_pyme
