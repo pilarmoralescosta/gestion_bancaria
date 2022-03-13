@@ -23,6 +23,7 @@ clientes_pyme = {"PY30": Cliente_pyme(
 }
 
 usuarios = {
+    # 1 es el usuario, que es el dni del cliente (coinciden la clave del usuario con el atributo usuario del cliente)
     1: Usuario(1, 12, 'IRO345', True, False),
     2: Usuario(2, 11, 'POB123', True, False),
     3: Usuario(3, 10, "PY120", False, True)
@@ -50,8 +51,8 @@ cuenta_corriente_comun = {
     'Transferencias realizadas': 5,
     'Depósitos realizados': 5,
     'Pagos en línea': 3,
-    'Plazos fijos porcentaje pago anual': 0.36,
-    'Bonos': '',
+    'Plazos fijos porcentaje pago anual': 36,
+    'Bonos': 5,
     'Pago de sueldos cuentas del banco': 0,
     'Pago de sueldos cuentas otros bancos': 4,
     'Monto saldo descubierto': 0,
@@ -63,8 +64,8 @@ cuenta_corriente_retencion_saldo = {
     'Transferencias realizadas': 0,
     'Depósitos realizados': 0,
     'Pagos en línea': 0,
-    'Plazos fijos porcentaje pago anual': 0.36,
-    'Bonos': '',
+    'Plazos fijos porcentaje pago anual': 36,
+    'Bonos': 5,
     'Pago de sueldos cuentas del banco': 0,
     'Pago de sueldos cuentas otros bancos': 4,
     'Monto saldo retenido': 0,
@@ -88,6 +89,22 @@ class Banco():
         self.administrador = Usuario_administrador()
         self.usuario_logueado = None
 
+    def existe_usuario(self, dni):
+        '''Este método del Banco verifica si el usuario ingresado existe en el sistema
+        recibe el usuario y retorna True o False dependiendo si existe o no en Usuarios'''
+
+        existe_usuario = False
+
+        try:
+            if int(dni) in self.usuarios.keys():
+                print("El usuario ya existe")
+                existe_usuario = True
+        except ValueError:
+            print(
+                "El usuario es el número de documento del cliente, debe ingresar números")
+
+        return existe_usuario
+
     def alta_usuario(self, dni, id_cliente):
         '''Método para dar de alta un usuario del sistema. Recive como parametro el dni del usuario y
         el id del cliente, actualiza el diccionario de usuarios y retorna un mensaje de confirmación'''
@@ -95,11 +112,11 @@ class Banco():
         es_cliente_ind = False
         es_cliente_pyme = False
 
-        # verificamos que el cliente exista
-        if int(dni) in self.usuarios:
-            return print("El usuario ya existe")
-        # si no existe, verificamos si es cliente individuo o cliente pyme
-        else:
+        # verificamos si el usuario ya existe
+        existe_usuario = self.existe_usuario(dni)
+
+        # si no existe, creamos la instancia de Usuario
+        if existe_usuario == False:
             clave = input("Ingrese una clave: ")
             tipo_cliente = input(
                 "¿Es un cliente individuo o PyME? (i/p): ").lower()
@@ -110,7 +127,6 @@ class Banco():
             else:
                 return print("Ingrese una opción válida")
 
-            # creamos la instancia de Usuario
             nuevo_usuario = Usuario(
                 dni, clave, id_cliente, es_cliente_ind, es_cliente_pyme)
 
@@ -233,7 +249,7 @@ class Banco():
         llama al método correspondiente para dar de alta el cliente individuo o pyme'''
         try:
             tipo_cliente = input(
-                '\nIngrese el tipo de cliente que desea dar de alta:Individuo o PyMe (i/p): ').lower()
+                '\nIngrese el tipo de cliente que desea dar de alta: Individuo o PyMe (i/p): ').lower()
             if tipo_cliente == "i":
                 self.alta_cliente_individuo()
             elif tipo_cliente == "p":
