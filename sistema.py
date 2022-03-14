@@ -29,7 +29,7 @@ clientes_pyme = {
 }
 
 usuarios = {
-    # 1 es el usuario, que es el dni del cliente (coinciden la clave del usuario con el atributo usuario del cliente)
+    # La clave es el usuario, que es el dni del cliente (coinciden la clave del usuario con el atributo usuario del cliente)
     1: Usuario(1, 12, 'TB456', True, False),
     2: Usuario(2, 11, 'LG412', True, False),
     3: Usuario(3, 10, "LP458", False, True),
