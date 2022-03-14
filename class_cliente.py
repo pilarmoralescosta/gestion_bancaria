@@ -1,8 +1,8 @@
 from abc import ABC
-import random
 from class_caja_ahorro import Caja_ahorro
 from class_cta_cte import Cuenta_corriente
 import datetime
+import random
 
 
 class Cliente(ABC):
@@ -19,7 +19,7 @@ class Cliente(ABC):
             print(f'\n{i}: {cuentas[i].__str__()}')
 
     def abrir_cuenta_corriente(self):
-
+        '''Método para abrir una cuenta corriente'''
         abrir_cuenta = True
 
         while abrir_cuenta:
@@ -40,7 +40,7 @@ class Cliente(ABC):
             return True
 
     def abrir_caja_ahorro(self):
-
+        '''Método para abrir una caja de ahorro'''
         abrir_cuenta = True
 
         while abrir_cuenta:
@@ -62,7 +62,7 @@ class Cliente(ABC):
             return True
 
     def cerrar_cuenta(self):
-
+        '''Método para cerrar una cuenta'''
         if self.cuentas == []:
             print("Usted no tiene ninguna cuenta abierta")
             return True

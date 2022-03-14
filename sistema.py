@@ -6,8 +6,7 @@ from class_cliente_individuo import Cliente_individuo
 from class_cliente_pyme import Cliente_pyme
 from class_aut_firmante import Autoridad_firmante
 from class_usuario_administrador import Usuario_administrador
-import validaciones as val
-
+import utilidades as utils
 
 # ----------------DATOS DE TEST ----------------
 clientes_individuos = {
@@ -38,7 +37,7 @@ usuarios = {
     5: Usuario(5, 8, 'JC929', True, True)
 }
 
-cotizacion_moneda_extranjera = 100
+cotizacion_moneda_extranjera = 120
 
 # ----------------ESTRUCTURA DE COSTOS ----------------
 
@@ -88,9 +87,10 @@ estructura_costos = [caja_ahorro_comun, caja_ahorro_retencion_saldo,
 
 # -----------------------------------------------------
 
+# Clase Banco, clase principal del sistema
+
 
 class Banco():
-    # Clase Banco, clase principal del sistema
     clientes_individuos = clientes_individuos
     clientes_pyme = clientes_pyme
     usuarios = usuarios
@@ -144,35 +144,11 @@ class Banco():
 
             return print(f'\nEl usuario ha sido generado exitosamente: {Usuario.__str__(nuevo_usuario)}')
 
-    def ingresar_dni(self):
-        dni = input("Número de documento del cliente: ")
-        dni_valid = val.validar_dni(dni)
-        while dni_valid == None:
-            print("Ingrese un número de documento válido")
-            dni = input("Número de documento del cliente: ")
-            dni_valid = val.validar_dni(dni)
-        return dni
-
-    def ingresar_cuit_cuil(self):
-        cuit_cuil = input(
-            "Número de CUIT/CUIL del cliente (sin guiones, sólo números): ")
-        if '-' in cuit_cuil:
-            cuit_cuil = cuit_cuil.replace('-', '')
-        if '/' in cuit_cuil:
-            cuit_cuil = cuit_cuil.replace('/', '')
-        cuit_cuil_valid = val.validar_cuit_cuil(cuit_cuil)
-        while cuit_cuil_valid == None:
-            print("Ingrese un CUIT/CUIL válido")
-            cuit_cuil = input(
-                "Número de CUIT/CUIL del cliente (sin guiones, sólo números): ")
-            cuit_cuil_valid = val.validar_cuit_cuil(cuit_cuil)
-        return cuit_cuil
-
     def alta_cliente_ind(self):
         '''Método para dar de alta un cliente individuo, actualiza el el diccionario de clientes individuos
         con el nuevo cliente y retorna un mensaje de éxito junto con el cliente creado'''
 
-        dni = self.ingresar_dni()
+        dni = utils.validar_dni(input("Número de documento del cliente: "))
 
         # verificamos que el cliente no exista
         for cliente in self.clientes_individuos:
@@ -208,7 +184,7 @@ class Banco():
         del sistema, lo actualiza con el usuario creado y retorna la instancia de la autoridad/firmante creada'''
 
         print(f'\nAlta de autoridad/firmante')
-        dni = self.ingresar_dni()
+        dni = utils.validar_dni(input("Número de documento del cliente: "))
 
         # verificamos que la autoridad/firmante no exista
         for cliente_pyme in self.clientes_pyme.values():
@@ -237,7 +213,8 @@ class Banco():
         '''Método para crear un cliente PyME, actualiza el diccionario de clientes PyME
         con el nuevo cliente y retorna un mensaje de éxito junto con el cliente creado'''
 
-        cuit_cuil = self.ingresar_cuit_cuil()
+        cuit_cuil = utils.validar_cuit_cuil(input(
+            "Número de CUIT/CUIL del cliente (sin guiones, sólo números): "))
 
         # verificamos que el cliente no exista
         for cliente in self.clientes_pyme:
@@ -294,7 +271,7 @@ class Banco():
             print("Ingrese una opción válida")
 
     def baja_cliente(self, tipo_cliente):
-        '''Este método elimina u cliente de la lista de clientes clientes_individuos
+        '''Este método elimina un cliente de la lista de clientes clientes_individuos
         o pyme, dependiendo del tipo de cliente pasado por parámetro'''
 
         id_cliente = input(
@@ -315,7 +292,7 @@ class Banco():
                 print(f'\nEl cliente no existe')
 
     def menu_cuentas_usuario(self):
-        '''Este metodo del Banco muestra las transacciones disponibles para las
+        '''Este método del Banco muestra las transacciones disponibles para las
         cuentas del usuario y permite realizar una de ellas. Si el usuario no tiene
         ninguna cuenta, se le informa y se muestra el menú correspondiente'''
         while True:
@@ -380,7 +357,8 @@ class Banco():
             clave = int(input("Ingrese su clave: "))
             # veridficamos que la contraseña ingresada sea la correcta
             if usuario.es_cliente_individuo and usuario.es_cliente_pyme:
-                ingreso = input("Desea ingresar como pyme o como individuo (p/i)")
+                ingreso = input(
+                    "Desea ingresar como pyme o como individuo (p/i)")
                 if ingreso == "p":
                     self.usuario_logueado = self.clientes_pyme[usuario.id_cliente]
                     return True

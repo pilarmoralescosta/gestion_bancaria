@@ -15,6 +15,7 @@ class Servicio_financiero(ABC):
         return f'Nro. Cuenta: {self.nro_cuenta} \nSucursal: {self.sucursal} \nCBU: {self.cbu} \nFecha apertura: {self.fecha_apertura} \nSaldo: {self.saldo} \nTipo: {self.tipo} \nSaldo retenido: {self.saldo_retenido}'
 
     def realizar_deposito(self):
+        '''Método que permite realizar un depósito en la cuenta'''
         try:
             monto_a_depositar = float(
                 input("Ingrese el monto del depósito: "))
@@ -25,6 +26,7 @@ class Servicio_financiero(ABC):
             print("Debe ingresar un valor númerico")
 
     def realizar_transferencia(self):
+        '''Método que permite realizar una transferencia a otra cuenta'''
         try:
             input("Ingrese la cuenta a la que desea transferir: ")
             monto_a_transferir = float(
@@ -40,6 +42,7 @@ class Servicio_financiero(ABC):
             print("Debe ingresar un valor numérico")
 
     def recibir_transferencia(self):
+        '''Método que permite recibir una transferencia desde otra cuenta'''
         try:
             monto_transferencia = float(
                 input("Ingrese el monto de la transferencia a acreditar: "))
@@ -50,6 +53,7 @@ class Servicio_financiero(ABC):
             print("Debe ingresar un valor numérico")
 
     def pagar_en_linea(self):
+        '''Método que permite realizar un pago en línea'''
         try:
             monto_a_debitar = float(
                 input("Ingrese el monto a transferir: "))
@@ -64,4 +68,5 @@ class Servicio_financiero(ABC):
             print("Debe ingresar un valor numérico")
 
     def mostrar_saldo(self):
+        '''Método que muestra el saldo actual de la cuenta'''
         print("El saldo de la cuenta es: ", self.saldo)
