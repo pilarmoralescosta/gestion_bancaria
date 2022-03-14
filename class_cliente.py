@@ -12,6 +12,12 @@ class Cliente(ABC):
         # para que el administrador lo valide a True en el método correspondiente
         self.registrado = registrado
 
+    def mostrar_cuentas(self, cuentas):
+        if len(cuentas) == 0:
+            print("No tiene cuentas")
+        for i in range(len(cuentas)):
+            print(f'\n{i}: {cuentas[i].__str__()}')
+
     def abrir_cuenta_corriente(self):
 
         abrir_cuenta = True
@@ -25,11 +31,12 @@ class Cliente(ABC):
             saldo = 0
             saldo_retenido = False
             tipo = "Cuenta corriente"
-            cuenta = Cuenta_corriente(sucursal, nro_cuenta, cbu, fecha_apertura, saldo, tipo, saldo_retenido)
+            cuenta = Cuenta_corriente(
+                sucursal, nro_cuenta, cbu, fecha_apertura, saldo, tipo, saldo_retenido)
             self.cuentas.append(cuenta)
-            print("Cuenta creada con exito")
-            print("Sus cuentas son", self.cuentas)
-            
+            print("Cuenta creada con éxito. Sus cuentas ahora son: ")
+            self.mostrar_cuentas(self.cuentas)
+
             return True
 
     def abrir_caja_ahorro(self):
@@ -46,13 +53,14 @@ class Cliente(ABC):
             saldo_retenido = False
             tipo = "Caja de ahorro"
             es_bonificada = True
-            cuenta = Caja_ahorro(sucursal, nro_cuenta, cbu, fecha_apertura, saldo, tipo, saldo_retenido, es_bonificada)
+            cuenta = Caja_ahorro(sucursal, nro_cuenta, cbu, fecha_apertura,
+                                 saldo, tipo, saldo_retenido, es_bonificada)
             self.cuentas.append(cuenta)
-            print("Cuenta creada con exito")
-            print("Sus cuentas son", self.cuentas)
-            
+            print("Cuenta creada con éxito. Sus cuentas ahora son: ")
+            self.mostrar_cuentas(self.cuentas)
+
             return True
-    
+
     def cerrar_cuenta(self):
 
         if self.cuentas == []:
@@ -60,10 +68,18 @@ class Cliente(ABC):
             return True
 
         for num, cuenta in enumerate(self.cuentas):
-            print ("Si desea eliminar la siguente cuenta: ", cuenta, "\n\n\nPresione: ", num)
-        cuenta_a_eliminar = int(input ("Cuenta que desea eliminar: "))
-        self.cuentas.pop(cuenta_a_eliminar)
-        print("Cuenta eliminada con exito. Sus cuentas ahora son: ", self.cuentas)
+            print("Si desea eliminar la siguente cuenta: ",
+                  cuenta, "\nPresione: ", num)
+        try:
+            cuenta_a_eliminar = int(input("Cuenta que desea eliminar: "))
+            if cuenta_a_eliminar < 0 or cuenta_a_eliminar > len(self.cuentas):
+                print("Ingrese una cuenta válida")
+            else:
+                self.cuentas.pop(cuenta_a_eliminar)
+                print("Cuenta eliminada con éxito. Sus cuentas ahora son: ")
+                self.mostrar_cuentas(self.cuentas)
+        except ValueError:
+            print("Opción inválida")
 
     def __str__(self):
-        return f'\nID Cliente: {self.id_cliente} \nCuentas: {self.cuentas}'
+        return f'\nID Cliente: {self.id_cliente} \nCuentas: {self.mostrar_cuentas(self.cuentas)}'
