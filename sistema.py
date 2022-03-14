@@ -6,17 +6,15 @@ from class_cliente_individuo import Cliente_individuo
 from class_cliente_pyme import Cliente_pyme
 from class_aut_firmante import Autoridad_firmante
 from class_usuario_administrador import Usuario_administrador
-import validaciones as val
-
-import re
+import utilidades as utils
 
 # ----------------DATOS DE TEST ----------------
 clientes_individuos = {
-    "POB123": Cliente_individuo("Boragini", "Trinidad", 32521456, 2035214528, "San Martin 100", 24941546289,
-                                "trini@bora.com", "POB123", [], False),
-    "ILG412": Cliente_individuo("Gronda", "Lucio", 25487412, 20256321451, "Saavedra 42",
-                                114214587, "lucio@gronda.com", "ILG412", [], False),
-    "IRO345": Cliente_individuo("Chimondeguy", "Javier", 36645929, 2032541562, "Uruguay 1200", 3625142513, "jchimon@abc.gob.ar", "IRO345", [6, 7], False)
+    "TB456": Cliente_individuo("Boragini", "Trinidad", 32521456, 2035214528, "San Martin 100", 24941546289,
+                               "trini@bora.com", "TB456", [], False),
+    "LG412": Cliente_individuo("Gronda", "Lucio", 25487412, 20256321451, "Saavedra 42",
+                               114214587, "lucio@gronda.com", "LG412", [], False),
+    "JC929": Cliente_individuo("Chimondeguy", "Javier", 36645929, 2032541562, "Uruguay 1200", 3625142513, "jchimon@abc.gob.ar", "JC929", [], False)
 
 }
 
@@ -26,16 +24,20 @@ aut_2 = Autoridad_firmante(
     "Gomez", "Mariana", 40888999, 27408889995, "Paz 1234", 333, "mariana@mail.com")
 
 clientes_pyme = {
-    "PY30": Cliente_pyme("La Pirca", 125487458, "Belgrano 230", 2494561231, 'unmail', [aut_1, aut_2], "PY30", [78, 79], False),
-    "PY120": Cliente_pyme("La Rural", 20514232, "San Martin 90", 2414512023, "ah@asd.com", [], "PY120", [], False)
+    "LP458": Cliente_pyme("La Pirca", 125487458, "Belgrano 230", 2494561231, 'unmail', [aut_1, aut_2], "LP458", [78, 79], False),
+    "JC929": Cliente_pyme("La Rural", 20514232, "San Martin 90", 2414512023, "ah@asd.com", [], "JC929", [], False)
 }
 
 usuarios = {
-    # 1 es el usuario, que es el dni del cliente (coinciden la clave del usuario con el atributo usuario del cliente)
-    1: Usuario(1, 12, 'IRO345', True, False),
-    2: Usuario(2, 11, 'POB123', True, False),
-    3: Usuario(3, 10, "PY120", False, True)
+    # La clave es el usuario, que es el dni del cliente (coinciden la clave del usuario con el atributo usuario del cliente)
+    1: Usuario(1, 12, 'TB456', True, False),
+    2: Usuario(2, 11, 'LG412', True, False),
+    3: Usuario(3, 10, "LP458", False, True),
+    4: Usuario(4, 9, 'LR232', False, True),
+    5: Usuario(5, 8, 'JC929', True, True)
 }
+
+cotizacion_moneda_extranjera = 120
 
 # ----------------ESTRUCTURA DE COSTOS ----------------
 
@@ -85,9 +87,10 @@ estructura_costos = [caja_ahorro_comun, caja_ahorro_retencion_saldo,
 
 # -----------------------------------------------------
 
+# Clase Banco, clase principal del sistema
+
 
 class Banco():
-    # Clase Banco, clase principal del sistema
     clientes_individuos = clientes_individuos
     clientes_pyme = clientes_pyme
     usuarios = usuarios
@@ -141,35 +144,11 @@ class Banco():
 
             return print(f'\nEl usuario ha sido generado exitosamente: {Usuario.__str__(nuevo_usuario)}')
 
-    def ingresar_dni(self):
-        dni = input("Número de documento del cliente: ")
-        dni_valid = val.validar_dni(dni)
-        while dni_valid == None:
-            print("Ingrese un número de documento válido")
-            dni = input("Número de documento del cliente: ")
-            dni_valid = val.validar_dni(dni)
-        return dni
-
-    def ingresar_cuit_cuil(self):
-        cuit_cuil = input(
-            "Número de CUIT/CUIL del cliente (sin guiones, sólo números): ")
-        if '-' in cuit_cuil:
-            cuit_cuil = cuit_cuil.replace('-', '')
-        if '/' in cuit_cuil:
-            cuit_cuil = cuit_cuil.replace('/', '')
-        cuit_cuil_valid = val.validar_cuit_cuil(cuit_cuil)
-        while cuit_cuil_valid == None:
-            print("Ingrese un CUIT/CUIL válido")
-            cuit_cuil = input(
-                "Número de CUIT/CUIL del cliente (sin guiones, sólo números): ")
-            cuit_cuil_valid = val.validar_cuit_cuil(cuit_cuil)
-        return cuit_cuil
-
     def alta_cliente_ind(self):
         '''Método para dar de alta un cliente individuo, actualiza el el diccionario de clientes individuos
         con el nuevo cliente y retorna un mensaje de éxito junto con el cliente creado'''
 
-        dni = self.ingresar_dni()
+        dni = utils.validar_dni(input("Número de documento del cliente: "))
 
         # verificamos que el cliente no exista
         for cliente in self.clientes_individuos:
@@ -205,7 +184,7 @@ class Banco():
         del sistema, lo actualiza con el usuario creado y retorna la instancia de la autoridad/firmante creada'''
 
         print(f'\nAlta de autoridad/firmante')
-        dni = self.ingresar_dni()
+        dni = utils.validar_dni(input("Número de documento del cliente: "))
 
         # verificamos que la autoridad/firmante no exista
         for cliente_pyme in self.clientes_pyme.values():
@@ -234,7 +213,8 @@ class Banco():
         '''Método para crear un cliente PyME, actualiza el diccionario de clientes PyME
         con el nuevo cliente y retorna un mensaje de éxito junto con el cliente creado'''
 
-        cuit_cuil = self.ingresar_cuit_cuil()
+        cuit_cuil = utils.validar_cuit_cuil(input(
+            "Número de CUIT/CUIL del cliente (sin guiones, sólo números): "))
 
         # verificamos que el cliente no exista
         for cliente in self.clientes_pyme:
@@ -265,7 +245,7 @@ class Banco():
                 agregar_aut_firmante = True
             else:
                 print("Ingrese una opción válida")
-        registrado = True
+        registrado = False
         # creamos la instancia de Cliente_pyme
         nuevo_cliente_pyme = Cliente_pyme(
             razon_social, cuit_cuil, direccion, telefono, mail, autoridades_firmantes, id_cliente, cuentas, registrado)
@@ -291,27 +271,28 @@ class Banco():
             print("Ingrese una opción válida")
 
     def baja_cliente(self, tipo_cliente):
+        '''Este método elimina un cliente de la lista de clientes clientes_individuos
+        o pyme, dependiendo del tipo de cliente pasado por parámetro'''
 
         id_cliente = input(
-            "Ingrese el ID del cliente que desea dar de baja")
+            "Ingrese el ID del cliente que desea dar de baja: ").upper()
 
         if tipo_cliente == "i":
-            for id in self.clientes_individuos.keys():
-                if id == id_cliente:
-                    del self.clientes_individuos[id]
-                    return print(f'\nEl cliente {id_cliente} ha sido dado de baja exitosamente')
-                else:
-                    print(f'\nEl cliente no existe')
+            if id_cliente in self.clientes_individuos.keys():
+                print(
+                    f'\nEl cliente Individuo {id_cliente} ha sido dado de baja exitosamente')
+            else:
+                print(f'\nEl cliente no existe')
         else:
-            for id in self.clientes_pyme.keys():
-                if id == id_cliente:
-                    del self.clientes_pyme[id]
-                    return print(f'\nEl cliente {id_cliente} ha sido dado de baja exitosamente')
-                else:
-                    print(f'\nEl cliente no existe')
+            if id_cliente in self.clientes_pyme.keys():
+                del self.clientes_pyme[id_cliente]
+                print(
+                    f'\nEl cliente PyME {id_cliente} ha sido dado de baja exitosamente')
+            else:
+                print(f'\nEl cliente no existe')
 
     def menu_cuentas_usuario(self):
-        '''Este metodo del Banco muestra las transacciones disponibles para las
+        '''Este método del Banco muestra las transacciones disponibles para las
         cuentas del usuario y permite realizar una de ellas. Si el usuario no tiene
         ninguna cuenta, se le informa y se muestra el menú correspondiente'''
         while True:
@@ -320,10 +301,10 @@ class Banco():
                     print("Usted no tiene ninguna cuenta, debe crear una primero")
                     self.menu_usuario_cliente()
                 for num, cuenta in enumerate(self.usuario_logueado.cuentas):
-                    print("Presione:", num, "\nPara operar la cuenta: ", cuenta)
+                    print(f'\nPresione {num} para operar la cuenta {cuenta}')
                 try:
                     cuenta_seleccionada = int(
-                        input('Seleccione la opción que corresponde a la cuenta con la que desea operar: '))
+                        input('\nSeleccione la opción que corresponde a la cuenta con la que desea operar: '))
                     if cuenta_seleccionada < 0 or cuenta_seleccionada > len(self.usuario_logueado.cuentas):
                         print(
                             f'Opción inválida, debe ingresar un número de 0 a {len(self.usuario_logueado.cuentas)-1}')
@@ -338,7 +319,7 @@ class Banco():
                     '\n¿Que desea hacer con la cuenta?'
                     '\n1: Consulta de Saldo\n2: Transferir a otra cuenta'
                     '\n3: Depositar \n4: Realizar plazo fijo \n5: Comprar moneda extranjera'
-                    '\n6:Cerrar cuenta \n7: Salir\n'))
+                    '\n6: Salir\n'))
 
                 if opcion_seleccionada == 1:
                     cuenta.mostrar_saldo()
@@ -353,12 +334,10 @@ class Banco():
                     cuenta.realizar_plazo_fijo()
                     self.menu_cuentas_usuario()
                 elif opcion_seleccionada == 5:
-                    cuenta.comprar_moneda_extranjera()
+                    cuenta.comprar_moneda_extranjera(
+                        cotizacion_moneda_extranjera)
                     self.menu_cuentas_usuario()
                 elif opcion_seleccionada == 6:
-                    cuenta.cerrar_cuenta()
-                    self.menu_cuentas_usuario()
-                elif opcion_seleccionada == 7:
                     self.usuario_logueado = None
                     self.menu()
             except ValueError:
@@ -377,6 +356,15 @@ class Banco():
 
             clave = int(input("Ingrese su clave: "))
             # veridficamos que la contraseña ingresada sea la correcta
+            if usuario.es_cliente_individuo and usuario.es_cliente_pyme:
+                ingreso = input(
+                    "Desea ingresar como pyme o como individuo (p/i)")
+                if ingreso == "p":
+                    self.usuario_logueado = self.clientes_pyme[usuario.id_cliente]
+                    return True
+                elif ingreso == "i":
+                    self.usuario_logueado = self.clientes_individuos[usuario.id_cliente]
+                    return True
             if clave == usuario.clave:
                 if usuario.es_cliente_individuo:
                     self.usuario_logueado = self.clientes_individuos[usuario.id_cliente]
@@ -386,8 +374,10 @@ class Banco():
                     return True
 
             else:
+                print("Clave incorrecta. Seleccione una nueva opcion ")
                 return False
         else:
+            print("El usuario no existe. Seleccione otra opcion ")
             return False
 
     def logueo_administrador(self):
@@ -415,11 +405,11 @@ class Banco():
             self.menu_administrador()
         else:
             opcion = input(
-                "El logueo fue incorrecto, opcion 1 para seguir probando, 2 para salir ")
+                "El logueo fue incorrecto, opcion 1 para seguir probando, 2 para volver al menú principal")
             if opcion == "1":
                 self.iniciar_sesion_administrador()
             else:
-                exit()
+                self.menu()
 
     def menu_usuario_cliente(self):
         '''Este método se encarga de mostrar el menú de opciones del usuario, Si la opción es correcta,
@@ -428,9 +418,9 @@ class Banco():
         while True:
             try:
                 opcion_seleccionada = int(input(
-                    'Ingrese la opción: \n1: Apertura de cuenta corriente'
+                    '\nIngrese la opción: \n1: Apertura de cuenta corriente'
                     '\n2: Apertura de Caja de Ahorro \n3: Cierre de cuenta \n4: Operar con cuentas'
-                    '\n5: Cerrar sesión\n'))
+                    '\n5: Ver Cuentas \n6: Cerrar sesión\n'))
 
                 if opcion_seleccionada == 1:
                     self.usuario_logueado.abrir_cuenta_corriente()
@@ -441,6 +431,9 @@ class Banco():
                 elif opcion_seleccionada == 4:
                     self.menu_cuentas_usuario()
                 elif opcion_seleccionada == 5:
+                    self.usuario_logueado.mostrar_cuentas(
+                        self.usuario_logueado.cuentas)
+                elif opcion_seleccionada == 6:
                     self.usuario_logueado = None
                     self.menu()
                 else:
@@ -461,9 +454,9 @@ class Banco():
                     '\n3: Monto de saldo retenido \n4: Monto de saldo descubierto'
                     '\n5: Costos de servicios para cada tipo de transacción'
                     '\n6: Porcentajes de beneficios para cada tipo de transacción'
-                    '\n7: Registrar cliente \n8: Registro de cuentas de cliente'
-                    '\n9: Baja de cliente individuo \n10: Baja de cliente PyME'
-                    '\n11: Cerrar sesión\n'))
+                    '\n7: Registrar cliente'
+                    '\n8: Baja de cliente individuo \n9: Baja de cliente PyME'
+                    '\n10: Cerrar sesión\n'))
 
                 if opcion_seleccionada == 1:
                     self.alta_cliente_ind()
@@ -483,12 +476,10 @@ class Banco():
                     if existe_cliente == False:
                         self.alta_cliente()
                 elif opcion_seleccionada == 8:
-                    self.administrador.registrar_cuenta()
-                elif opcion_seleccionada == 9:
                     self.baja_cliente("i")
-                elif opcion_seleccionada == 10:
+                elif opcion_seleccionada == 9:
                     self.baja_cliente("p")
-                elif(int(opcion_seleccionada) == 11):
+                elif(int(opcion_seleccionada) == 10):
                     self.menu()
                 else:
                     print('\nOpción incorrecta\n')

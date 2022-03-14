@@ -19,11 +19,10 @@ class Usuario_administrador():
             print('Seleccione una opción:')
             try:
                 opcion_seleccionada = int(input('\n1: Caja ahorro con retención saldo'
-                                                '\n2: Cuenta corriente común'
-                                                '\n3: Cuenta corriente con retención saldo'
-                                                '\n4: Menu Administrador\n'))
+                                                '\n2: Cuenta corriente con retención saldo'
+                                                '\n3: Menu Administrador\n'))
 
-                if opcion_seleccionada == 1 or opcion_seleccionada == 2 or opcion_seleccionada == 3:
+                if opcion_seleccionada in range(1, 3):
                     print(f'El monto a retener actual es $',
                           costos[opcion_seleccionada]['Monto saldo retenido'])
                     monto_saldo_retenido = float(
@@ -130,7 +129,7 @@ class Usuario_administrador():
         print('Cliente a registrar en el sistema')
         while True:
             try:
-                id_cliente = input('Ingrese el ID del cliente: ')
+                id_cliente = input('Ingrese el ID del cliente: ').upper()
                 if id_cliente in clientes_individuo.keys() or id_cliente in clientes_pyme.keys():
                     if id_cliente in clientes_individuo.keys():
                         clientes_individuo[id_cliente].registrado = True
@@ -145,29 +144,3 @@ class Usuario_administrador():
                     return False
             except ValueError:
                 print('\nEl ID ingresado no es válido\n')
-
-    def registrar_cuenta(self):
-        pass
-
-
-# TEST
-admin = Usuario_administrador()
-
-# ALTA USUARIO
-# admin.alta_usuario(3, usuarios)
-# for usuario in usuarios:
-#     print(usuarios[usuario])
-
-# ALTA CLIENTE INDIVIDUO
-# admin.alta_cliente_ind_a_modificar(clientes_individuos)
-
-# for cliente in clientes_individuos:
-#     print(clientes_individuos[cliente].dni)
-#     print(usuarios[usuario])
-
-# ALTA CLIENTE PYME
-# admin.alta_cliente_pyme(clientes_pyme)
-
-# MODIFICAR CLIENTE
-# MODIFICAR CLIENTE INDIVIDUO
-# admin.modificar_cliente(32123, clientes_individuos, clientes_pyme)
