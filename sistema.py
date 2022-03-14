@@ -26,7 +26,7 @@ aut_2 = Autoridad_firmante(
 
 clientes_pyme = {
     "LP458": Cliente_pyme("La Pirca", 125487458, "Belgrano 230", 2494561231, 'unmail', [aut_1, aut_2], "LP458", [78, 79], False),
-    "LR232": Cliente_pyme("La Rural", 20514232, "San Martin 90", 2414512023, "ah@asd.com", [], "LR232", [], False)
+    "JC929": Cliente_pyme("La Rural", 20514232, "San Martin 90", 2414512023, "ah@asd.com", [], "JC929", [], False)
 }
 
 usuarios = {
@@ -35,7 +35,7 @@ usuarios = {
     2: Usuario(2, 11, 'LG412', True, False),
     3: Usuario(3, 10, "LP458", False, True),
     4: Usuario(4, 9, 'LR232', False, True),
-    5: Usuario(5, 8, 'JC929', True, False)
+    5: Usuario(5, 8, 'JC929', True, True)
 }
 
 # ----------------ESTRUCTURA DE COSTOS ----------------
@@ -379,6 +379,14 @@ class Banco():
 
             clave = int(input("Ingrese su clave: "))
             # veridficamos que la contraseña ingresada sea la correcta
+            if usuario.es_cliente_individuo and usuario.es_cliente_pyme:
+                ingreso = input("Desea ingresar como pyme o como individuo (p/i)")
+                if ingreso == "p":
+                    self.usuario_logueado = self.clientes_pyme[usuario.id_cliente]
+                    return True
+                elif ingreso == "i":
+                    self.usuario_logueado = self.clientes_individuos[usuario.id_cliente]
+                    return True
             if clave == usuario.clave:
                 if usuario.es_cliente_individuo:
                     self.usuario_logueado = self.clientes_individuos[usuario.id_cliente]
