@@ -156,9 +156,11 @@ class Banco():
                 return print("El cliente ya existe")
 
         # solicitamos al usuario los datos del cliente
-        apellido = input("Apellido del cliente: ")
-        nombre = input("Nombre del cliente: ")
-        cuit_cuil = self.ingresar_cuit_cuil()
+        #apellido = input("Apellido del cliente: ")
+        apellido = utils.validar_texto("Apellido del cliente")
+        nombre = utils.validar_texto("Nombre del cliente: ")
+        cuit_cuil = utils.validar_cuit_cuil(input(
+            "Número de CUIT/CUIL del cliente (sin guiones, sólo números): "))
         direccion = input("Dirección del cliente: ")
         telefono = input("Teléfono del cliente: ")
         mail = input("Email del cliente: ")
@@ -195,7 +197,8 @@ class Banco():
         # solicitamos al usuario los datos de la autoridad/firmante
         apellido = input("Apellido: ")
         nombre = input("Nombre: ")
-        cuit_cuil = self.ingresar_cuit_cuil()
+        cuit_cuil = utils.validar_cuit_cuil(input(
+            "Número de CUIT/CUIL de la autoridad/firmante (sin guiones, sólo números): "))
         direccion = input("Dirección: ")
         telefono = input("Teléfono: ")
         mail = input("Email: ")
@@ -405,10 +408,13 @@ class Banco():
             self.menu_administrador()
         else:
             opcion = input(
-                "El logueo fue incorrecto, opcion 1 para seguir probando, 2 para volver al menú principal")
+                "El logueo fue incorrecto, opción 1 para seguir probando, 2 para volver al menú principal\n")
             if opcion == "1":
                 self.iniciar_sesion_administrador()
+            elif opcion == "2":
+                self.menu()
             else:
+                print("Opción incorrecta\n")
                 self.menu()
 
     def menu_usuario_cliente(self):
@@ -444,19 +450,19 @@ class Banco():
     def menu_administrador(self):
         '''Método para mostrar el menú de opciones del administrador, recibe el usuario administrador.
         Si la opción seleccionada es correcta, se invoca a la función en cuestión, si la opción ingresada no es correcta
-        se imprime un mensaje de error. Si elige la opción 2, se termina la ejecución del programa.'''
+        se imprime un mensaje de error.'''
         print("\nMENÚ ADMINISTRADOR:")
         while True:
             try:
                 opcion_seleccionada = int(input(
-                    '\nIngrese la opción:'
+                    '\nIngrese la opción:\n'
                     '\n1: Alta de cliente individuo \n2: Alta de cliente PyME'
                     '\n3: Monto de saldo retenido \n4: Monto de saldo descubierto'
                     '\n5: Costos de servicios para cada tipo de transacción'
                     '\n6: Porcentajes de beneficios para cada tipo de transacción'
                     '\n7: Registrar cliente'
                     '\n8: Baja de cliente individuo \n9: Baja de cliente PyME'
-                    '\n10: Cerrar sesión\n'))
+                    '\n10: Cerrar sesión\n\n'))
 
                 if opcion_seleccionada == 1:
                     self.alta_cliente_ind()
@@ -496,7 +502,7 @@ class Banco():
                 'Ingrese la opción:'
                 '\n1: Iniciar sesión administrador'
                 '\n2: Iniciar sesión usuario'
-                '\n3: Salir\n')
+                '\n3: Salir\n\n')
 
             try:
                 if(int(opcion_seleccionada) == 1):
