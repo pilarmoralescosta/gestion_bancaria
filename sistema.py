@@ -162,7 +162,7 @@ class Banco():
             "Número de CUIT/CUIL del cliente (sin guiones, sólo números): "))
         direccion = utils.validar_direccion()
         telefono = utils.validar_telefono()
-        mail = input("Email del cliente: ")
+        mail = utils.validar_email()
         # formato del id de cliente: ITB029 - I: cliente individuo T: primer caracter nombre B: primer caracter apellido 029: últimos 3 dígitos del dni
         id_cliente = f'I{apellido[0].upper()}{nombre[0].upper()}{dni[-3:]}'
         cuentas = []  # lista de cuentas del cliente
