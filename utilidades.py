@@ -35,3 +35,34 @@ def validar_texto(tipo):
         texto = input(f'{tipo}: ')
         texto_valido = val.validar_texto(val.validar_input_no_vacio(texto, tipo), tipo)
     return texto_valido
+
+
+def validar_direccion():
+    '''Función que pide al usuario que ingrese una direccion, la valida y la retorna validada'''
+    direccion_valida = None
+    mensaje = "Direccion del cliente"
+    while direccion_valida == None:
+        direccion = input(f'{mensaje}: ')
+        direccion_valida = val.validar_direccion(val.validar_input_no_vacio(direccion, mensaje))
+    return direccion
+
+
+def validar_telefono():
+    '''Función que pide al usuario que ingrese un telefono, lo valida y lo retorna validado'''
+    telefono_valido = None
+    mensaje = "Teléfono del cliente"
+    while telefono_valido == None:
+        telefono = input(f'{mensaje} (sin incluir el 0 del código de área ni 15 si es celular): ')
+        telefono_valido = val.validar_telefono(val.validar_input_no_vacio(telefono, mensaje))
+    return telefono
+
+
+def validar_email():
+    '''Función que pide al usuario que ingrese un email, lo valida y lo retorna validado'''
+    email_valido = None
+    mensaje = "Email del cliente"
+    while email_valido == None:
+        email = input(f'{mensaje}: ')
+        email_valido = val.validar_email(val.validar_input_no_vacio(email, mensaje))
+    return email
+

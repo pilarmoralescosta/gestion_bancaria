@@ -156,13 +156,12 @@ class Banco():
                 return print("El cliente ya existe")
 
         # solicitamos al usuario los datos del cliente
-        #apellido = input("Apellido del cliente: ")
         apellido = utils.validar_texto("Apellido del cliente")
         nombre = utils.validar_texto("Nombre del cliente: ")
         cuit_cuil = utils.validar_cuit_cuil(input(
             "Número de CUIT/CUIL del cliente (sin guiones, sólo números): "))
-        direccion = input("Dirección del cliente: ")
-        telefono = input("Teléfono del cliente: ")
+        direccion = utils.validar_direccion()
+        telefono = utils.validar_telefono()
         mail = input("Email del cliente: ")
         # formato del id de cliente: ITB029 - I: cliente individuo T: primer caracter nombre B: primer caracter apellido 029: últimos 3 dígitos del dni
         id_cliente = f'I{apellido[0].upper()}{nombre[0].upper()}{dni[-3:]}'
