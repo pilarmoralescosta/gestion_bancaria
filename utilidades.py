@@ -34,7 +34,7 @@ def validar_texto(tipo):
     while texto_valido == None:
         texto = input(f'{tipo}: ')
         texto_valido = val.validar_texto(val.validar_input_no_vacio(texto, tipo), tipo)
-    return texto_valido
+    return texto
 
 
 def validar_direccion():
@@ -66,3 +66,12 @@ def validar_email():
         email_valido = val.validar_email(val.validar_input_no_vacio(email, mensaje))
     return email
 
+
+def validar_clave():
+    '''Función que pide al usuario que ingrese una clave, la valida y la retorna validada'''
+    clave_valida = None
+    mensaje = "Ingrese una clave"
+    while clave_valida == None:
+        clave = input(f'{mensaje} (mínimo 8 caracteres): ')
+        clave_valida = val.validar_clave(val.validar_input_no_vacio(clave, mensaje))
+    return clave

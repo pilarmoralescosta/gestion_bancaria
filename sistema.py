@@ -85,6 +85,15 @@ cuenta_corriente_retencion_saldo = {
 estructura_costos = [caja_ahorro_comun, caja_ahorro_retencion_saldo,
                      cuenta_corriente_comun, cuenta_corriente_retencion_saldo]
 
+
+# ----------------MENSAJES ----------------
+
+mensajes = {
+    'ingresar_opcion_valida' : 'Ingrese una opción válida',
+    'ingresar_cuit_cuil_cliente':'Número de CUIT/CUIL del cliente (sin guiones, sólo números): ',
+    'ingresar_cuit_cuil_autoridad':'Número de CUIT/CUIL de autoridad/firmante (sin guiones, sólo números): '
+}
+
 # -----------------------------------------------------
 
 # Clase Banco, clase principal del sistema
@@ -95,6 +104,7 @@ class Banco():
     clientes_pyme = clientes_pyme
     usuarios = usuarios
     costos = estructura_costos
+    mensajes = mensajes
 
     def __init__(self):
         self.administrador = Usuario_administrador()
@@ -128,13 +138,13 @@ class Banco():
 
         # si no existe, creamos la instancia de Usuario
         if existe_usuario == False:
-            clave = input("Ingrese una clave: ")
+            clave = utils.validar_clave()
             if tipo_cliente == "i":
                 es_cliente_ind = True
             elif tipo_cliente == "p":
                 es_cliente_pyme = True
             else:
-                return print("Ingrese una opción válida")
+                return print(self.mensajes['ingresar_opcion_valida']) #TODO VER SI ANDA
 
             nuevo_usuario = Usuario(
                 dni, clave, id_cliente, es_cliente_ind, es_cliente_pyme)
@@ -158,8 +168,7 @@ class Banco():
         # solicitamos al usuario los datos del cliente
         apellido = utils.validar_texto("Apellido del cliente")
         nombre = utils.validar_texto("Nombre del cliente: ")
-        cuit_cuil = utils.validar_cuit_cuil(input(
-            "Número de CUIT/CUIL del cliente (sin guiones, sólo números): "))
+        cuit_cuil = utils.validar_cuit_cuil(input(self.mensajes['ingresar_cuit_cuil_cliente']))
         direccion = utils.validar_direccion()
         telefono = utils.validar_telefono()
         mail = utils.validar_email()
@@ -194,13 +203,12 @@ class Banco():
                     return print("Autoridad firmante existente")
 
         # solicitamos al usuario los datos de la autoridad/firmante
-        apellido = input("Apellido: ")
-        nombre = input("Nombre: ")
-        cuit_cuil = utils.validar_cuit_cuil(input(
-            "Número de CUIT/CUIL de la autoridad/firmante (sin guiones, sólo números): "))
-        direccion = input("Dirección: ")
-        telefono = input("Teléfono: ")
-        mail = input("Email: ")
+        apellido = utils.validar_texto("Apellido del cliente")
+        nombre = utils.validar_texto("Nombre del cliente: ")
+        cuit_cuil = utils.validar_cuit_cuil(input(self.mensajes['ingresar_cuit_cuil_autoridad']))
+        direccion = utils.validar_direccion()
+        telefono = utils.validar_telefono()
+        mail = utils.validar_email()
 
         # creamos la instancia de Autoridad_firmante
         nueva_autoridad_firmante = Autoridad_firmante(
@@ -215,8 +223,7 @@ class Banco():
         '''Método para crear un cliente PyME, actualiza el diccionario de clientes PyME
         con el nuevo cliente y retorna un mensaje de éxito junto con el cliente creado'''
 
-        cuit_cuil = utils.validar_cuit_cuil(input(
-            "Número de CUIT/CUIL del cliente (sin guiones, sólo números): "))
+        cuit_cuil = utils.validar_cuit_cuil(input(self.mensajes['ingresar_cuit_cuil_cliente']))
 
         # verificamos que el cliente no exista
         for cliente in self.clientes_pyme:
@@ -224,10 +231,10 @@ class Banco():
                 return print("El cliente ya existe")
 
         # solicitamos al usuario los datos del cliente
-        razon_social = input("Razón social del cliente: ")
-        direccion = input("Dirección del cliente: ")
-        telefono = input("Teléfono del cliente: ")
-        mail = input("Email del cliente: ")
+        razon_social = utils.validar_texto("Razón social del cliente: ")
+        direccion = utils.validar_direccion()
+        telefono = utils.validar_telefono()
+        mail = utils.validar_email()
 
         # formato del id de cliente: PX1234 - P: cliente PyME X: primer caracter Razon Social 1234: últimos 4 dígitos del cuit
         id_cliente = f'P{razon_social[0].upper()}{cuit_cuil[-4:-2]}{cuit_cuil[-1]}'
@@ -246,7 +253,7 @@ class Banco():
             elif agregar == "s":
                 agregar_aut_firmante = True
             else:
-                print("Ingrese una opción válida")
+                print(self.mensajes['ingresar_opcion_valida']) #TODO VER SI ANDA
         registrado = False
         # creamos la instancia de Cliente_pyme
         nuevo_cliente_pyme = Cliente_pyme(
@@ -270,7 +277,7 @@ class Banco():
             else:
                 print('Opción inválida, debe ingresar "i" o "p"')
         except ValueError:
-            print("Ingrese una opción válida")
+            print(self.mensajes['ingresar_opcion_valida']) #TODO VER SI ANDA
 
     def baja_cliente(self, tipo_cliente):
         '''Este método elimina un cliente de la lista de clientes clientes_individuos
@@ -376,10 +383,10 @@ class Banco():
                     return True
 
             else:
-                print("Clave incorrecta. Seleccione una nueva opcion ")
+                print("Clave incorrecta. Seleccione una nueva opción.\n")
                 return False
         else:
-            print("El usuario no existe. Seleccione otra opcion ")
+            print("El usuario no existe. Seleccione otra opción.\n")
             return False
 
     def logueo_administrador(self):
@@ -508,7 +515,7 @@ class Banco():
                     self.iniciar_sesion_administrador()
                 elif(int(opcion_seleccionada) == 2):
                     if self.logueo_usuario():
-                        print("Inicio de sesion correcto")
+                        print(f'\nInicio de sesion correcto.\nBienvenido, {self.usuario_logueado.nombre}\n')
                         self.menu_usuario_cliente()
                 elif(int(opcion_seleccionada) == 3):
                     exit()

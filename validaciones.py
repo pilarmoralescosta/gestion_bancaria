@@ -36,7 +36,7 @@ def validar_direccion(direccion):
     y una secuencia de numeros.
     Las palabras contienen solo letras, inclusive tildes y deben ser mayores a 2 letras.
     Retorna None si no es valido'''
-    direccion_valida = re.fullmatch(r'^[A-Za-záéíóúñ]{2,}([\s][A-Za-záéíóúñ]{2,})*\s\d+$', direccion)
+    direccion_valida = re.fullmatch(r'^[A-Za-záéíóúñ0-9]+([\s][A-Za-záéíóúñ]{2,})*\s\d+$', direccion)
     if direccion_valida == None:
         print('La direccion ingresada no es válida\n')
     return direccion_valida
@@ -59,3 +59,12 @@ def validar_email(email):
     if email_valido == None:
         print('El email ingresado no es válido\n')
     return email_valido
+
+
+def validar_clave(clave):
+    '''Valida que la clave ingresada tenga al menos 8 caracteres
+    Retorna None si no es valido'''
+    clave_valida = re.fullmatch(r'^.{8,}$', clave)
+    if clave_valida == None:
+        print('La clave debe tener al menos 8 caracteres\n')
+    return clave_valida
