@@ -27,7 +27,7 @@ class Cliente(ABC):
             sucursal = input("Ingrese el nombre de la sucursal: ")
             nro_cuenta = random.randint(0, 10000000)
             cbu = random.randint(0, 10000000)
-            fecha_apertura = datetime.date
+            fecha_apertura = datetime.date.today()
             saldo = 0
             saldo_retenido = False
             tipo = "Cuenta corriente"
@@ -47,8 +47,8 @@ class Cliente(ABC):
 
             sucursal = input("Ingrese el nombre de la sucursal: ")
             nro_cuenta = random.randint(0, 10000000)
-            cbu = random.randint(0, 10000000)
-            fecha_apertura = datetime.date
+            cbu = random.randint(0, 100000000000)
+            fecha_apertura = datetime.date.today()
             saldo = 0
             saldo_retenido = False
             tipo = "Caja de ahorro"
@@ -56,7 +56,7 @@ class Cliente(ABC):
             cuenta = Caja_ahorro(sucursal, nro_cuenta, cbu, fecha_apertura,
                                  saldo, tipo, saldo_retenido, es_bonificada)
             self.cuentas.append(cuenta)
-            print("Cuenta creada con éxito. Sus cuentas ahora son: ")
+            print("\nCuenta creada con éxito. Sus cuentas ahora son: ")
             self.mostrar_cuentas(self.cuentas)
 
             return True

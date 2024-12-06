@@ -36,7 +36,8 @@ def validar_direccion(direccion):
     y una secuencia de numeros.
     Las palabras contienen solo letras, inclusive tildes y deben ser mayores a 2 letras.
     Retorna None si no es valido'''
-    direccion_valida = re.fullmatch(r'^[A-Za-záéíóúñ0-9]+([\s][A-Za-záéíóúñ]{2,})*\s\d+$', direccion)
+    direccion_valida = re.fullmatch(r'^[A-Za-záéíóúñ0-9\s]+$', direccion)
+    #direccion_valida = re.fullmatch(r'^[A-Za-záéíóúñ0-9]+([\s][A-Za-záéíóúñ]{2,})*\s\d*$', direccion)
     if direccion_valida == None:
         print('La direccion ingresada no es válida\n')
     return direccion_valida
@@ -48,7 +49,7 @@ def validar_telefono(telefono):
     Retorna None si no es valido'''
     telefono_valido = re.fullmatch(r'[1-9]\d{9}', telefono)
     if telefono_valido == None:
-        print('El telefono ingresado no es valido. El primer dígito no debe ser 0 y deben ser 10 dígitos en total, incluido el 0\n')
+        print('El telefono ingresado no es valido. El primer dígito no debe ser 0 y deben ser 10 dígitos en total\n')
     return telefono_valido
 
 

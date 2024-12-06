@@ -24,8 +24,8 @@ aut_2 = Autoridad_firmante(
     "Gomez", "Mariana", 40888999, 27408889995, "Paz 1234", 333, "mariana@mail.com")
 
 clientes_pyme = {
-    "LP458": Cliente_pyme("La Pirca", 125487458, "Belgrano 230", 2494561231, 'unmail', [aut_1, aut_2], "LP458", [78, 79], False),
-    "JC929": Cliente_pyme("La Rural", 20514232, "San Martin 90", 2414512023, "ah@asd.com", [], "JC929", [], False)
+    "LP458": Cliente_pyme("La Pirca", 30125487458, "Belgrano 230", 2494561231, 'unmail', [aut_1, aut_2], "LP458", [78, 79], False),
+    "JC929": Cliente_pyme("La Rural", 33235142325, "San Martin 90", 2414512023, "ah@asd.com", [], "JC929", [], False)
 }
 
 usuarios = {
@@ -199,8 +199,9 @@ class Banco():
         # verificamos que la autoridad/firmante no exista
         for cliente_pyme in self.clientes_pyme.values():
             for autoridad in cliente_pyme.autoridades_firmantes:
-                if autoridad.dni == dni:
-                    return print("Autoridad firmante existente")
+                if autoridad.dni == int(dni): #no se validaba nunca porque faltaba el int
+                    print("Autoridad firmante existente") # modificacion se retorna None si ya existe el dni
+                    return None
 
         # solicitamos al usuario los datos de la autoridad/firmante
         apellido = utils.validar_texto("Apellido del cliente")
@@ -227,8 +228,8 @@ class Banco():
 
         # verificamos que el cliente no exista
         for cliente in self.clientes_pyme:
-            if self.clientes_pyme[cliente].cuit_cuil == cuit_cuil:
-                return print("El cliente ya existe")
+            if self.clientes_pyme[cliente].cuit_cuil == int(cuit_cuil):#no coincidia nunca, faltaba convertir a int
+                return print(f'El cliente ya existe:\n{self.clientes_pyme[cliente].__str__()}')
 
         # solicitamos al usuario los datos del cliente
         razon_social = utils.validar_texto("Razón social del cliente: ")
@@ -245,15 +246,17 @@ class Banco():
         agregar_aut_firmante = True
         while agregar_aut_firmante:
             autoridad_firmante = self.alta_autoridad_firmante(id_cliente)
-            autoridades_firmantes.append(autoridad_firmante)
+            if autoridad_firmante is not None: # se agrega esta condicion por si ya existe la autoridad, asi no se agrega
+                autoridades_firmantes.append(autoridad_firmante)
             agregar = input(
                 "¿Desea agregar otra autoridad/firmante? (s/n)").lower()
-            if agregar == "n":
+            if agregar == "n" or agregar == "no":
                 agregar_aut_firmante = False
-            elif agregar == "s":
+            elif agregar == "s" or agregar == "si":
                 agregar_aut_firmante = True
             else:
-                print(self.mensajes['ingresar_opcion_valida']) #TODO VER SI ANDA
+                print(self.mensajes['ingresar_opcion_valida'])
+                agregar_aut_firmante = False
         registrado = False
         # creamos la instancia de Cliente_pyme
         nuevo_cliente_pyme = Cliente_pyme(
@@ -262,7 +265,7 @@ class Banco():
         # actualizamos el diccionario de clientes PyME
         self.clientes_pyme[id_cliente] = nuevo_cliente_pyme
 
-        return print(f'\nEl cliente ha sido generado exitosamente: {Cliente_pyme.__str__(nuevo_cliente_pyme)}')
+        return print(f'\nEl cliente ha sido generado exitosamente: {Cliente_pyme.__str__(nuevo_cliente_pyme)}\n')
 
     def alta_cliente(self):
         '''Este método del Banco verifica el tipo de cliente a dar de alta y

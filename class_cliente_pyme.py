@@ -13,8 +13,12 @@ class Cliente_pyme(Cliente):
         self.autoridades_firmantes = autoridades_firmantes
 
     def mostrar_autoridades_firmantes(self, autoridades_firmantes):
-        for i in range(len(self.autoridades_firmantes)):
-            return f'Autoridad/firmante {i+1} {autoridades_firmantes[i].__str__()}'
+        print(autoridades_firmantes)
+        if len(autoridades_firmantes) == 0: #se agrega esta condicion para que muestre el mensaje
+            return "No posee autoridades/firmantes"
+        else:
+            for i in range(len(self.autoridades_firmantes)):
+                return f'Autoridad/firmante {i+1} {autoridades_firmantes[i].__str__()}'
 
     def __str__(self):
-        return f'\nRazón Social {self.razon_social} \nCUIT/CUIL: {self.cuit_cuil} \nDirección: {self.direccion} \nTeléfono: {self.telefono} \nMail: {self.mail} \n{self.mostrar_autoridades_firmantes(self.autoridades_firmantes)}' + super().__str__()
+        return f'\nRazón Social {self.razon_social} \nCUIT/CUIL: {self.cuit_cuil} \nDirección: {self.direccion} \nTeléfono: {self.telefono} \nMail: {self.mail} \nAutoridades/firmantes:{self.mostrar_autoridades_firmantes(self.autoridades_firmantes)}' + super().__str__()
