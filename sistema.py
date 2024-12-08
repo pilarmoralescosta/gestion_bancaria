@@ -9,38 +9,47 @@ from class_usuario_administrador import Usuario_administrador
 import utilidades as utils
 
 # ----------------DATOS DE TEST ----------------
-clientes_individuos = {
-    "TB456": Cliente_individuo("Boragini", "Trinidad", 32521456, 2035214528, "San Martin 100", 24941546289,
-                               "trini@bora.com", "TB456", [], False),
-    "LG412": Cliente_individuo("Gronda", "Lucio", 25487412, 20256321451, "Saavedra 42",
-                               114214587, "lucio@gronda.com", "LG412", [], False),
-    "JC929": Cliente_individuo("Chimondeguy", "Javier", 36645929, 2032541562, "Uruguay 1200", 3625142513, "jchimon@abc.gob.ar", "JC929", [], False)
 
+# ----------------DATOS DE CLIENTES INDIVIDUOS ----------------
+#apellido, nombre, dni, cuit_cuil, direccion, telefono, email, id_cliente, cuentas, registrado
+# La key es el id_cliente
+clientes_individuos = {
+    "TB029": Cliente_individuo("Boragini", "Trinidad", 26489029, 272648902984528, "San Martin 100", 24941546289, "trini@bora.com", "TB029", [], False),
+    "LG412": Cliente_individuo("Gronda", "Lucio", 25487412, 20256321451, "Saavedra 42", 114214587, "lucio@gronda.com", "LG412", [], False),
+    "JC929": Cliente_individuo("Chimondeguy", "Javier", 36645929, 2032541562, "Uruguay 1200", 3625142513, "jchimon@abc.gob.ar", "JC929", [], False)
 }
 
-aut_1 = Autoridad_firmante("Perez", "Juan", 25444666,
-                           20254446661, "Rosales 48", 11111, "juan@mail.com")
-aut_2 = Autoridad_firmante(
-    "Gomez", "Mariana", 40888999, 27408889995, "Paz 1234", 333, "mariana@mail.com")
+# ----------------DATOS DE AUTORIDADES FIRMANTES ----------------
+#apellido, nombre, dni, cuit_cuil, direccion, telefono, mail
+aut_1 = Autoridad_firmante("Perez", "Juan", 25444666, 20254446661, "Rosales 48", 11111, "juan@mail.com")
+aut_2 = Autoridad_firmante("Gomez", "Mariana", 40888999, 27408889995, "Paz 1234", 333, "mariana@mail.com")
 
+
+# ----------------DATOS DE CLIENTES PYME ----------------
+# razon_social, cuit_cuil, direccion, telefono, mail, autoridades_firmantes, id_cliente, cuentas, registrado
+# La key es el id_cliente
 clientes_pyme = {
     "LP458": Cliente_pyme("La Pirca", 30125487458, "Belgrano 230", 2494561231, 'unmail', [aut_1, aut_2], "LP458", [78, 79], False),
     "JC929": Cliente_pyme("La Rural", 33235142325, "San Martin 90", 2414512023, "ah@asd.com", [], "JC929", [], False)
 }
 
+# ----------------DATOS DE USUARIOS ----------------
+# usuario, clave, id_cliente, es_cliente_individuo, es_cliente_pyme, cuentas
+# La key es el usuario
 usuarios = {
-    # La clave es el usuario, que es el dni del cliente (coinciden la clave del usuario con el atributo usuario del cliente)
-    1: Usuario(1, 12, 'TB456', True, False),
-    2: Usuario(2, 11, 'LG412', True, False),
-    3: Usuario(3, 10, "LP458", False, True),
-    4: Usuario(4, 9, 'LR232', False, True),
-    5: Usuario(5, 8, 'JC929', True, True)
+    26489029: Usuario(26489029, 'usuario1', 'TB029', True, False),
+    25487412: Usuario(25487412, 'usuario2', 'LG412', True, False),
+    30125487458: Usuario(30125487458, 'usuario3', "LP458", False, True),
+    33235142325: Usuario(33235142325, 'usuario4', 'LR232', False, True),
+    36645929: Usuario(36645929, 'usuario5', 'JC929', True, True)
 }
 
+# ----------------COTIZACION MONEDA EXTRANJERA ----------------
 cotizacion_moneda_extranjera = 120
 
 # ----------------ESTRUCTURA DE COSTOS ----------------
 
+# ----------------ESTRUCTURA DE COSTOS CAJA DE AHORRO ----------------
 caja_ahorro_comun = {
     'Mantenimiento mensual': 200,
     'Transferencias realizadas': 5,
@@ -54,7 +63,7 @@ caja_ahorro_retencion_saldo = {
     'Pagos en línea': 0,
     'Monto saldo retenido': 0,
 }
-
+# ----------------ESTRUCTURA DE COSTOS CUENTA CORRIENTE ----------------
 cuenta_corriente_comun = {
     'Mantenimiento cuenta en pesos': 500,
     'Mantenimiento cuenta moneda extranjera': 800,
@@ -67,7 +76,6 @@ cuenta_corriente_comun = {
     'Pago de sueldos cuentas otros bancos': 4,
     'Monto saldo descubierto': 0,
 }
-
 cuenta_corriente_retencion_saldo = {
     'Mantenimiento cuenta en pesos': 500,
     'Mantenimiento cuenta moneda extranjera': 800,
@@ -82,8 +90,7 @@ cuenta_corriente_retencion_saldo = {
     'Monto saldo descubierto': 0,
 }
 
-estructura_costos = [caja_ahorro_comun, caja_ahorro_retencion_saldo,
-                     cuenta_corriente_comun, cuenta_corriente_retencion_saldo]
+estructura_costos = [caja_ahorro_comun, caja_ahorro_retencion_saldo, cuenta_corriente_comun, cuenta_corriente_retencion_saldo]
 
 
 # ----------------MENSAJES ----------------
@@ -91,7 +98,9 @@ estructura_costos = [caja_ahorro_comun, caja_ahorro_retencion_saldo,
 mensajes = {
     'ingresar_opcion_valida' : 'Ingrese una opción válida',
     'ingresar_cuit_cuil_cliente':'Número de CUIT/CUIL del cliente (sin guiones, sólo números): ',
-    'ingresar_cuit_cuil_autoridad':'Número de CUIT/CUIL de autoridad/firmante (sin guiones, sólo números): '
+    'ingresar_cuit_cuil_autoridad':'Número de CUIT/CUIL de autoridad/firmante (sin guiones, sólo números): ',
+    'value_error' : 'La opción ingresada es inválida: escriba un numero entero.\n',
+    'opcion_incorrecta': '\nOpción incorrecta, vuelva a intentarlo.\n'
 }
 
 # -----------------------------------------------------
@@ -105,6 +114,30 @@ class Banco():
     usuarios = usuarios
     costos = estructura_costos
     mensajes = mensajes
+
+    # Metodo para imprimir el diccionario de clientes individuos (solo para desarrollo)
+    def listar_clientes_individuos(self):
+        for cliente in self.clientes_individuos:
+            print(self.clientes_individuos[cliente])
+            print("\n")
+
+    # Metodo para imprimir el diccionario de clientes pyme (solo para desarrollo)
+    def listar_clientes_pyme(self):
+        for cliente in self.clientes_pyme:
+            print(self.clientes_pyme[cliente])
+            print("\n")
+    
+    # Metodo para imprimir el diccionario de usuarios (solo para desarrollo)
+    def listar_usuarios(self):
+        for usuario in self.usuarios:
+            print(self.usuarios[usuario])
+            print("\n")
+
+    # Metodo para imprimir los diccionarios (solo para desarrollo)
+    def listar_datos(self):
+        self.listar_clientes_individuos()
+        self.listar_clientes_pyme()
+        self.listar_usuarios()
 
     def __init__(self):
         self.administrador = Usuario_administrador()
@@ -144,7 +177,7 @@ class Banco():
             elif tipo_cliente == "p":
                 es_cliente_pyme = True
             else:
-                return print(self.mensajes['ingresar_opcion_valida']) #TODO VER SI ANDA
+                return print(self.mensajes['ingresar_opcion_valida'])
 
             nuevo_usuario = Usuario(
                 dni, clave, id_cliente, es_cliente_ind, es_cliente_pyme)
@@ -280,7 +313,7 @@ class Banco():
             else:
                 print('Opción inválida, debe ingresar "i" o "p"')
         except ValueError:
-            print(self.mensajes['ingresar_opcion_valida']) #TODO VER SI ANDA
+            print(self.mensajes['ingresar_opcion_valida'])
 
     def baja_cliente(self, tipo_cliente):
         '''Este método elimina un cliente de la lista de clientes clientes_individuos
@@ -324,7 +357,7 @@ class Banco():
                     else:
                         cuenta = self.usuario_logueado.cuentas[cuenta_seleccionada]
                 except ValueError:
-                    print("Debe ingresar números enteros")
+                    print(self.mensajes['value_error'])
                     self.menu_cuentas_usuario()
 
                 opcion_seleccionada = int(input(
@@ -353,7 +386,7 @@ class Banco():
                     self.usuario_logueado = None
                     self.menu()
             except ValueError:
-                print("La opción ingresada es inválida: escriba un numero entero")
+                print(self.mensajes['value_error'])
 
     def logueo_usuario(self):
         '''Este método se encarga de loguear al usuario.
@@ -366,7 +399,7 @@ class Banco():
         if numero_usuario in self.usuarios:
             usuario = self.usuarios[numero_usuario]
 
-            clave = int(input("Ingrese su clave: "))
+            clave = input("Ingrese su clave: ") #TODO SE MODIFICO PORQUE LA CLAVE NO ES UN INT
             # veridficamos que la contraseña ingresada sea la correcta
             if usuario.es_cliente_individuo and usuario.es_cliente_pyme:
                 ingreso = input(
@@ -387,6 +420,7 @@ class Banco():
 
             else:
                 print("Clave incorrecta. Seleccione una nueva opción.\n")
+                self.logueo_usuario() #TODO SE MODIFICO PARA QUE NO SALGA DEL MENU LOGUEO USUARIO
                 return False
         else:
             print("El usuario no existe. Seleccione otra opción.\n")
@@ -416,15 +450,18 @@ class Banco():
         if self.logueo_administrador():
             self.menu_administrador()
         else:
-            opcion = input(
-                "El logueo fue incorrecto, opción 1 para seguir probando, 2 para volver al menú principal\n")
-            if opcion == "1":
-                self.iniciar_sesion_administrador()
-            elif opcion == "2":
-                self.menu()
-            else:
-                print("Opción incorrecta\n")
-                self.menu()
+            try:
+                opcion = input(
+                    "El logueo fue incorrecto, opción 1 para seguir probando, 2 para volver al menú principal\n")
+                if opcion == "1":
+                    self.iniciar_sesion_administrador()
+                elif opcion == "2":
+                    self.menu()
+                else:
+                    print(self.mensajes['opcion_incorrecta'])
+                    self.menu()
+            except ValueError:
+                print(self.mensajes['value_error'])
 
     def menu_usuario_cliente(self):
         '''Este método se encarga de mostrar el menú de opciones del usuario, Si la opción es correcta,
@@ -452,9 +489,9 @@ class Banco():
                     self.usuario_logueado = None
                     self.menu()
                 else:
-                    print("Opción incorrecta")
+                    print(self.mensajes['opcion_incorrecta'])
             except ValueError:
-                print("La opción ingresada es inválida: escriba un numero entero")
+                print(self.mensajes['value_error'])
 
     def menu_administrador(self):
         '''Método para mostrar el menú de opciones del administrador, recibe el usuario administrador.
@@ -478,9 +515,9 @@ class Banco():
                 elif opcion_seleccionada == 2:
                     self.alta_cliente_pyme()
                 elif opcion_seleccionada == 3:
-                    self.administrador.monto_saldo_descubierto(self.costos)
+                    self.administrador.monto_saldo_descubierto_retenido(self.costos, 'retenido')#se modifica a saldo retenido_descubierto ya que se  unifican los metodos por tener la misma funcion
                 elif opcion_seleccionada == 4:
-                    self.administrador.monto_saldo_descubierto(self.costos)
+                    self.administrador.monto_saldo_descubierto_retenido(self.costos, 'descubierto')
                 elif opcion_seleccionada == 5:
                     self.administrador.costos_transaccion(self.costos)
                 elif opcion_seleccionada == 6:
@@ -497,9 +534,9 @@ class Banco():
                 elif(int(opcion_seleccionada) == 10):
                     self.menu()
                 else:
-                    print('\nOpción incorrecta\n')
+                    print(self.mensajes['opcion_incorrecta'])
             except ValueError:
-                print('\nLa opción ingresada es inválida: escriba un numero entero\n')
+                print(self.mensajes['value_error'])
 
     def menu(self):
         ''' La funcion menu solicita al usuario que ingrese una de las opciones indicadas.
@@ -523,11 +560,12 @@ class Banco():
                 elif(int(opcion_seleccionada) == 3):
                     exit()
                 else:
-                    print('\nOpción incorrecta\n')
+                    print(self.mensajes['opcion_incorrecta'])
             except ValueError:
-                print('\nLa opción ingresada es inválida: escriba un numero entero\n')
+                print(self.mensajes['value_error'])
 
 
 # ----------------MENU PRINCIPAL ----------------
 banco = Banco()
+#banco.listar_datos() # Solo para desarrollo
 banco.menu()

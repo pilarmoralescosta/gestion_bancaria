@@ -12,7 +12,8 @@ class Usuario_administrador():
         self.username = 'administrador'
         self.clave = '4dm1n1str4d0r'
 
-    def monto_saldo_retenido(self, costos):
+    # se comenta porque no se utiliza
+    """ def monto_saldo_retenido(self, costos):
         '''Este método del administrador define el monto de saldo retenido y lo retorna'''
 
         while True:
@@ -35,9 +36,36 @@ class Usuario_administrador():
                 else:
                     print('Opción inválida')
             except ValueError:
+                print('\nIngrese un valor válido\n') """
+
+    def monto_saldo_descubierto_retenido(self, costos, tipo):
+        '''Este método del administrador define el monto de saldo descubierto o retenido y lo retorna'''
+
+        while True:
+            print('Seleccione una opción:')
+            try:
+                opcion_seleccionada = int(input('\n1: Cuenta corriente común'
+                                                '\n2: Cuenta corriente con retención saldo'
+                                                '\n3: Menu Administrador\n'))
+
+                if opcion_seleccionada == 1 or opcion_seleccionada == 2:
+                    monto_saldo_tipo = f'Monto saldo {tipo}'
+                    print(f'El monto de {tipo} actual es $',
+                          costos[opcion_seleccionada][monto_saldo_tipo])# se modifica, se quita el +1  en opcion_seleccionada+1
+                    monto_saldo = float(
+                        input(f'Ingrese el monto de saldo {tipo}: '))
+                    costos[opcion_seleccionada +
+                           1][monto_saldo_tipo] = monto_saldo
+                    return print(f'El monto de saldo {tipo} se ha modificado a $',
+                                 monto_saldo)
+                elif opcion_seleccionada == 3:
+                    return
+                else:
+                    print('\nOpción inválida\n')
+            except ValueError:
                 print('\nIngrese un valor válido\n')
 
-    def monto_saldo_descubierto(self, costos):
+    """     def monto_saldo_descubierto(self, costos):
         '''Este método del administrador define el monto de saldo descubierto y lo retorna'''
 
         while True:
@@ -61,7 +89,7 @@ class Usuario_administrador():
                 else:
                     print('\nOpción inválida\n')
             except ValueError:
-                print('\nIngrese un valor válido\n')
+                print('\nIngrese un valor válido\n') """
 
     # Este método le permite al administrador consultar los costos
     # de las transacciones según el tipo de cuenta

@@ -34,7 +34,7 @@ def validar_texto(texto, tipo):
 def validar_direccion(direccion):
     '''Valida que el texto ingresado tenga una o mas palabras separadas por un espacio
     y una secuencia de numeros.
-    Las palabras contienen solo letras, inclusive tildes y deben ser mayores a 2 letras.
+    Las palabras contienen numeros y letras, inclusive tildes.
     Retorna None si no es valido'''
     direccion_valida = re.fullmatch(r'^[A-Za-záéíóúñ0-9\s]+$', direccion)
     #direccion_valida = re.fullmatch(r'^[A-Za-záéíóúñ0-9]+([\s][A-Za-záéíóúñ]{2,})*\s\d*$', direccion)
