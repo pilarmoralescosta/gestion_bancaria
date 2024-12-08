@@ -321,16 +321,21 @@ class Banco():
 
         id_cliente = input(
             "Ingrese el ID del cliente que desea dar de baja: ").upper()
-
+        
         if tipo_cliente == "i":
             if id_cliente in self.clientes_individuos.keys():
+                cliente = self.clientes_individuos[id_cliente] #todo recuperar cliente
+                del self.clientes_individuos[id_cliente] #TODO SE AGREGO PORQUE NO SE ELIMINABA DEL DICCIONARIO
+                del self.usuarios[cliente.dni] #TODO SE AGREGO PORQUE NO SE ELIMINABA DEL DICCIONARIO
                 print(
                     f'\nEl cliente Individuo {id_cliente} ha sido dado de baja exitosamente')
             else:
                 print(f'\nEl cliente no existe')
         else:
             if id_cliente in self.clientes_pyme.keys():
+                cliente_pyme = self.clientes_pyme[id_cliente] #todo recuperar cliente
                 del self.clientes_pyme[id_cliente]
+                del self.usuarios[cliente_pyme.cuit_cuil] #TODO SE AGREGO PORQUE NO SE ELIMINABA DEL DICCIONARIO
                 print(
                     f'\nEl cliente PyME {id_cliente} ha sido dado de baja exitosamente')
             else:
@@ -419,11 +424,11 @@ class Banco():
                     return True
 
             else:
-                print("Clave incorrecta. Seleccione una nueva opción.\n")
+                print("Clave incorrecta.\n")
                 self.logueo_usuario() #TODO SE MODIFICO PARA QUE NO SALGA DEL MENU LOGUEO USUARIO
                 return False
         else:
-            print("El usuario no existe. Seleccione otra opción.\n")
+            print("El usuario no existe.\n")
             return False
 
     def logueo_administrador(self):
